@@ -11,8 +11,14 @@ const API_TIMEOUT = 5;
 
 
 if (!isset($_SESSION["auth_code"])) {
-	// todo: use Client Credentials Flow to get an access token
+	// Use Client Credentials Flow to get an access token
 	// https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
+
+	$json = callAPI("/token", array(
+		"grant_type" => "client_credentials"
+	), true);
+	$response = json_decode($json);
+	$_SESSION["auth_code"] = $response["access_token"];
 }
 
 /**
