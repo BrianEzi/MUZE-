@@ -23,9 +23,10 @@ if (!isset($_SESSION["auth_code"])) {
  * @return string The string returned from the Spotify server.
  */
 function callAPI(string $endpoint, array $data, bool $isPost): string {
-	// This lets us just use e.g. "/token" instead of "https://accounts.spotify.com/api/token"
-	if (!str_starts_with($endpoint, "https://"))
+	if (!str_starts_with($endpoint, "https://")) {
+		// This lets us just use e.g. "/token" instead of "https://accounts.spotify.com/api/token"
 		$endpoint = "https://accounts.spotify.com/api" . $endpoint;
+	}
 
 	$curl = curl_init();
 
@@ -39,6 +40,10 @@ function callAPI(string $endpoint, array $data, bool $isPost): string {
 	} else {
 		curl_setopt($curl, CURLOPT_URL, $endpoint . "?" . $dataString);  // GET request
 	}
+
+	curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+		getAuthorizationHeader()
+	));
 
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	$response = curl_exec($curl);
@@ -58,4 +63,17 @@ function urlEncodeDict(array $dict): string {
 		$urlStrings[] = urlencode($key) . "=" . urlencode($value);
 	}
 	return implode("&", $urlStrings);
+}
+
+/**
+ * Valid access token following the format: Bearer <Access Token> if we have an access token.
+ * Otherwise, use Basic validation (to request an access token).
+ * @return string Header string beginning with "Authorization: "
+ */
+function getAuthorizationHeader(): string {
+	if (isset($_SESSION["auth_code"])) {
+		return "Authorization: Bearer " . $_SESSION["auth_code"];
+	} else {
+		return "Authorization: Basic " . base64_encode(CLIENT_ID . ':' . CLIENT_SECRET);
+	}
 }
