@@ -15,7 +15,7 @@ if (!isset($_SESSION["auth_code"])) {
 	// https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
 
 	try {
-		$json = callAPI("/token", array(
+		$json = callAPI("https://accounts.spotify.com/api/token", array(
 			"grant_type" => "client_credentials"
 		), true);
 	} catch (RequestError $e) {
@@ -37,8 +37,8 @@ if (!isset($_SESSION["auth_code"])) {
  */
 function callAPI(string $endpoint, array $data, bool $isPost): string {
 	if (!str_starts_with($endpoint, "https://")) {
-		// This lets us just use e.g. "/token" instead of "https://accounts.spotify.com/api/token"
-		$endpoint = "https://accounts.spotify.com/api" . $endpoint;
+		// This lets us just use e.g. "/search" instead of "https://api.spotify.com/v1/search"
+		$endpoint = "https://api.spotify.com/v1" . $endpoint;
 	}
 
 	$curl = curl_init();
