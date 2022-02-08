@@ -11,4 +11,9 @@ class SPOTIFY_CONTENT_TYPE {
 	public const TRACK = "track";
 	public const SHOW = "show";
 	public const EPISODE = "episode";
+
+	public static array $ALL = array(
+		self::ALBUM, self::ARTIST, self::PLAYLIST,
+		self::TRACK, self::SHOW, self::EPISODE
+	);
 }
