@@ -14,9 +14,15 @@ if (!isset($_SESSION["auth_code"])) {
 	// Use Client Credentials Flow to get an access token
 	// https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
 
-	$json = callAPI("/token", array(
-		"grant_type" => "client_credentials"
-	), true);
+	try {
+		$json = callAPI("/token", array(
+			"grant_type" => "client_credentials"
+		), true);
+	} catch (RequestError $e) {
+		// todo: display error page to user rather than raw text
+		echo $e->getMessage();
+		die;
+	}
 	$response = json_decode($json);
 	$_SESSION["auth_code"] = $response["access_token"];
 }
@@ -27,6 +33,7 @@ if (!isset($_SESSION["auth_code"])) {
  * @param array $data A dictionary of data, for either get or post.
  * @param bool $isPost The request is POST if true, GET if false.
  * @return string The string returned from the Spotify server.
+ * @throws RequestError
  */
 function callAPI(string $endpoint, array $data, bool $isPost): string {
 	if (!str_starts_with($endpoint, "https://")) {
@@ -52,8 +59,13 @@ function callAPI(string $endpoint, array $data, bool $isPost): string {
 	));
 
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
 	$response = curl_exec($curl);
-	curl_close($curl);
+	try {
+		if (curl_errno($curl)) throw new RequestError(curl_error($curl));
+	} finally {
+		curl_close($curl);
+	}
 
 	return $response;
 }
@@ -83,3 +95,5 @@ function getAuthorizationHeader(): string {
 		return "Authorization: Basic " . base64_encode(CLIENT_ID . ':' . CLIENT_SECRET);
 	}
 }
+
+class RequestError extends Exception { }
