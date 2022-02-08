@@ -25,7 +25,7 @@ if (!isset($_SESSION["auth_code"])) {
 		die;
 	}
 	$response = json_decode($json);
-	$_SESSION["auth_code"] = $response["access_token"];
+	$_SESSION["auth_code"] = $response->access_token;
 }
 
 /**
