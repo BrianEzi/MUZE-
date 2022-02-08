@@ -26,14 +26,14 @@ class SearchComponent {
 	/** The total number of items available to return. */
 	public int $total;
 
-	function __construct(array $responseComponent) {
-		$this->href = $responseComponent["href"];
-		$this->items = $responseComponent["items"];
-		$this->limit = $responseComponent["limit"];
-		$this->next = $responseComponent["next"];
-		$this->offset = $responseComponent["offset"];
-		$this->previous = $responseComponent["previous"];
-		$this->total = $responseComponent["total"];
+	function __construct(stdClass $responseComponent) {
+		$this->href = $responseComponent->href;
+		$this->items = $responseComponent->items;
+		$this->limit = $responseComponent->limit;
+		$this->next = $responseComponent->next;
+		$this->offset = $responseComponent->offset;
+		$this->previous = $responseComponent->previous ?? "";
+		$this->total = $responseComponent->total;
 	}
 }
 
@@ -53,8 +53,12 @@ function doSearch(string $searchTerm, array $contentTypes): array {
 	), false);
 	$response = json_decode($json);
 	$searchComponents = array();
-	foreach (SPOTIFY_CONTENT_TYPE::$ALL as $type) {
-		$searchComponents[$type] = new SearchComponent($response[$type]);
+	foreach (SPOTIFY_CONTENT_TYPE::$ALL as $type_singular) {
+		$type_plural = $type_singular . "s"; // response keys are plural
+		
+		if (!property_exists($response, $type_plural)) continue;
+
+		$searchComponents[$type_singular] = new SearchComponent($response->{$type_plural});
 	}
 	return $searchComponents;
 }
