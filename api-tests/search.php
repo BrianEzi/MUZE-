@@ -35,14 +35,19 @@
 
     <?php $results = doSearch($_GET["searchTerm"], $types); ?>
 
-    <ul class="inline-list">
-        <?php foreach ($results[SPOTIFY_CONTENT_TYPE::TRACK]->items as $result) { ?>
-            <li>
-                <img width="300" height="300" src="<?=$result->album->images[0]->url?>">
-                <h1><?=$result->name?></h1>
-            </li>
-        <?php } ?>
-    </ul>
+    <?php foreach ($types as $type) {
+		if (!array_key_exists($type, $results)) continue; ?>
+            
+            <ul class="inline-list">
+                <?php foreach ($results[$type]->items as $result) { ?>
+                    <li>
+                        <img width="300" height="300" src="<?=$result->images[0]->url ?? $result->album->images[0]->url?>">
+                        <h1><?=$result->name?></h1>
+                    </li>
+                <?php } ?>
+            </ul>
+
+	<?php } ?>
 
 <?php } else { ?>
 
