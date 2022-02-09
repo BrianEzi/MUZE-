@@ -53,7 +53,12 @@ class Network {
 	 */
 	public static function request(string $endpoint, array $data, bool $isPost, callable $parseFunction=null) {
 		if (!str_starts_with($endpoint, "https://")) {
-			// This lets us just use e.g. "/search" instead of "https://api.spotify.com/v1/search"
+			if (!str_starts_with($endpoint, "/")) {
+				// make leading slash optional
+				$endpoint = "/" . $endpoint;
+			}
+
+			// We know all Web API URLs begin with "https://api.spotify.com/v1", so make URL prefix optional
 			$endpoint = "https://api.spotify.com/v1" . $endpoint;
 		}
 
