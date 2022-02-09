@@ -46,12 +46,43 @@ class SearchComponent {
 	}
 
 	/**
-	 * Returns the URL of the biggest image Spotify provides.
+	 * Returns the URL of the biggest image Spotify provides. This should only be used
+	 * when you can't use a responsive image (when you'd use the extractImageTag method).
 	 * @param stdClass $item This may be an album, artist, playlist, track, or episode.
 	 */
 	public static function extractBiggestImageUrl(stdClass $item): string {
 		$images = self::extractAllImages($item);
 		return $images[0]->url ?? "";
+	}
+
+	/**
+	 * Returns the image HTML tag with responsive image sources. This minimises
+	 * bandwidth by reducing the size of images on lower-resolution screens.
+	 * https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images
+	 * @param stdClass $item This may be an album, artist, playlist, track, or episode.
+	 * @param string $sizes Defines a set of media conditions and indicates what image size would be best to choose
+	 */
+	public static function extractImageTag(stdClass $item, string $sizes="25vw"): string {
+		$images = self::extractAllImages($item);
+
+		// collect an array of images and their sizes in the form of "elva-fairy-480w.jpg 480w"
+		$srcset = [];
+		foreach ($images as $image) {
+			$srcset[] = "$image->url $image->width";
+		}
+
+		// default to the biggest image
+		$defaultImageUrl = $images[0]->url ?? "";
+
+		// alt text for if the image doesn't load / for screen readers / for search engines / etc
+		$alt = $item->name;
+
+		return '
+		<img srcset="'.implode(", ", $srcset).'"
+			sizes="'.$sizes.'"
+			src="'.$defaultImageUrl.'"
+			alt="'.$alt.'" >
+		';
 	}
 }
 

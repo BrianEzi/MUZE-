@@ -46,7 +46,7 @@
             <ul class="inline-list">
                 <?php foreach ($results[$type]->items as $result) { ?>
                     <li>
-                        <img width="300" height="300" src="<?=SearchComponent::extractBiggestImageUrl($result)?>">
+                        <?=SearchComponent::extractImageTag($result)?>
                         <h2><?=$result->name?></h2>
                     </li>
                 <?php } ?>
