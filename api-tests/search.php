@@ -24,7 +24,13 @@
         }
     </style>
 
-    <?php $types = array_filter(SPOTIFY_CONTENT_TYPE::$ALL, function($type) { return array_key_exists($type, $_GET); }); ?>
+    <?php
+    // get all types selected with the checkboxes
+    $types = array_filter(SPOTIFY_CONTENT_TYPE::$ALL, function($type) { return array_key_exists($type, $_GET); });
+
+	// use all types if none are specified
+    $types ??= SPOTIFY_CONTENT_TYPE::$ALL;
+    ?>
     <ul>
         <li>Search terms: <?=$_GET["searchTerm"]?></li>
         <li>
