@@ -12,7 +12,7 @@
             display: inline-block;
             padding: 1rem;
         }
-        .inline-list li h1 {
+        .inline-list li h2 {
             width: 20vw;
             text-overflow: ellipsis;
             overflow: hidden;
@@ -31,13 +31,12 @@
 	// use all types if none are specified
     if (empty($types)) $types = SPOTIFY_CONTENT_TYPE::$ALL;
     ?>
-    <ul>
-        <li>Search terms: <?=$_GET["searchTerm"]?></li>
-        <li>
-            Chosen content types:
-            <?=implode(", ", $types);?>
-        </li>
-    </ul>
+
+    <h1>Search results for '<?=$_GET["searchTerm"]?>'</h1>
+    <p>
+        Chosen content types:
+	    <?=implode(", ", $types);?>
+    </p>
 
     <?php $results = doSearch($_GET["searchTerm"], $types); ?>
 
@@ -48,7 +47,7 @@
                 <?php foreach ($results[$type]->items as $result) { ?>
                     <li>
                         <img width="300" height="300" src="<?=$result->images[0]->url ?? $result->album->images[0]->url?>">
-                        <h1><?=$result->name?></h1>
+                        <h2><?=$result->name?></h2>
                     </li>
                 <?php } ?>
             </ul>
