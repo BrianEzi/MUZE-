@@ -35,6 +35,24 @@ class SearchComponent {
 		$this->previous = $responseComponent->previous ?? "";
 		$this->total = $responseComponent->total;
 	}
+
+	/**
+	 * Returns an array detailing the available images of different sizes.
+	 * @param stdClass $item This may be an album, artist, playlist, track, or episode.
+	 * @return array of stdClass objects { "height": ___, "url": ___, "width": ___ }, sorted by size descending
+	 */
+	private static function extractAllImages(stdClass $item): array {
+		return $item->images ?? $item->album->images;
+	}
+
+	/**
+	 * Returns the URL of the biggest image Spotify provides.
+	 * @param stdClass $item This may be an album, artist, playlist, track, or episode.
+	 */
+	public static function extractBiggestImageUrl(stdClass $item): string {
+		$images = self::extractAllImages($item);
+		return $images[0]->url ?? "";
+	}
 }
 
 /**
