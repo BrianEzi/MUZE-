@@ -1,5 +1,5 @@
 .topnav {
-  background-color: black;
+  background-color: blue;
   overflow: hidden;
 }
 
@@ -15,18 +15,35 @@
 
 /* Change the color of links on hover */
 .topnav a:hover {
-  background-color: #ddd;
+  background-color: lightblue;
   color: black;
 }
 
 /* Add a color to the active/current link */
 .topnav a.active {
-  background-color: #04AA6D;
+  background-color: darkblue;
   color: white;
 }
 
+/*search bar position*/
+
+.box{
+  margin: 0 auto;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
 #mySearch {
-  width: 100%;
+
+  width: 300px;
   font-size: 18px;
   padding: 11px;
   border: 1px solid #ddd;
+}
+
+body{
+  background-color: cyan;
+}
