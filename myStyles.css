@@ -83,10 +83,53 @@ body{
   background-color: #404040;
   padding: 1em;
   margin: 1em;
-  border-radius: 2em;
+  border-radius: 1.7em;
 }
 
 .content {
   margin-left: 5em;
   margin-top: 2em;
+}
+
+.album {
+  width: 20em;
+  background-color: #404040;
+  display: flex;
+  padding: 1em;
+  padding-top: 1.1em;
+  margin: 1em;
+  border-radius: 1.7em;
+}
+
+.albumText {
+  color: white;
+  padding-left: 1em;
+}
+
+.albumTitle {
+  font-size: 1.3em;
+}
+
+.contentLabel {
+  color: #111111;
+  padding-bottom: 0.6em;
+}
+
+.artist {
+  width: 20em;
+  background-color: #404040;
+  display: flex;
+  padding: 1em;
+  padding-top: 1.1em;
+  margin: 1em;
+  border-radius: 1.7em;
+}
+
+.artistText {
+  color: white;
+  padding-left: 1em;
+}
+
+.artistTitle {
+  font-size: 1.3em;
 }
