@@ -82,4 +82,10 @@ body{
   padding-top: 6em;
   width: 47%;
 }
+.center{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
 

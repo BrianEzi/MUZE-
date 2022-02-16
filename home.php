@@ -1,6 +1,6 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="myStyles.css">
+        <link rel="stylesheet" type="text/css" href="Mystyles.css">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Muze#</title>
@@ -15,7 +15,7 @@
         </div>
 
         <div class="logo">
-            <img src="muze_image.png" alt="">
+            <img src="muze_image.png" alt="" class="center">
         </div>
 
         <div class="box">
