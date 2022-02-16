@@ -1,0 +1,33 @@
+
+.loginForm {
+    padding: 2em;
+    padding-bottom: 4em;
+    border-radius: 3em;
+    text-align: center;
+    background-color: #404040;
+    margin-top: 3em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    color: white;
+}
+
+.error {
+    text-align: center;
+    color: rgb(153, 8, 8);
+}
+
+form {
+    display: table;
+    margin: auto;
+}
+p {
+    display: table-row;
+}
+label {
+    display: table-cell;
+    padding-right: 0.5em;
+}
+input {
+    display: table-cell;
+}

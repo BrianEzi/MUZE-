@@ -12,18 +12,26 @@
         <a href="home.php">HOME</a>
         <a href="discover.php">DISCOVER</a>
         <a href="chat.php">CHAT</a>
-        <a class = "active" href="games.php">GAMES</a>
+        <a href="games.php">GAMES</a>
         <a href="yourMusic.php">YOUR MUSIC</a>
-        <?php
-
-            session_start();
-            if (isset($_SESSION['username'])) {
-                $username = $_SESSION['username'];
-                echo'<a style="float: right;" href="myAccount.php">MY ACCOUNT</a>';
-            } else {
-                echo'<a style="float: right;" href="login.php">LOGIN</a>';
-            }
-        ?>
+        <a class = "active" style="float: right;" href="myAccount.php">MY ACCOUNT</a>
     </div>
+
+    <?php
+
+        session_start();
+        $username = $_SESSION['username'];
+        echo("<h1 style='color: white'>Welcome, ". $username ."</h1>");
+
+        if (isset($_POST['logout'])) {
+            session_destroy();
+            header("location: home.php");
+        }
+
+    ?>
+    <form method="POST">
+        <input type="submit" name="logout" value="logout">
+    </form>
+        
 </body>
 </html>

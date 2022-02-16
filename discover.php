@@ -15,7 +15,16 @@
             <a href="chat.php">CHAT</a>
             <a href="games.php">GAMES</a>
             <a href="yourMusic.php">YOUR MUSIC</a>
-            <a style="float: right;" href="login.php">LOGIN</a>
+            <?php
+
+            session_start();
+            if (isset($_SESSION['username'])) {
+                $username = $_SESSION['username'];
+                echo'<a style="float: right;" href="myAccount.php">MY ACCOUNT</a>';
+            } else {
+                echo'<a style="float: right;" href="login.php">LOGIN</a>';
+            }
+            ?>
         </div>
 
         <div class="searchbar">
