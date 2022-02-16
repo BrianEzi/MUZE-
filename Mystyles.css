@@ -1,29 +1,38 @@
+body{
+  background-color: #222227;
+}
+
 .topnav {
-  background-color: lightsteelblue;
+  background-color: #404040;
+  border-radius: 1em;
   overflow: hidden;
 }
+
 
 /* Style the links inside the navigation bar */
 .topnav a {
   float: left;
-  color: black;
+  color: #f2f2f2;
   text-align: center;
-  padding: 14px 16px;
+  padding: 0.7em 0.8em;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 1.4em;
 }
+
 
 /* Change the color of links on hover */
 .topnav a:hover {
-  background-color: lightcyan;
+  background-color: #6600a0;
   color: black;
 }
 
+
 /* Add a color to the active/current link */
 .topnav a.active {
-  background-color: darkblue;
+  background-color: #202020;
   color: white;
 }
+
 
 .container {
   position: absolute;
@@ -37,22 +46,27 @@
   margin: 0 auto;
   text-align: center;
   position: absolute;
-  top: 50%;
+  border-radius: 1em;
+  top: 60%;
   left: 50%;
   transform: translate(-50%,-50%);
 }
 
+
 #mySearch {
-
-  width: 300px;
-  font-size: 18px;
-  padding: 11px;
-  border: 1px solid #ddd;
+  
+  width: 30em;
+  color: white;
+  font-size: 1em;
+  padding: 0.6em;
+  padding-left: 1em;
+  padding-bottom: 0.7em;
+  border: 0.05em solid #ddd;
+  background-color : #222227;
+  border-radius: 2em;
 }
 
-body{
-  background-color: #349beb;
-}
+
 
 .icon{
   position: absolute;
@@ -60,3 +74,12 @@ body{
   left: 50%;
   transform: translate(-50%,80%) rotate(15deg);
 }
+
+.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 6em;
+  width: 47%;
+}
+
