@@ -1,12 +1,12 @@
 .topnav {
-  background-color: blue;
+  background-color: lightsteelblue;
   overflow: hidden;
 }
 
 /* Style the links inside the navigation bar */
 .topnav a {
   float: left;
-  color: #f2f2f2;
+  color: black;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -15,7 +15,7 @@
 
 /* Change the color of links on hover */
 .topnav a:hover {
-  background-color: lightblue;
+  background-color: lightcyan;
   color: black;
 }
 
@@ -23,6 +23,12 @@
 .topnav a.active {
   background-color: darkblue;
   color: white;
+}
+
+.container {
+  position: absolute;
+  margin: 20px;
+  width: auto;
 }
 
 /*search bar position*/
@@ -45,5 +51,12 @@
 }
 
 body{
-  background-color: cyan;
+  background: url("space_bg.jpg");
+}
+
+.icon{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,80%) rotate(15deg);
 }

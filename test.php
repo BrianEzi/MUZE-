@@ -1,20 +1,26 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="myStyles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Muze#</title>
     </head>
     <body>
-        <div class="topnav">
-            <a class = "active" href="#home">HOME</a>
-            <a href="#chat">CHAT</a>
-            <a href="#games">GAMES</a>
-            <a href="#yourmusic">YOUR MUSIC</a>
-            <a href="#help">HELP</a>
+        <div class="container">
+            <div class="topnav">
+                <a class = "active" href="#home"><i class="fa fa-fw fa-home"></i>Home</a>
+                <a href="#chat">Chat</a>
+                <a href="#games">Games</a>
+                <a href="#yourmusic">Your Music</a>
+                <a href="#help">Help</a>
+            </div>
         </div>
         <div class="box">
-            <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
+            <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category" >
+        </div>
+        <div class="icon">
+            <img src="icon.png" style="width:200px;height:100px;">
         </div>
     </body>
 </html>
