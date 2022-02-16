@@ -14,6 +14,7 @@
                 <a href="#games">Games</a>
                 <a href="#yourmusic">Your Music</a>
                 <a href="#help">Help</a>
+                <a style="float: right;" href="login.php">LOGIN</a>
             </div>
         </div>
         <div class="box">

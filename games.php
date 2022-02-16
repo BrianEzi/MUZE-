@@ -14,6 +14,7 @@
         <a href="chat.php">CHAT</a>
         <a class = "active" href="games.php">GAMES</a>
         <a href="yourMusic.php">YOUR MUSIC</a>
+        <a href="login.php">LOGIN</a>
     </div>
 </body>
 </html>
