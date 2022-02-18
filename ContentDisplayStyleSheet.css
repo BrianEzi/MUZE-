@@ -1,6 +1,7 @@
 .content {
     margin-left: 5em;
     margin-top: 2em;
+    margin-right: 5em;
   }
   
 .searchbar {
@@ -11,7 +12,7 @@ padding-top: 2em;
 
 .song {
 color: white;
-width: 20em;
+width: auto;
 background-color: #404040;
 padding: 1em;
 margin: 1em;
@@ -20,7 +21,7 @@ border-radius: 2em;
 
 
 .album {
-width: 20em;
+width: auto;
 background-color: #404040;
 display: flex;
 padding: 1em;
@@ -44,7 +45,7 @@ padding-bottom: 0.6em;
 }
 
 .artist {
-width: 20em;
+width: auto;
 background-color: #404040;
 display: flex;
 padding: 1em;
@@ -64,5 +65,4 @@ font-size: 1.3em;
 
 .emptyspace {
   width: auto;
-  
 }

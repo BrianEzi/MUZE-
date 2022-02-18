@@ -1,121 +1,18 @@
+<?php require_once "loginFunctions.php"; ?>
+
 <?php
-
-function createDatabase(){
-    $sql = "CREATE DATABASE IF NOT EXISTS loginInfo";
-    $pdo = new pdo('mysql:host=localhost:8889;', 'root', 'root');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-    $pdo->query($sql);
-}
-
-function createTable(){
-    $sql = "CREATE TABLE IF NOT EXISTS users (
-        userID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        username VARCHAR(30) NOT NULL,
-        password VARCHAR(128) NOT NULL,
-        email VARCHAR(30) NOT NULL UNIQUE)";
-
-    $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-    $pdo->query($sql);
-}
-
-function dropTable(){
-    $sql = "DROP TABLE users";
-    $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-    $pdo->query($sql);
-}
-
-
-function addUser($username, $password, $email){
-    $sql = "SELECT * FROM users WHERE email=?";
-    $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$email]);
-    $emailExists = $stmt->fetch();
-    if ($emailExists) {
-        echo "<div class='error'>Sorry, email already in use</div>";
-
-    } else {
-        $sql = "INSERT INTO users (username, password, email)
-                VALUES (:username, :password, :email)";
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-        
-        $stmt = $pdo->prepare($sql);
-        $password = password_hash($password, PASSWORD_DEFAULT);
-        $stmt->execute([
-            'username' => $username,
-            'password' => $password,
-            'email' => $email
-        ]);
-        session_start();
-            $_SESSION['username'] = $username;
-            header("location: home.php");
-    }
-
-}
-
-function POSTUser($id){
-    $sql = "SELECT username, password, email
-            FROM users
-            WHERE userID=:id";
-    $pdo = new pdo("mysql:host=localhost:8889; dbname=loginInfo", 'root', 'root');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-    
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        'id' => $id
-    ]);
-}
-
-function authenticateUser($email, $password) {
-    $sql = "SELECT password, username
-            FROM users
-            WHERE email = :email";
-    $pdo = new pdo("mysql:host=localhost:8889; dbname=loginInfo", 'root', 'root');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        'email' => $email
-    ]);
-
-    $stmt->setFetchMode(PDO::FETCH_ASSOC);
-    $row = $stmt->fetch();
-
-    echo "<br>";
-
-    if ($stmt->rowCount() > 0) {
-        if (password_verify($password, $row['password'])) {
-            session_start();
-            $username = $row['username'];
-            $_SESSION['username'] = $username;
-            $_SESSION['signedIn'] = FALSE;
-            header("location: home.php");
-        } else {
-            echo "<div class='error'>Incorrect email or password</div>";
-        }
-    } else {
-        echo "<div class='error'>Incorrect email or password</div>";
-    }
-    
-    
-}
-
 
 try {
     $conn = new pdo('mysql:host=localhost:8889;', 'root', 'root');
     //echo "connected to localhost:8889 successfully";
 }
 catch(PDOException $pe) {
-    die("could not connect to host " . $pe->POSTMessage());
+    die("could not connect to host " . $pe->getMessage());
 }
 
 createDatabase();
 createTable();
-
+session_start();
 ?>
 
 
@@ -127,7 +24,7 @@ createTable();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Log In</title>
 </head>
 <body>
     <div class="topnav">
@@ -140,39 +37,49 @@ createTable();
     </div>
 
     <div class="loginForm">
-        <h2>Log In</h2>
-        <form method="post" action="login.php">
-            <p>
-                <label for="email">Email</label>
-                <input type="text" name="email" id="email" required> 
-            </p>
-            <p>
-                <label for="password">Password</label>
-                <input type="text" name="password" id="password" required>
-            </p>
-            <br>
-            <input type="hidden" name="action" value="login">
-            <input type="submit" name="filled" value="Log in">
-        </form>
-    
-        <h2>Sign Up</h2>
-        <form method="post" action="login.php">
-            <p>
-                <label for="email">Email</label>
-                <input type="text" name="email" id="email" required>
-            </p>
 
-            <p>
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" required>
-            </p>
-            <p>
-                <label for="password">Password</label>
-                <input type="text" name="password" id="password" required> 
-            </p>
-            <br>
+        <form method="post" action="login.php">
+            
+            <div class="formTitle">
+                Log In
+            </div> <br>
+
+            <input type="text" name="email" id="email" required placeholder="Email"> <br>
+
+            <input type="text" name="password" id="password" required placeholder="Password"> <br>
+
+            <input type="hidden" name="action" value="login">
+            <input type="submit" name="filled" value="Log in"> <br> <br>
+            <?php 
+                if (isset($_SESSION['loginError'])) {
+                    echo "<div class='error'>Incorrect Email or Password</div>";
+                } else {
+                    echo "<br>";
+                }
+            ?>
+        </form> <br> <br> <br>
+    
+        <form method="post" action="login.php">
+
+            <div class="formTitle">
+                Sign Up
+            </div> <br>
+            
+            <input type="text" name="email" id="email" placeholder="Email"> <br>
+
+            <input type="text" name="username" id="username" required placeholder="Username"> <br>
+
+            <input type="text" name="password" id="password" required placeholder="Password"> <br>
+
             <input type="hidden" name="action" value="register">
-            <input type="submit" name="filled" value="Register">
+            <input type="submit" name="filled" value="Register"> <br> <br>
+            <?php 
+                if (isset($_SESSION['registerError'])) {
+                    echo "<div class='error'>Sorry, Email already in use</div>";
+                } else {
+                    echo "<br>";
+                }
+            ?>
         </form>
     </div>
 
@@ -183,13 +90,20 @@ createTable();
                 case 'login':
                     $email = $_POST['email'];
                     $password = $_POST['password'];
+                    $_SESSION['loginError'] = 1;
+                    unset($_SESSION['registerError']);
+                    header("Refresh:0");
                     authenticateUser($email, $password);
                 break;
                 case 'register':
                     $username = $_POST['username'];
                     $password = $_POST['password'];
                     $email = $_POST['email'];
+                    $_SESSION['registerError'] = 1;
+                    unset($_SESSION['loginError']);
+                    header("Refresh:0");
                     addUser($username, $password, $email);
+                break;
             }    
         }
     ?>

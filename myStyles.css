@@ -1,10 +1,14 @@
-body{
+body {
   background-color: #222227;
+  background-image: url("backgroundDraft.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .topnav {
-  background-color: #404040;
-  border-radius: 1em;
+  /* background-color: #404040; */
+  background-color: rgba(100, 100, 100, 0.5);
+  /* border-radius: 1em; */
   overflow: hidden;
 }
 
@@ -22,14 +26,14 @@ body{
 
 /* Change the color of links on hover */
 .topnav a:hover {
-  background-color: #6600a0;
+  background-color: rgba(100, 0, 100, 0.5);
   color: black;
 }
 
 
 /* Add a color to the active/current link */
 .topnav a.active {
-  background-color: #202020;
+  background-color: rgba(10, 10, 10, 0.5);
   color: white;
 }
 
@@ -67,25 +71,19 @@ body{
 }
 
 
-
-.icon{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,80%) rotate(15deg);
-}
-
 .logo {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 6em;
-  width: 47%;
+  margin-top: 6em;
+  padding-left: 3em;
+  width: 80%;
+
 }
 .center{
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 70%;
+  width: 60%;
 }
 

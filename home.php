@@ -1,9 +1,13 @@
+<?php
+    session_start();
+?>
+
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="myStyles.css">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Muze#</title>
+        <title>MUZE#</title>
     </head>
     <body>
         <div class="topnav">
@@ -14,7 +18,6 @@
             <a href="yourMusic.php">YOUR MUSIC</a>
             <?php
 
-            session_start();
             if (isset($_SESSION['username'])) {
                 $username = $_SESSION['username'];
                 echo'<a style="float: right;" href="myAccount.php">MY ACCOUNT</a>';
