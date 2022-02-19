@@ -28,48 +28,51 @@
         </div>
 
         <div class="searchbar">
-            <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search..." title="Type in a category">
+            <form action="">
+                <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search..." title="Type in a category">
+            </form>
         </div>
 
         <!-- Example songs -->
         <div class="content">
 
-            <div class="song">
-                Sacrifice - The Weeknd
+            <div class="contentItem">
+
+                <div class="image">
+                    <img src="https://i.scdn.co/image/ab67616d0000b273d8082097058d4c44739b17dd" alt="" style="width: 5em; height: 5em">
+                </div>
+
+                <div class="mainText">
+                    <div class="contentLabel">SONG</div>
+                    <div class="title"><b>THE NEWS</b></div>
+                    PARTYNEXTDOOR
+                </div>
+            
             </div>
 
-            <div class="song">
-                Out Of Time - The Weeknd
-            </div>
+            <div class="contentItem">
 
-            <div class="song">
-                Just Testing What A Really Long Song Would Look Like - Not That Good Apparently
-            </div>
-
-
-            <div class="album">
-
-                <div class="albumcover">
+                <div class="image">
                     <img src="https://images.genius.com/2512fb4d26b27387d45221f328b83246.1000x1000x1.jpg" alt="" style="width: 5em; height: 5em">
                 </div>
 
-                <div class="albumText">
+                <div class="mainText">
                     <div class="contentLabel">ALBUM</div>
-                    <div class="albumTitle"><b>Nothing Was The Same</b></div>
+                    <div class="title"><b>Nothing Was The Same</b></div>
                     Drake
                 </div>
             
             </div>
             
-            <div class="artist">
+            <div class="contentItem">
 
-                <div class="ProfilePicture">
+                <div class="image">
                     <img src="https://i.scdn.co/image/ab6761610000e5eb876faa285687786c3d314ae0" alt="" style="width: 5em; height: 5em">
                 </div>
 
-                <div class="artistText">
+                <div class="mainText">
                     <div class="contentLabel">ARTIST</div>
-                    <div class="artistTitle"><b>Kid Cudi</b></div>
+                    <div class="title"><b>Kid Cudi</b></div>
                 </div>
             </div>
 
