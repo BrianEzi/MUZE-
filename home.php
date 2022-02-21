@@ -2,7 +2,7 @@
     session_start();
     $database_host = "dbhost.cs.man.ac.uk";
     $database_user = "u68780be";
-    $database_pass = "<the password you set>";
+    $database_pass = "Ezinwoke3-2022";
     $group_dbnames = array("2021_comp10120_m8",);
 
     try{
