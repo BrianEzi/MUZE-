@@ -1,5 +1,17 @@
 <?php
     session_start();
+    $database_host = "dbhost.cs.man.ac.uk";
+    $database_user = "u68780be";
+    $database_pass = "<the password you set>";
+    $group_dbnames = array("2021_comp10120_m8",);
+
+    try{
+        $conn=new PDO("mysql:host=$database_host", $database_user, $database_pass);
+        echo "connected to host successfully.";
+    }
+    catch(PDOException $pe){
+        die("Could not connect to $host :" .$pe->getMessage());
+    }
 ?>
 
 <html>
