@@ -103,5 +103,9 @@ body {
   .topnav a {
     font-size: 1em;
   }
+
+  .logo .center {
+    width: 100%;
+  }
 }
 
