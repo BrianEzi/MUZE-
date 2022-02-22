@@ -15,25 +15,31 @@ class SearchComponent {
 	public int $limit;
 
 	/** URL to the next page of items. */
-	public string $next;
+	public string|null $next;
 
 	/** The offset of the items returned (as set in the query or by default) */
 	public int $offset;
 
 	/** URL to the previous page of items. (null if none) */
-	public string $previous;
+	public string|null $previous;
 
 	/** The total number of items available to return. */
 	public int $total;
 
 	function __construct(stdClass $responseComponent) {
-		$this->href = $responseComponent->href;
-		$this->items = $responseComponent->items;
-		$this->limit = $responseComponent->limit;
-		$this->next = $responseComponent->next;
-		$this->offset = $responseComponent->offset;
-		$this->previous = $responseComponent->previous ?? "";
-		$this->total = $responseComponent->total;
+		try {
+
+			$this->href = $responseComponent->href;
+			$this->items = $responseComponent->items;
+			$this->limit = $responseComponent->limit;
+			$this->next = $responseComponent->next;
+			$this->offset = $responseComponent->offset;
+			$this->previous = $responseComponent->previous ?? "";
+			$this->total = $responseComponent->total;
+		} catch (TypeError $e) {
+			print_r($responseComponent);
+			die;
+		}
 	}
 
 	/**
