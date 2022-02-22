@@ -84,6 +84,28 @@ class SearchComponent {
 			alt="'.$alt.'" >
 		';
 	}
+
+	/**
+	 * Returns an array of the artists' names.
+	 * @param stdClass $item This may be an album, playlist, track, or episode, but not an artist.
+	 */
+	public static function getArtists(stdClass $item): array {
+		// (the @ suppresses warnings if these properties don't exist)
+		@$artistsObject = $item->artists ?? $item->album->artists;
+
+		if (empty($artistsObject)) {
+			// playlists have an owner property
+			if (!empty($item->owner)) return [$item->owner->display_name];
+
+			// otherwise, return an empty array if we've failed to find any artists
+			return [];
+		}
+
+		// loop through artistsObject and extract the artist's name from each object
+		return array_map(function($artist) {
+			return $artist->name;
+		}, $artistsObject);
+	}
 }
 
 /**

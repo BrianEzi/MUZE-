@@ -64,7 +64,9 @@ if (!empty($searchTerm)) {
                         <div class="contentItem-mainText">
                             <div class="contentLabel"><?=strtoupper($type)?></div>
                             <div class="title"><b><?=$result->name?></b></div>
-                            {ARTIST} <!-- (todo: display artist) -->
+                            <?php if ($type != SPOTIFY_CONTENT_TYPE::ARTIST) { ?>
+                                <?=implode("; ", SearchComponent::getArtists($result))?>
+                            <?php } ?>
                         </div>
                     </div>
                     <?php
