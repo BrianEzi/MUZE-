@@ -1,22 +1,10 @@
 <?php
     session_start();
-    $database_host = "dbhost.cs.man.ac.uk";
-    $database_user = "u68780be";
-    $database_pass = "Ezinwoke3-2022";
-    $group_dbnames = array("2021_comp10120_m8",);
-
-    try{
-        $conn=new PDO("mysql:host=$database_host", $database_user, $database_pass);
-        echo "connected to host successfully.";
-    }
-    catch(PDOException $pe){
-        die("Could not connect to $host :" .$pe->getMessage());
-    }
 ?>
 
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="myStyles.css">
+        <link rel="stylesheet" type="text/css" href="assets/styles/myStyles.css">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>MUZE#</title>
@@ -41,7 +29,7 @@
         </div>
 
         <div class="logo">
-            <img src="muze_image.png" alt="" class="center">
+            <img src="assets/images/muze_image.png" alt="" class="center">
         </div>
 
         <div class="box">
