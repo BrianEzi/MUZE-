@@ -3,6 +3,8 @@
     margin-top: 2em;
     margin-right: 5em;
     display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
   }
   
 .searchbar {
@@ -19,18 +21,28 @@
   margin: 1em;
   border-radius: 1.7em;
 }
+.contentItem .contentItem-image {
+    width: 5em;
+    height: 5em;
+}
+.contentItem .contentItem-image img,
+.contentItem .contentItem-image picture {
+    width: 5em;
+    height: 5em;
+    object-fit: cover;
+}
 
 
-.mainText {
+.contentItem .contentItem-mainText {
   color: white;
   padding-left: 1em;
 }
 
-.title {
+.contentItem .contentItem-mainText .title {
   font-size: 1.3em;
 }
 
-.contentLabel {
+.contentItem .contentItem-mainText .contentLabel {
 color: #111111;
 padding-bottom: 0.6em;
 }

@@ -58,10 +58,10 @@ if (!empty($searchTerm)) {
 		        foreach ($results[$type]->items as $result) {
                     ?>
                     <div class="contentItem">
-                        <div class="image">
+                        <div class="contentItem-image">
                             <?=SearchComponent::extractImageTag($result, "5em")?>
                         </div>
-                        <div class="mainText">
+                        <div class="contentItem-mainText">
                             <div class="contentLabel"><?=strtoupper($type)?></div>
                             <div class="title"><b><?=$result->name?></b></div>
                             {ARTIST} <!-- (todo: display artist) -->
