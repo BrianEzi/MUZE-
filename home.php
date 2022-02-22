@@ -4,7 +4,7 @@
 
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="myStyles.css">
+        <link rel="stylesheet" type="text/css" href="assets/styles/myStyles.css">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>MUZE#</title>
@@ -29,7 +29,7 @@
         </div>
 
         <div class="logo">
-            <img src="muze_image.png" alt="" class="center">
+            <img src="assets/images/muze_image.png" alt="" class="center">
         </div>
 
         <div class="box">

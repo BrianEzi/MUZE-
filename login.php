@@ -19,8 +19,8 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="myStyles.css">
-    <link rel="stylesheet" href="loginStyleSheet.css">
+    <link rel="stylesheet" href="assets/styles/myStyles.css">
+    <link rel="stylesheet" href="assets/styles/loginStyleSheet.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
