@@ -15,25 +15,31 @@ class SearchComponent {
 	public int $limit;
 
 	/** URL to the next page of items. */
-	public string $next;
+	public string|null $next;
 
 	/** The offset of the items returned (as set in the query or by default) */
 	public int $offset;
 
 	/** URL to the previous page of items. (null if none) */
-	public string $previous;
+	public string|null $previous;
 
 	/** The total number of items available to return. */
 	public int $total;
 
 	function __construct(stdClass $responseComponent) {
-		$this->href = $responseComponent->href;
-		$this->items = $responseComponent->items;
-		$this->limit = $responseComponent->limit;
-		$this->next = $responseComponent->next;
-		$this->offset = $responseComponent->offset;
-		$this->previous = $responseComponent->previous ?? "";
-		$this->total = $responseComponent->total;
+		try {
+
+			$this->href = $responseComponent->href;
+			$this->items = $responseComponent->items;
+			$this->limit = $responseComponent->limit;
+			$this->next = $responseComponent->next;
+			$this->offset = $responseComponent->offset;
+			$this->previous = $responseComponent->previous ?? "";
+			$this->total = $responseComponent->total;
+		} catch (TypeError $e) {
+			print_r($responseComponent);
+			die;
+		}
 	}
 
 	/**
@@ -83,6 +89,28 @@ class SearchComponent {
 			src="'.$defaultImageUrl.'"
 			alt="'.$alt.'" >
 		';
+	}
+
+	/**
+	 * Returns an array of the artists' names.
+	 * @param stdClass $item This may be an album, playlist, track, or episode, but not an artist.
+	 */
+	public static function getArtists(stdClass $item): array {
+		// (the @ suppresses warnings if these properties don't exist)
+		@$artistsObject = $item->artists ?? $item->album->artists;
+
+		if (empty($artistsObject)) {
+			// playlists have an owner property
+			if (!empty($item->owner)) return [$item->owner->display_name];
+
+			// otherwise, return an empty array if we've failed to find any artists
+			return [];
+		}
+
+		// loop through artistsObject and extract the artist's name from each object
+		return array_map(function($artist) {
+			return $artist->name;
+		}, $artistsObject);
 	}
 }
 

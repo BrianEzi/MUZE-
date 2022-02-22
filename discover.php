@@ -1,3 +1,16 @@
+<?php
+include_once "api/doSearch.php";
+$searchTerm = $_GET["searchInput"];
+if (!empty($searchTerm)) {
+	// get all types selected with the checkboxes
+	$types = array_filter(SPOTIFY_CONTENT_TYPE::$ALL, function($type) { return array_key_exists($type, $_GET); });
+	// use all types if none are specified
+	if (empty($types)) $types = SPOTIFY_CONTENT_TYPE::$ALL;
+
+    // call spotify api
+	$results = doSearch($searchTerm, $types);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -28,54 +41,40 @@
         </div>
 
         <div class="searchbar">
-            <form action="">
-                <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search..." title="Type in a category">
+            <form class="searchForm" method="get" action="discover.php">
+                <input id="searchInput" name="searchInput"
+                       placeholder="Search..." title="Type in a category"
+                       value="<?=$searchTerm?>">
             </form>
         </div>
 
-        <!-- Example songs -->
         <div class="content">
+        <?php
+        if (!empty($searchTerm)) {
+	        foreach ($types as $type) {
+                // if the search results don't have any of this type, skip this type
+		        if (!array_key_exists($type, $results)) continue;
 
-            <div class="contentItem">
-
-                <div class="image">
-                    <img src="https://i.scdn.co/image/ab67616d0000b273d8082097058d4c44739b17dd" alt="" style="width: 5em; height: 5em">
-                </div>
-
-                <div class="mainText">
-                    <div class="contentLabel">SONG</div>
-                    <div class="title"><b>THE NEWS</b></div>
-                    PARTYNEXTDOOR
-                </div>
-            
-            </div>
-
-            <div class="contentItem">
-
-                <div class="image">
-                    <img src="https://images.genius.com/2512fb4d26b27387d45221f328b83246.1000x1000x1.jpg" alt="" style="width: 5em; height: 5em">
-                </div>
-
-                <div class="mainText">
-                    <div class="contentLabel">ALBUM</div>
-                    <div class="title"><b>Nothing Was The Same</b></div>
-                    Drake
-                </div>
-            
-            </div>
-            
-            <div class="contentItem">
-
-                <div class="image">
-                    <img src="https://i.scdn.co/image/ab6761610000e5eb876faa285687786c3d314ae0" alt="" style="width: 5em; height: 5em">
-                </div>
-
-                <div class="mainText">
-                    <div class="contentLabel">ARTIST</div>
-                    <div class="title"><b>Kid Cudi</b></div>
-                </div>
-            </div>
-
+		        foreach ($results[$type]->items as $result) {
+                    ?>
+                    <div class="contentItem">
+                        <div class="contentItem-image">
+                            <?=SearchComponent::extractImageTag($result, "5em")?>
+                        </div>
+                        <div class="contentItem-mainText">
+                            <div class="contentLabel"><?=strtoupper($type)?></div>
+                            <div class="title"><b><?=$result->name?></b></div>
+                            <?php if ($type != SPOTIFY_CONTENT_TYPE::ARTIST) { ?>
+                                <?=implode("; ", SearchComponent::getArtists($result))?>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <?php
+                }
+            }
+        }
+        ?>
         </div>
+
     </body>
 </html>
