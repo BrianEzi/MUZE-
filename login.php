@@ -4,7 +4,7 @@
 
 try {
     $conn = new pdo('mysql:host=localhost:8889;', 'root', 'root');
-    //echo "connected to localhost:8889 successfully";
+    // echo "connected to localhost:8889 successfully";
 }
 catch(PDOException $pe) {
     die("could not connect to host " . $pe->getMessage());
@@ -12,9 +12,16 @@ catch(PDOException $pe) {
 
 createDatabase();
 createTable();
-session_start();
 ?>
 
+<?php
+    session_start();
+    if (isset($_SESSION['background'])) {
+        $background = $_SESSION['background'];
+    } else {
+        $background = "https://images.unsplash.com/photo-1542401886-65d6c61db217?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +33,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In</title>
 </head>
-<body>
+<body style="background-image: url(<?php echo $background ?>);">
     <div class="topnav">
         <a href="home.php">HOME</a>
         <a href="discover.php">DISCOVER</a>
@@ -44,7 +51,7 @@ session_start();
                 Log In
             </div> <br>
 
-            <input type="text" name="email" id="email" required placeholder="Email"> <br>
+            <input type="text" name="username" id="username" required placeholder="Username"> <br>
 
             <input type="text" name="password" id="password" required placeholder="Password"> <br>
 
@@ -52,7 +59,7 @@ session_start();
             <input type="submit" name="filled" value="Log in"> <br> <br>
             <?php 
                 if (isset($_SESSION['loginError'])) {
-                    echo "<div class='error'>Incorrect Email or Password</div>";
+                    echo "<div class='error'>Incorrect Username or Password</div>";
                 } else {
                     echo "<br>";
                 }
@@ -65,8 +72,6 @@ session_start();
                 Sign Up
             </div> <br>
             
-            <input type="text" name="email" id="email" placeholder="Email"> <br>
-
             <input type="text" name="username" id="username" required placeholder="Username"> <br>
 
             <input type="text" name="password" id="password" required placeholder="Password"> <br>
@@ -75,7 +80,7 @@ session_start();
             <input type="submit" name="filled" value="Register"> <br> <br>
             <?php 
                 if (isset($_SESSION['registerError'])) {
-                    echo "<div class='error'>Sorry, Email already in use</div>";
+                    echo "<div class='error'>Sorry, Username already in use</div>";
                 } else {
                     echo "<br>";
                 }
@@ -84,25 +89,23 @@ session_start();
     </div>
 
     <?php
-
         if(isset($_POST['filled'])) {
             switch($_POST['action']) {
                 case 'login':
-                    $email = $_POST['email'];
+                    $username = $_POST['username'];
                     $password = $_POST['password'];
                     $_SESSION['loginError'] = 1;
                     unset($_SESSION['registerError']);
+                    authenticateUser($username, $password);
                     header("Refresh:0");
-                    authenticateUser($email, $password);
                 break;
                 case 'register':
                     $username = $_POST['username'];
                     $password = $_POST['password'];
-                    $email = $_POST['email'];
+                    addUser($username, $password);
                     $_SESSION['registerError'] = 1;
                     unset($_SESSION['loginError']);
                     header("Refresh:0");
-                    addUser($username, $password, $email);
                 break;
             }    
         }

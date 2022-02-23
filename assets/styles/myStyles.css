@@ -11,9 +11,9 @@ html, body {
 
 body {
   background-color: #222227;
-  background-image: url("../images/backgroundDraft.png");
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 }
 
 .topnav {
