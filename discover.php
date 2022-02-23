@@ -25,11 +25,11 @@ if (!empty($searchTerm)) {
 <html lang="en">
     <head>
         <link rel="stylesheet" type="text/css" href="assets/styles/myStyles.css">
-        <link rel="stylesheet" type="text/css" href="assets/styles/ContentDisplayStyleSheet.css">
+        <link rel="stylesheet" type="text/css" href="assets/styles/discoverStyleSheet.css">
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Discover</title>
+        <title>MUZE# - Discover</title>
     </head>
     <body style="background-image: url(<?php echo $background ?>);">
         <div class="topnav">
@@ -37,7 +37,7 @@ if (!empty($searchTerm)) {
             <a class = "active" href="discover.php">DISCOVER</a>
             <a href="chat.php">CHAT</a>
             <a href="games.php">GAMES</a>
-            <a href="yourMusic.php">YOUR MUSIC</a>
+            <a href="myMusic.php">MY MUSIC</a>
             <?php
 
             if (isset($_SESSION['username'])) {
@@ -52,7 +52,7 @@ if (!empty($searchTerm)) {
         <div class="searchbar">
             <form class="searchForm" method="get" action="discover.php">
                 <input id="searchInput" name="searchInput"
-                       placeholder="Search..." title="Type in a category"
+                       placeholder="Find Music..." title="Type in a category"
                        value="<?=$searchTerm?>">
             </form>
         </div>

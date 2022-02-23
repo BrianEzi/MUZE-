@@ -17,9 +17,8 @@ body {
 }
 
 .topnav {
-  /* background-color: #404040; */
-  background-color: rgba(100, 100, 100, 0.5);
-  /* border-radius: 1em; */
+  background-color: rgba(100, 100, 100, 0.6);
+  border-radius: 1.3em;
   overflow: hidden;
 }
 
@@ -37,14 +36,14 @@ body {
 
 /* Change the color of links on hover */
 .topnav a:hover {
-  background-color: rgba(100, 0, 100, 0.5);
+  background-color: rgba(100, 0, 100, 0.6);
   color: black;
 }
 
 
 /* Add a color to the active/current link */
 .topnav a.active {
-  background-color: rgba(20, 20, 20, 0.5);
+  background-color: rgba(20, 20, 20, 0.6);
   color: white;
 }
 
@@ -79,7 +78,7 @@ body {
   padding-left: 1em;
   padding-bottom: 0.7em;
   border: 0.1em solid black;
-  background-color : rgba(20, 20, 20, 0.5);
+  background-color : rgba(20, 20, 20, 0.7);
   border-radius: 2em;
 }
 

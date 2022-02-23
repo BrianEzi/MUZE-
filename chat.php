@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat</title>
+    <title>MUZE# - Chat</title>
 </head>
 <body style="background-image: url(<?php echo $background ?>);">
     <div class="topnav">
@@ -22,9 +22,9 @@
         <a href="discover.php">DISCOVER</a>
         <a class = "active" href="chat.php">CHAT</a>
         <a href="games.php">GAMES</a>
-        <a href="yourMusic.php">YOUR MUSIC</a>
+        <a href="myMusic.php">MY MUSIC</a>
         <?php
-        
+
         if (isset($_SESSION['username'])) {
             $username = $_SESSION['username'];
             echo'<a style="float: right;" href="myAccount.php">MY ACCOUNT</a>';

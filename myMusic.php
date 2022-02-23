@@ -7,7 +7,6 @@
     }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,15 +14,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MUZE# - Games</title>
+    <title>MUZE# - My Music</title>
 </head>
 <body style="background-image: url(<?php echo $background ?>);">
     <div class="topnav">
         <a href="home.php">HOME</a>
         <a href="discover.php">DISCOVER</a>
         <a href="chat.php">CHAT</a>
-        <a class = "active" href="games.php">GAMES</a>
-        <a href="myMusic.php">MY MUSIC</a>
+        <a href="games.php">GAMES</a>
+        <a class = "active" href="myMusic.php">MY MUSIC</a>
         <?php
 
             if (isset($_SESSION['username'])) {

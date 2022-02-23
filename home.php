@@ -13,7 +13,7 @@
         <link rel="stylesheet" type="text/css" href="assets/styles/myStyles.css">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>MUZE#</title>
+        <title>MUZE# - Home</title>
     </head>
     <body style="background-image: url(<?php echo $background ?>);">
         <div class="topnav">
@@ -21,7 +21,7 @@
             <a href="discover.php">DISCOVER</a>
             <a href="chat.php">CHAT</a>
             <a href="games.php">GAMES</a>
-            <a href="yourMusic.php">YOUR MUSIC</a>
+            <a href="myMusic.php">MY MUSIC</a>
             <?php
 
             if (isset($_SESSION['username'])) {
@@ -41,7 +41,7 @@
         <div class="box">
             <form class="searchForm" method="get" action="discover.php">
                 <input id="searchInput" name="searchInput"
-                       placeholder="Search..." title="Type in a category">
+                       placeholder="Find Music..." title="Type in a category">
             </form>
         </div>
 
