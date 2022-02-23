@@ -1,4 +1,7 @@
 <?php
+
+    session_start();
+
     $database_host = "dbhost.cs.man.ac.uk";
     $database_user = "u95206ma";
     $database_pass = "deeznuts123";
