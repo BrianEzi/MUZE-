@@ -1,6 +1,5 @@
 <?php
-include_once "_polyfill.php";
-include_once "_data_structures.php";
+include_once "../_polyfill.php";
 
 const CLIENT_ID = "66220fc47eb94cf7ac431646dc4c43cb";
 const CLIENT_SECRET = "8685a359e1a244cda6a1c1486b7b7abb";
@@ -11,7 +10,22 @@ const CLIENT_SECRET = "8685a359e1a244cda6a1c1486b7b7abb";
 const API_TIMEOUT = 5;
 
 
+/**
+ * An enum of possible content types with the Spotify API.
+ * Source: https://developer.spotify.com/documentation/web-api/reference/#/operations/search.
+ */
+class SPOTIFY_CONTENT_TYPE {
+	public const ALBUM = "album";
+	public const ARTIST = "artist";
+	public const TRACK = "track";
 
+	// "show" is removed as Spotify was returning non-empty arrays with blank contents
+	// public const SHOW = "show";
+
+	public static array $ALL = array(
+		self::TRACK, self::ALBUM, self::ARTIST
+	);
+}
 
 
 class Network {
