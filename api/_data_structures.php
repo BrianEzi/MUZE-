@@ -13,6 +13,6 @@ class SPOTIFY_CONTENT_TYPE {
 	// public const SHOW = "show";
 
 	public static array $ALL = array(
-		self::ALBUM, self::ARTIST, self::TRACK
+		self::TRACK, self::ALBUM, self::ARTIST
 	);
 }
