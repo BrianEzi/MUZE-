@@ -1,6 +1,6 @@
 <?php
 include_once "api/doSearch.php";
-$searchTerm = $_GET["searchInput"];
+@$searchTerm = $_GET["searchInput"];
 if (!empty($searchTerm)) {
 	// get all types selected with the checkboxes
 	$types = array_filter(SPOTIFY_CONTENT_TYPE::$ALL, function($type) { return array_key_exists($type, $_GET); });
