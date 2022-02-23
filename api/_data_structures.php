@@ -7,15 +7,12 @@
 class SPOTIFY_CONTENT_TYPE {
 	public const ALBUM = "album";
 	public const ARTIST = "artist";
-	public const PLAYLIST = "playlist";
 	public const TRACK = "track";
-	public const EPISODE = "episode";
 
 	// "show" is removed as Spotify was returning non-empty arrays with blank contents
 	// public const SHOW = "show";
 
 	public static array $ALL = array(
-		self::ALBUM, self::ARTIST, self::PLAYLIST,
-		self::TRACK, self::EPISODE //, self::SHOW
+		self::ALBUM, self::ARTIST, self::TRACK
 	);
 }
