@@ -1,5 +1,43 @@
 <?php
-    session_start();
+    $database_host = "dbhost.cs.man.ac.uk";
+    $database_user = "u95206ma";
+    $database_pass = "deeznuts123";
+    $database_name = "u95206ma";
+
+    function createSearchTable($database_name)
+    {
+        $sql = "CREATE TABLE user (
+        searchId INT,
+        searchName VARCHAR(30) NOT NULL";
+
+        $pdo = new pdo('mysql:host=localhost;dbname=' . $database_name . '',
+        'newuser', 'password');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+        $pdo->query($sql);
+    } 
+
+    function authenticateUser($username, $password)
+    {
+        $sql = "SELECT password
+        FROM user
+        WHERE username = :username";
+
+        $pdo = new pdo('mysql:host=localhost;dbname=mydb',
+        'newuser', 'password');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+                'username' => $username
+                ]);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch();
+        if (password_verify($password, $row['password']))
+            echo("authentication successful");
+        else
+            echo("incorrect email or password");
+    }
+
 ?>
 
 <html>
