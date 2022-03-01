@@ -1,7 +1,7 @@
 <?php
 
 
-class BaseRequester {
+abstract class BaseRequester {
 	#region Overwrite these when inheriting from the BaseRequester class
 	/**
 	 * We know all Web API URLs begin with $URL_PREFIX, so make URL prefix optional.
@@ -12,7 +12,7 @@ class BaseRequester {
 	 * Function used to apply API-specific headers.
 	 * @return void
 	 */
-	protected static function apply_custom_curl_opts($curl) {}
+	protected abstract static function apply_custom_curl_opts($curl);
 	#endregion
 
 
@@ -51,7 +51,7 @@ class BaseRequester {
 	 * @return mixed The response from the Spotify server.
 	 * @throws RequestError
 	 */
-	public static function request(string $endpoint, array $data, bool $isPost, callable $parseFunction=null) {
+	public static function request(string $endpoint, array $data, bool $isPost, callable $parseFunction=null): mixed {
 		if (!str_starts_with($endpoint, "https://")) {
 			if (!str_starts_with($endpoint, "/")) {
 				// make leading slash optional
@@ -59,16 +59,16 @@ class BaseRequester {
 			}
 
 			// We know all Web API URLs begin with $URL_PREFIX, so make URL prefix optional
-			$endpoint = self::$URL_PREFIX . $endpoint;
+			$endpoint = static::$URL_PREFIX . $endpoint;
 		}
 
 		$curl = curl_init();
 
-		curl_setopt($curl, CURLOPT_TIMEOUT, API_TIMEOUT);
+		curl_setopt($curl, CURLOPT_TIMEOUT, static::$API_TIMEOUT);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
 		curl_setopt($curl, CURLOPT_POST, $isPost);
-		$dataString = self::urlEncodeDict($data);
+		$dataString = static::urlEncodeDict($data);
 		if ($isPost) {
 			curl_setopt($curl, CURLOPT_URL, $endpoint);
 			curl_setopt($curl, CURLOPT_POSTFIELDS, $dataString);   // POST request
@@ -76,7 +76,7 @@ class BaseRequester {
 			curl_setopt($curl, CURLOPT_URL, $endpoint . "?" . $dataString);  // GET request
 		}
 
-		self::apply_custom_curl_opts($curl);
+		static::apply_custom_curl_opts($curl);
 
 		$response = curl_exec($curl);
 		try {
