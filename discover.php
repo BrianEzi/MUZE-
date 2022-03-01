@@ -1,5 +1,5 @@
 <?php
-include_once "api/doSearch.php";
+include_once "spotify-api/doSearch.php";
 @$searchTerm = $_GET["searchInput"];
 if (!empty($searchTerm)) {
 	// get all types selected with the checkboxes
