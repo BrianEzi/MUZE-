@@ -97,7 +97,19 @@ body {
   margin-right: auto;
   width: 60%;
 }
+.song {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 
+ }
+ .song a{
+  background-color: brown;
+  text-decoration: none;
+  margin: 10px;
+
+ }
 @media screen and (max-width: 850px) {
   .topnav a {
     font-size: 1em;
