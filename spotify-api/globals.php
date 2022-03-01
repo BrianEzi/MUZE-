@@ -36,7 +36,7 @@ class Network {
 			return json_decode($json);
 		};
 
-		if (!isset($_SESSION["auth_code"])) {
+		if (!isset($_SESSION["spotify_auth_code"])) {
 			// Use Client Credentials Flow to get an access token
 			// https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
 
@@ -49,7 +49,7 @@ class Network {
 				echo $e->getMessage();
 				die;
 			}
-			$_SESSION["auth_code"] = $response->access_token;
+			$_SESSION["spotify_auth_code"] = $response->access_token;
 		}
 	}
 
@@ -108,8 +108,8 @@ class Network {
 	 * @return string Header string beginning with "Authorization: "
 	 */
 	private static function getAuthorizationHeader(): string {
-		if (isset($_SESSION["auth_code"])) {
-			return "Authorization: Bearer " . $_SESSION["auth_code"];
+		if (isset($_SESSION["spotify_auth_code"])) {
+			return "Authorization: Bearer " . $_SESSION["spotify_auth_code"];
 		} else {
 			return "Authorization: Basic " . base64_encode(CLIENT_ID . ':' . CLIENT_SECRET);
 		}
