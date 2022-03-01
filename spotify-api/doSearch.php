@@ -122,12 +122,12 @@ class SearchComponent {
  * @throws RequestError
  */
 function doSearch(string $searchTerm, array $contentTypes): array {
-	$response = Network::request("/search", array(
+	$response = SpotifyRequester::request("/search", array(
 		"q" => $searchTerm,
 		"type" => implode(",", $contentTypes),
 		// "limit" => 20,
 		// "offset" => 0,  // todo: implement pagination via the offset property
-	), false, Network::$PARSE_FUNCTION_JSON);
+	), false, SpotifyRequester::$PARSE_FUNCTION_JSON);
 	
 	$searchComponents = array();
 	foreach (SPOTIFY_CONTENT_TYPE::$ALL as $type_singular) {
