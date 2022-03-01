@@ -30,8 +30,6 @@ class SpotifyRequester extends BaseRequester {
 	 * @return void
 	 */
 	public static function __staticConstructor() {
-		parent::__staticConstructor();
-
 		if (!isset($_SESSION["spotify_auth_code"])) {
 			// Use Client Credentials Flow to get an access token
 			// https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/
@@ -39,7 +37,7 @@ class SpotifyRequester extends BaseRequester {
 			try {
 				$response = self::request("https://accounts.spotify.com/api/token", array(
 					"grant_type" => "client_credentials"
-				), true, self::$PARSE_FUNCTION_JSON);
+				), true);
 			} catch (RequestError $e) {
 				// todo: display error page to user rather than raw text
 				echo $e->getMessage();

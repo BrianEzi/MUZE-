@@ -127,7 +127,7 @@ function doSearch(string $searchTerm, array $contentTypes): array {
 		"type" => implode(",", $contentTypes),
 		// "limit" => 20,
 		// "offset" => 0,  // todo: implement pagination via the offset property
-	), false, SpotifyRequester::$PARSE_FUNCTION_JSON);
+	), false);
 	
 	$searchComponents = array();
 	foreach (SPOTIFY_CONTENT_TYPE::$ALL as $type_singular) {
