@@ -11,17 +11,29 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="assets/styles/myStyles.css">
+    <!---<link rel="stylesheet" type="text/css" href="assets/styles/discoverStyleSheet.css"--->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MUZE# - My Music</title>
 </head>
 <body style="background-image: url(<?php echo $background ?>);">
+        <style type="text/css"></style>
+    <div class="song">
+        <a href="likedsongs.php" style="font-size: 25px;color:white;";>LIKED SONGS</a>
+        <a href="likedartists.php"style="font-size: 25px;color:white">LIKED ARTISTS</a>
+        <a href="likedalbums.php"style="font-size: 25px;color: white;">LIKED ALBUMS</a>
+    </div>
+        
+        
+    
+
     <div class="topnav">
         <a href="home.php">HOME</a>
         <a href="discover.php">DISCOVER</a>
         <a href="chat.php">CHAT</a>
         <a href="games.php">GAMES</a>
+
         <a class = "active" href="myMusic.php">MY MUSIC</a>
         <?php
 
