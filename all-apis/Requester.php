@@ -37,7 +37,7 @@ abstract class BaseRequester {
 	 * @return void
 	 */
 	public static function __staticConstructor() {
-		self::$PARSE_FUNCTION_JSON = function(string $json): stdClass {
+		static::$PARSE_FUNCTION_JSON = function(string $json): stdClass {
 			return json_decode($json);
 		};
 	}
@@ -47,11 +47,11 @@ abstract class BaseRequester {
 	 * @param string $endpoint The URL of the API endpoint request.
 	 * @param array $data A dictionary of data, for either get or post.
 	 * @param bool $isPost The request is POST if true, GET if false.
-	 * @param callable $parseFunction A function that's applied to the string response before returning it.
+	 * @param ?callable $parseFunction A function that's applied to the string response before returning it.
 	 * @return mixed The response from the Spotify server.
 	 * @throws RequestError
 	 */
-	public static function request(string $endpoint, array $data, bool $isPost, callable $parseFunction=null): mixed {
+	public static function request(string $endpoint, array $data, bool $isPost, ?callable $parseFunction=null): mixed {
 		if (!str_starts_with($endpoint, "https://")) {
 			if (!str_starts_with($endpoint, "/")) {
 				// make leading slash optional
