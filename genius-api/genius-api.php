@@ -8,7 +8,7 @@ const CLIENT_ACCESS_TOKEN = "XHuE1__CmDhW__MnQdCES6_UdsPtH0ypuvyeylqQiQiuq_NTeEh
 class GeniusRequester extends BaseRequester {
 	public static string $URL_PREFIX = "https://api.genius.com";
 
-	protected static function apply_custom_curl_opts($curl) {
+	protected static function pre_curl_request($curl, &$data) {
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array(
 			"Authorization: Bearer " . CLIENT_ACCESS_TOKEN
 		));

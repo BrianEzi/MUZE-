@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . "/globals.php");
+require_once(__DIR__ . "/spotify-api.php");
 
 /**
  * Each SPOTIFY_CONTENT_TYPE in the search response has its own SearchComponent data structure.
