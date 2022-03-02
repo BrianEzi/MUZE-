@@ -20,9 +20,9 @@
 <body style="background-image: url(<?php echo $background ?>);">
         <style type="text/css"></style>
     <div class="song">
-        <a href="likedsongs.php" style="font-size: 25px;color:white;";>LIKED SONGS</a>
-        <a href="likedartists.php"style="font-size: 25px;color:white">LIKED ARTISTS</a>
-        <a href="likedalbums.php"style="font-size: 25px;color: white;">LIKED ALBUMS</a>
+        <a href="likedsongs.php" style="font-size: 28px;color:white;";>LIKED SONGS</a>
+        <a href="likedartists.php"style="font-size: 28px;color:white">LIKED ARTISTS</a>
+        <a href="likedalbums.php"style="font-size: 28px;color: white;">LIKED ALBUMS</a>
     </div>
         
         
