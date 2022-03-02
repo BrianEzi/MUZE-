@@ -110,6 +110,10 @@ body {
   margin: 10px;
 
  }
+ .song a:hover{
+   background-color: rgba(100, 0, 100, 0.6);
+
+ }
 @media screen and (max-width: 850px) {
   .topnav a {
     font-size: 1em;
