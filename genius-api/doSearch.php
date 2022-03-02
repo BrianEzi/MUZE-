@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . "/globals.php");
+require_once(__DIR__ . "/genius-api.php");
 
 
 /**
