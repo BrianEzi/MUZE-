@@ -12,7 +12,7 @@ abstract class BaseRequester {
 	 * Function used to apply API-specific headers.
 	 * @return void
 	 */
-	protected abstract static function apply_custom_curl_opts($curl);
+	protected abstract static function pre_curl_request($curl, &$data);
 	#endregion
 
 
@@ -48,6 +48,8 @@ abstract class BaseRequester {
 		curl_setopt($curl, CURLOPT_TIMEOUT, static::$API_TIMEOUT);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
+		static::pre_curl_request($curl, $data);
+
 		curl_setopt($curl, CURLOPT_POST, $isPost);
 		$dataString = static::urlEncodeDict($data);
 		if ($isPost) {
@@ -56,8 +58,6 @@ abstract class BaseRequester {
 		} else {
 			curl_setopt($curl, CURLOPT_URL, $endpoint . "?" . $dataString);  // GET request
 		}
-
-		static::apply_custom_curl_opts($curl);
 
 		$response = curl_exec($curl);
 		try {

@@ -46,7 +46,7 @@ class SpotifyRequester extends BaseRequester {
 		}
 	}
 
-	protected static function apply_custom_curl_opts($curl) {
+	protected static function pre_curl_request($curl, &$data) {
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array(
 			self::getAuthorizationHeader()
 		));
