@@ -1,5 +1,15 @@
 <?php
-// Polyfill some php functions for earlier php versions than officially supported
+#region set include path because PHP is an icky language
+if (preg_match('/.*\/first_group_project/s', $_SERVER["SCRIPT_FILENAME"], $matches) == true) {
+	$basePath = $matches[0]; // the base path is the filename up to and including "first_group_project"
+} else {
+	$basePath = $_SERVER["DOCUMENT_ROOT"]; // otherwise, just use the document root (no first_group_project sub-folder)
+}
+set_include_path(get_include_path() . PATH_SEPARATOR . $basePath);
+#endregion
+
+
+#region Polyfill some php functions for earlier php versions than officially supported
 // This lets us use e.g. PHP 8 functions on PHP 7
 
 if (!function_exists('str_contains')) {
@@ -27,3 +37,5 @@ if (!function_exists('str_starts_with')) {
 		return strpos( $haystack , $needle ) === 0;
 	}
 }
+
+#endregion

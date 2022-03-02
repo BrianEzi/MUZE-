@@ -1,5 +1,5 @@
 <?php
-require_once "../all-apis/Requester.php";
+require_once "all-apis/Requester.php";
 
 const CLIENT_ID = "66220fc47eb94cf7ac431646dc4c43cb";
 const CLIENT_SECRET = "8685a359e1a244cda6a1c1486b7b7abb";
