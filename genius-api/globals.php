@@ -1,5 +1,4 @@
 <?php
-include_once "../_polyfill.php";
 require_once "../all-apis/Requester.php";
 
 const CLIENT_ID = "93qLZ131ftv7HAbc4IVYCFRqTbH7HW8xnVwAqi0BoDBA-tRV-QCEbkBuD9BvLlf5";
