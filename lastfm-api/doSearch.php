@@ -32,6 +32,7 @@ function doSearch(string $searchTerm, string $imageSize="25vw"): array {
 	foreach ($response->results->trackmatches->track as $track) {
 		$srcset = [];
 		foreach ($track->image as $image) {
+			if (empty($image->{"#text"})) continue; // API sometimes gives us an empty string instead of a link; skip
 			$srcset[] = $image->{"#text"} . " " . $mapRelativeSizeToPixels[$image->size] . "w";
 		}
 		$hits[] = array(
