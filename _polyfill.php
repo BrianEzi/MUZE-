@@ -1,11 +1,6 @@
 <?php
-#region set include path because PHP is an icky language
-if (preg_match('/.*\/first_group_project/s', $_SERVER["SCRIPT_FILENAME"], $matches) == true) {
-	$basePath = $matches[0]; // the base path is the filename up to and including "first_group_project"
-} else {
-	$basePath = $_SERVER["DOCUMENT_ROOT"]; // otherwise, just use the document root (no first_group_project sub-folder)
-}
-set_include_path(get_include_path() . PATH_SEPARATOR . $basePath);
+#region add root of project to include_path because PHP is an icky language
+set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__);
 #endregion
 
 

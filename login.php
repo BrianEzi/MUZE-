@@ -1,4 +1,4 @@
-<?php require_once "loginFunctions.php"; ?>
+<?php require_once(__DIR__ . "/loginFunctions.php"); ?>
 
 <?php
 

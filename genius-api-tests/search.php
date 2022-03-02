@@ -1,4 +1,4 @@
-<?php include_once "genius-api/doSearch.php"; ?>
+<?php include_once(__DIR__ . "/../genius-api/doSearch.php"); ?>
 <?php if (isset($_GET["searchTerm"])) { ?>
     <style>
         .inline-list {

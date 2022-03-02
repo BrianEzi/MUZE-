@@ -1,4 +1,4 @@
-<?php include_once "spotify-api/doSearch.php"; ?>
+<?php include_once(__DIR__ . "/../spotify-api/doSearch.php"); ?>
 <?php if (isset($_GET["searchTerm"])) { ?>
     <style>
         .inline-list {
