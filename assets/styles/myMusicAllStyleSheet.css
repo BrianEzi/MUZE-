@@ -3,8 +3,8 @@
     margin-top: 2em;
     margin-right: 5em;
     display: flex;
-    /* flex-flow: row wrap; */
-    /* justify-content: center; */
+    flex-flow: row wrap;
+    justify-content: center;
 
     overflow: scroll;
   }
@@ -60,11 +60,11 @@ padding-bottom: 0.6em;
 }
 
 .musicHeading h1 {
+  margin-right: 40%;
   text-align: center;
   font-size: 3em;
   color: white;
   text-decoration: underline;
-  margin-left: 40%;
   
   
   /* display: inline-block; */
@@ -74,7 +74,8 @@ padding-bottom: 0.6em;
   
 }
 
-.seeAll {
+
+.back {
 
   text-align: center;
   font-size: 2em;
@@ -83,12 +84,12 @@ padding-bottom: 0.6em;
   /* display: inline-block; */
 }
 
-.seeAll a {
+.back a {
   color: rgb(70, 70, 70);
   text-decoration: none;
 }
 
-.seeAll a:hover{
+.back a:hover{
   color: rgb(70, 70, 70);
   text-decoration: underline;
 }

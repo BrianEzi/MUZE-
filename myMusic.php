@@ -40,8 +40,10 @@
     </div>
 
     <div class="musicHeading">
-        <h1>My Tracks</h1> <br>
-            <div class="contentWrapper">
+        <h1>My Tracks</h1>
+        <div class="seeAll"><a href="myMusic/myTracks.php">SEE ALL</a></div>
+    </div>
+            <div class="content">
                 <?php
                     if (isset($_SESSION['tracks'])) {
 
@@ -49,23 +51,177 @@
                         // print_r($tracks); 
                         // echo "<br> <br>";
 
-                        foreach($tracks as $row) {
-                            echo "<div class='tempContent'>" . $row[0] . "<br>" . "<img src='" . $row[1] . "'alt='' style='width: 10em; height: 10em;'>" . "</div>";
+                        if (count($tracks) < 10) {
 
-                            echo "<br>";
-                            
-                            echo "<br>";
-                            echo "<br>";
+                            foreach($tracks as $row) {
+                                ?>
+    
+                                <div class="contentItem">
+                                    <div class="contentItem-image">
+                                        <img src="<?php echo $row[2]; ?>" alt="">
+                                        
+                                    </div>
+                                    <div class="contentItem-mainText">
+                                        <div class="contentLabel">TRACK</div>
+                                        <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                        <?php echo $row[1]; ?>
+                                    </div>
+    
+                                </div>
+    
+                                <?php
+                            }
+
+                        } else {
+                            for ($i = 0; $i < 10; $i++) {
+                                $row = $tracks[$i];
+
+                                ?>
+        
+                                <div class="contentItem">
+                                    <div class="contentItem-image">
+                                        <img src="<?php echo $row[2]; ?>" alt="">
+                                        
+                                    </div>
+                                    <div class="contentItem-mainText">
+                                        <div class="contentLabel">TRACK</div>
+                                        <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                        <?php echo $row[1]; ?>
+                                    </div>
+    
+                                </div>
+    
+                                <?php
+                                
+                            }
+                        
                         }
+
                     }
                 ?>
             </div>
             
-        <h1>My Albums</h1> <br>
-
-        <h1>My Artists</h1> <br>
+    <div class="musicHeading">
+        <h1>My Albums</h1>
+        <div class="seeAll"><a href="myMusic/myAlbums.php">SEE ALL</a></div>
     </div>
 
+            <div class="content">
+                <?php
+                    if (isset($_SESSION['albums'])) {
+
+                        $albums = $_SESSION['albums'];
+                        // print_r($tracks); 
+                        // echo "<br> <br>";
+
+                        if (count($albums) < 10) {
+
+                            foreach($albums as $row) {
+                                ?>
+
+                                <div class="contentItem">
+                                    <div class="contentItem-image">
+                                        <img src="<?php echo $row[3]; ?>" alt="">
+                                        
+                                    </div>
+                                    <div class="contentItem-mainText">
+                                        <div class="contentLabel">ALBUM</div>
+                                        <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                        <?php echo $row[2]; ?>
+                                    </div>
+
+                                </div>
+
+                                <?php
+                            }
+
+                        } else {
+                            for ($i = 0; $i < 10; $i++) {
+                                $row = $albums[$i];
+
+                                ?>
+        
+                                <div class="contentItem">
+                                    <div class="contentItem-image">
+                                        <img src="<?php echo $row[3]; ?>" alt="">
+                                        
+                                    </div>
+                                    <div class="contentItem-mainText">
+                                        <div class="contentLabel">ALBUM</div>
+                                        <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                        <?php echo $row[2]; ?>
+                                    </div>
+
+                                </div>
+
+                                <?php
+                                
+                            }
+                        
+                        }
+                    }
+                ?>
+            </div>
+
+    <div class="musicHeading">
+        <h1>My Artists</h1>
+        <div class="seeAll"><a href="myMusic/myArtists.php">SEE ALL</a></div>
+    </div>
+
+            <div class="content">
+                <?php
+                    if (isset($_SESSION['artists'])) {
+
+                        $artists = $_SESSION['artists'];
+                        // print_r($tracks); 
+                        // echo "<br> <br>";
+
+                        if (count($albums) < 10) {
+
+                            foreach($artists as $row) {
+                                ?>
+
+                                <div class="contentItem">
+                                    <div class="contentItem-image">
+                                        <img src="<?php echo $row[1]; ?>" alt="">
+                                        
+                                    </div>
+                                    <div class="contentItem-mainText">
+                                        <div class="contentLabel">ARTIST</div>
+                                        <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                    </div>
+
+                                </div>
+
+                                <?php
+                            }
+                        } else {
+                            for ($i = 0; $i < 10; $i++) {
+                                $row = $albums[$i];
+
+                                ?>
+
+                                <div class="contentItem">
+                                    <div class="contentItem-image">
+                                        <img src="<?php echo $row[3]; ?>" alt="">
+                                        
+                                    </div>
+                                    <div class="contentItem-mainText">
+                                        <div class="contentLabel">ALBUM</div>
+                                        <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                        <?php echo $row[2]; ?>
+                                    </div>
+
+                                </div>
+
+                                <?php
+                                
+                            }
+                        }
+                    
+                    }
+                ?>
+            </div>
 
 </body>
 </html>

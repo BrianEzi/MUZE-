@@ -12,7 +12,9 @@ catch(PDOException $pe) {
 
 createDatabase();
 createTable();
-createMusicTable();
+createTracksTable();
+createAlbumsTable();
+createArtistsTable();
 
 ?>
 
