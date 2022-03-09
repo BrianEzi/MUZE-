@@ -12,6 +12,8 @@ catch(PDOException $pe) {
 
 createDatabase();
 createTable();
+createMusicTable();
+
 ?>
 
 <?php
@@ -19,7 +21,7 @@ createTable();
     if (isset($_SESSION['background'])) {
         $background = $_SESSION['background'];
     } else {
-        $background = "https://images.unsplash.com/photo-1542401886-65d6c61db217?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
+        $background = "assets/images/desert.jpg";
     }
 ?>
 

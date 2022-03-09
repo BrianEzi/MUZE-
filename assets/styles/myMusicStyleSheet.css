@@ -41,3 +41,32 @@
 color: #111111;
 padding-bottom: 0.6em;
 }
+
+
+.musicHeading {
+    
+  text-align: center;
+  
+}
+
+.musicHeading h1 {
+  font-size: 3em;
+  color: white;
+  border: 2em;
+  display: inline-block;
+  padding: 0.2em 0.4em;
+  background-color: rgba(100, 100, 100, 0.6);
+  border-radius: 0.6em;
+  margin-top: 1em;
+}
+
+
+.contentWrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.tempContent {
+  margin: 2em;
+}

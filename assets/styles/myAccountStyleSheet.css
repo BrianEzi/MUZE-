@@ -28,7 +28,7 @@
     
 }
 
-h1 {
+.accountHeading h1 {
     font-size: 3em;
     color: white;
     border: 2em;

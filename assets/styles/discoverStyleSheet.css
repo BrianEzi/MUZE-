@@ -40,9 +40,17 @@
 
 .contentItem .contentItem-mainText .title {
   font-size: 1.3em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 12em;
 }
 
 .contentItem .contentItem-mainText .contentLabel {
-color: #111111;
-padding-bottom: 0.6em;
+  color: #111111;
+  padding-bottom: 0.6em;
+}
+
+.contentIcons {
+  margin-right: 2em;
 }
