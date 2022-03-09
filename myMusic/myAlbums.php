@@ -53,24 +53,32 @@
                         // print_r($tracks); 
                         // echo "<br> <br>";
 
-                        foreach($albums as $row) {
-                            ?>
+                        if (count($albums) > 0) {
 
-                            <div class="contentItem">
-                                <div class="contentItem-image">
-                                    <img src="<?php echo $row[3]; ?>" alt="">
-                                    
+                            foreach($albums as $row) {
+                                ?>
+
+                                <div class="contentItem">
+                                    <div class="contentItem-image">
+                                        <img src="<?php echo $row[3]; ?>" alt="">
+                                        
+                                    </div>
+                                    <div class="contentItem-mainText">
+                                        <div class="contentLabel">ALBUM</div>
+                                        <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                        <?php echo $row[2]; ?>
+                                    </div>
+
                                 </div>
-                                <div class="contentItem-mainText">
-                                    <div class="contentLabel">ALBUM</div>
-                                    <div class="title"><b><?php echo $row[0]; ?></b></div>
-                                    <?php echo $row[2]; ?>
-                                </div>
 
-                            </div>
+                                <?php
+                            }
 
-                            <?php
+                        } else {
+                            echo "<h2>You Currently Have No Albums Saved</h2>";
                         }
+                    } else {
+                        echo "<h2>You Currently Have No Albums Saved</h2>";
                     }
                 ?>
             </div>

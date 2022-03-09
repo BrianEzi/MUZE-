@@ -51,53 +51,61 @@
                         // print_r($tracks); 
                         // echo "<br> <br>";
 
-                        if (count($tracks) < 10) {
+                        if (count($tracks) > 0) {
 
-                            foreach($tracks as $row) {
-                                ?>
-    
-                                <div class="contentItem">
-                                    <div class="contentItem-image">
-                                        <img src="<?php echo $row[2]; ?>" alt="">
-                                        
-                                    </div>
-                                    <div class="contentItem-mainText">
-                                        <div class="contentLabel">TRACK</div>
-                                        <div class="title"><b><?php echo $row[0]; ?></b></div>
-                                        <?php echo $row[1]; ?>
-                                    </div>
-    
-                                </div>
-    
-                                <?php
-                            }
+                            if (count($tracks) < 10) {
 
-                        } else {
-                            for ($i = 0; $i < 10; $i++) {
-                                $row = $tracks[$i];
-
-                                ?>
+                                foreach($tracks as $row) {
+                                    ?>
         
-                                <div class="contentItem">
-                                    <div class="contentItem-image">
-                                        <img src="<?php echo $row[2]; ?>" alt="">
-                                        
+                                    <div class="contentItem">
+                                        <div class="contentItem-image">
+                                            <img src="<?php echo $row[2]; ?>" alt="">
+                                            
+                                        </div>
+                                        <div class="contentItem-mainText">
+                                            <div class="contentLabel">TRACK</div>
+                                            <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                            <?php echo $row[1]; ?>
+                                        </div>
+        
                                     </div>
-                                    <div class="contentItem-mainText">
-                                        <div class="contentLabel">TRACK</div>
-                                        <div class="title"><b><?php echo $row[0]; ?></b></div>
-                                        <?php echo $row[1]; ?>
+        
+                                    <?php
+                                }
+
+                            } else {
+                                for ($i = 0; $i < 10; $i++) {
+                                    $row = $tracks[$i];
+
+                                    ?>
+            
+                                    <div class="contentItem">
+                                        <div class="contentItem-image">
+                                            <img src="<?php echo $row[2]; ?>" alt="">
+                                            
+                                        </div>
+                                        <div class="contentItem-mainText">
+                                            <div class="contentLabel">TRACK</div>
+                                            <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                            <?php echo $row[1]; ?>
+                                        </div>
+        
                                     </div>
-    
-                                </div>
-    
-                                <?php
-                                
+        
+                                    <?php
+                                    
+                                }
+                            
                             }
-                        
+                        } else {
+                            echo "<h2>You Currently Have No Albums Saved</h2>";
                         }
 
+                    } else {
+                        echo "<h2>You Currently Have No Albums Saved</h2>";
                     }
+
                 ?>
             </div>
             
@@ -114,51 +122,58 @@
                         // print_r($tracks); 
                         // echo "<br> <br>";
 
-                        if (count($albums) < 10) {
+                        if (count($albums) > 0) {
 
-                            foreach($albums as $row) {
-                                ?>
+                            if (count($albums) < 10) {
 
-                                <div class="contentItem">
-                                    <div class="contentItem-image">
-                                        <img src="<?php echo $row[3]; ?>" alt="">
-                                        
+                                foreach($albums as $row) {
+                                    ?>
+
+                                    <div class="contentItem">
+                                        <div class="contentItem-image">
+                                            <img src="<?php echo $row[3]; ?>" alt="">
+                                            
+                                        </div>
+                                        <div class="contentItem-mainText">
+                                            <div class="contentLabel">ALBUM</div>
+                                            <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                            <?php echo $row[2]; ?>
+                                        </div>
+
                                     </div>
-                                    <div class="contentItem-mainText">
-                                        <div class="contentLabel">ALBUM</div>
-                                        <div class="title"><b><?php echo $row[0]; ?></b></div>
-                                        <?php echo $row[2]; ?>
+
+                                    <?php
+                                }
+
+                            } else {
+                                for ($i = 0; $i < 10; $i++) {
+                                    $row = $albums[$i];
+
+                                    ?>
+            
+                                    <div class="contentItem">
+                                        <div class="contentItem-image">
+                                            <img src="<?php echo $row[3]; ?>" alt="">
+                                            
+                                        </div>
+                                        <div class="contentItem-mainText">
+                                            <div class="contentLabel">ALBUM</div>
+                                            <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                            <?php echo $row[2]; ?>
+                                        </div>
+
                                     </div>
 
-                                </div>
-
-                                <?php
+                                    <?php
+                                    
+                                }
+                            
                             }
-
                         } else {
-                            for ($i = 0; $i < 10; $i++) {
-                                $row = $albums[$i];
-
-                                ?>
-        
-                                <div class="contentItem">
-                                    <div class="contentItem-image">
-                                        <img src="<?php echo $row[3]; ?>" alt="">
-                                        
-                                    </div>
-                                    <div class="contentItem-mainText">
-                                        <div class="contentLabel">ALBUM</div>
-                                        <div class="title"><b><?php echo $row[0]; ?></b></div>
-                                        <?php echo $row[2]; ?>
-                                    </div>
-
-                                </div>
-
-                                <?php
-                                
-                            }
-                        
+                            echo "<h2>You Currently Have No Albums Saved</h2>";
                         }
+                    } else {
+                        echo "<h2>You Currently Have No Albums Saved</h2>";
                     }
                 ?>
             </div>
@@ -176,49 +191,56 @@
                         // print_r($tracks); 
                         // echo "<br> <br>";
 
-                        if (count($albums) < 10) {
+                        if (count($artists) > 0) {
 
-                            foreach($artists as $row) {
-                                ?>
+                            if (count($artists) < 10) {
 
-                                <div class="contentItem">
-                                    <div class="contentItem-image">
-                                        <img src="<?php echo $row[1]; ?>" alt="">
-                                        
+                                foreach($artists as $row) {
+                                    ?>
+
+                                    <div class="contentItem">
+                                        <div class="contentItem-image">
+                                            <img src="<?php echo $row[1]; ?>" alt="">
+                                            
+                                        </div>
+                                        <div class="contentItem-mainText">
+                                            <div class="contentLabel">ARTIST</div>
+                                            <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                        </div>
+
                                     </div>
-                                    <div class="contentItem-mainText">
-                                        <div class="contentLabel">ARTIST</div>
-                                        <div class="title"><b><?php echo $row[0]; ?></b></div>
+
+                                    <?php
+                                }
+                            } else {
+                                for ($i = 0; $i < 10; $i++) {
+                                    $row = $artists[$i];
+
+                                    ?>
+
+                                    <div class="contentItem">
+                                        <div class="contentItem-image">
+                                            <img src="<?php echo $row[1]; ?>" alt="">
+                                            
+                                        </div>
+                                        <div class="contentItem-mainText">
+                                            <div class="contentLabel">ARTIST</div>
+                                            <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                        </div>
+
                                     </div>
 
-                                </div>
-
-                                <?php
+                                    <?php
+                                    
+                                }
                             }
+
                         } else {
-                            for ($i = 0; $i < 10; $i++) {
-                                $row = $albums[$i];
-
-                                ?>
-
-                                <div class="contentItem">
-                                    <div class="contentItem-image">
-                                        <img src="<?php echo $row[3]; ?>" alt="">
-                                        
-                                    </div>
-                                    <div class="contentItem-mainText">
-                                        <div class="contentLabel">ALBUM</div>
-                                        <div class="title"><b><?php echo $row[0]; ?></b></div>
-                                        <?php echo $row[2]; ?>
-                                    </div>
-
-                                </div>
-
-                                <?php
-                                
-                            }
+                            echo "<h2>You Currently Have No Artists Saved</h2>";
                         }
                     
+                    } else {
+                        echo "<h2>You Currently Have No Artists Saved</h2>";
                     }
                 ?>
             </div>

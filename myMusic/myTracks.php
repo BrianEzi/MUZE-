@@ -51,25 +51,33 @@
                         // print_r($tracks); 
                         // echo "<br> <br>";
 
-                        foreach($tracks as $row) {
-                            ?>
+                        if (count($tracks) > 0) {
 
-                            <div class="contentItem">
-                                <div class="contentItem-image">
-                                    <img src="<?php echo $row[2]; ?>" alt="">
-                                    
+                            foreach($tracks as $row) {
+                                ?>
+    
+                                <div class="contentItem">
+                                    <div class="contentItem-image">
+                                        <img src="<?php echo $row[2]; ?>" alt="">
+                                        
+                                    </div>
+                                    <div class="contentItem-mainText">
+                                        <div class="contentLabel">TRACK</div>
+                                        <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                        <?php echo $row[1]; ?>
+                                    </div>
+    
                                 </div>
-                                <div class="contentItem-mainText">
-                                    <div class="contentLabel">TRACK</div>
-                                    <div class="title"><b><?php echo $row[0]; ?></b></div>
-                                    <?php echo $row[1]; ?>
-                                </div>
-
-                            </div>
-
-                            <?php
+    
+                                <?php
+                            }
+                            
+                        } else {
+                            echo "<h2>You Currently Have No Tracks Saved</h2>";
                         }
 
+                    } else {
+                            echo "<h2>You Currently Have No Tracks Saved</h2>";
                     }
                 ?>
             </div>

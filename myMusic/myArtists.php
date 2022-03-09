@@ -53,23 +53,31 @@
                         // print_r($tracks); 
                         // echo "<br> <br>";
 
-                        foreach($artists as $row) {
-                            ?>
+                        if (count($artists) > 0) {
 
-                            <div class="contentItem">
-                                <div class="contentItem-image">
-                                    <img src="<?php echo $row[1]; ?>" alt="">
-                                    
+                            foreach($artists as $row) {
+                                ?>
+
+                                <div class="contentItem">
+                                    <div class="contentItem-image">
+                                        <img src="<?php echo $row[1]; ?>" alt="">
+                                        
+                                    </div>
+                                    <div class="contentItem-mainText">
+                                        <div class="contentLabel">ARTIST</div>
+                                        <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                    </div>
+
                                 </div>
-                                <div class="contentItem-mainText">
-                                    <div class="contentLabel">ARTIST</div>
-                                    <div class="title"><b><?php echo $row[0]; ?></b></div>
-                                </div>
 
-                            </div>
+                                <?php
+                            }
 
-                            <?php
+                        } else {
+                            echo "<h2>You Currently Have No Artists Saved</h2>";
                         }
+                    } else {
+                        echo "<h2>You Currently Have No Artists Saved</h2>";
                     }
                 ?>
             </div>

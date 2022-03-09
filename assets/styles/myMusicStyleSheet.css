@@ -92,3 +92,7 @@ padding-bottom: 0.6em;
   color: rgb(70, 70, 70);
   text-decoration: underline;
 }
+
+.content h2 {
+  padding-left: 35%;
+}
