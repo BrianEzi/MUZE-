@@ -22,7 +22,14 @@
         <a href="discover.php">DISCOVER</a>
         <a class = "active" href="chat.php">CHAT</a>
         <a href="games.php">GAMES</a>
-        <a href="myMusic.php">MY MUSIC</a>
+        <?php
+
+            if (isset($_SESSION['username'])) {
+                $username = $_SESSION['username'];
+                echo'<a href="myMusic.php">MY MUSIC</a>';
+            }
+            ?>
+            
         <?php
 
         if (isset($_SESSION['username'])) {
