@@ -27,7 +27,7 @@
         <a href="../chat.php">CHAT</a>
         <a href="../games.php">GAMES</a>
 
-        <a class = "active" href="../myMusic.php">MY MUSIC</a>
+        
         <?php
 
             if (isset($_SESSION['username'])) {
@@ -37,6 +37,8 @@
                 echo'<a style="float: right;" href="../login.php">LOGIN</a>';
             }
         ?>
+        <a style="float: right;" class = "active" href="../myMusic.php">MY MUSIC</a>
+        
     </div>
 
             

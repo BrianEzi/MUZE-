@@ -43,15 +43,16 @@ createArtistsTable();
         <a href="discover.php">DISCOVER</a>
         <a href="chat.php">CHAT</a>
         <a href="games.php">GAMES</a>
+        
+        <a class = "active" style="float: right;" href="login.php">LOGIN</a>
         <?php
 
             if (isset($_SESSION['username'])) {
                 $username = $_SESSION['username'];
-                echo'<a href="myMusic.php">MY MUSIC</a>';
+                echo'<a style="float: right;" href="myMusic.php">MY MUSIC</a>';
             }
             ?>
             
-        <a class = "active" style="float: right;" href="login.php">LOGIN</a>
     </div>
 
     <div class="loginForm">
@@ -108,7 +109,7 @@ createArtistsTable();
                     $_SESSION['loginError'] = 1;
                     unset($_SESSION['registerError']);
                     authenticateUser($username, $password);
-                    header("Refresh:0");
+                    echo "<meta http-equiv='refresh' content='0'>";
                 break;
                 case 'register':
                     $username = $_POST['username'];
@@ -116,7 +117,7 @@ createArtistsTable();
                     addUser($username, $password);
                     $_SESSION['registerError'] = 1;
                     unset($_SESSION['loginError']);
-                    header("Refresh:0");
+                    echo "<meta http-equiv='refresh' content='0'>";
                 break;
             }    
         }

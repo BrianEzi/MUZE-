@@ -83,8 +83,8 @@
         <a href="discover.php">DISCOVER</a>
         <a href="chat.php">CHAT</a>
         <a href="games.php">GAMES</a>
-        <a href="myMusic.php">MY MUSIC</a>
         <a class = "active" style="float: right;" href="myAccount.php">MY ACCOUNT</a>
+        <a style="float: right;" href="myMusic.php">MY MUSIC</a>
     </div>
 
     <?php

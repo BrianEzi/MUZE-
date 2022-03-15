@@ -4,7 +4,7 @@
     if (isset($_SESSION['background'])) {
         $background = $_SESSION['background'];
     } else {
-        $background = "https://images.unsplash.com/photo-1542401886-65d6c61db217?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
+        $background = "assets/images/desert.jpg";
     }
 ?>
 
@@ -21,13 +21,7 @@
             <a href="discover.php">DISCOVER</a>
             <a href="chat.php">CHAT</a>
             <a href="games.php">GAMES</a>
-            <?php
-
-            if (isset($_SESSION['username'])) {
-                $username = $_SESSION['username'];
-                echo'<a href="myMusic.php">MY MUSIC</a>';
-            }
-            ?>
+            
 
             <?php
 
@@ -36,6 +30,11 @@
                 echo'<a style="float: right;" href="myAccount.php">MY ACCOUNT</a>';
             } else {
                 echo'<a style="float: right;" href="login.php">LOGIN</a>';
+            }
+
+            if (isset($_SESSION['username'])) {
+                $username = $_SESSION['username'];
+                echo'<a style="float: right;" href="myMusic.php">MY MUSIC</a>';
             }
             ?>
 

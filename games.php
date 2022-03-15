@@ -23,13 +23,7 @@
         <a href="discover.php">DISCOVER</a>
         <a href="chat.php">CHAT</a>
         <a class = "active" href="games.php">GAMES</a>
-        <?php
-
-            if (isset($_SESSION['username'])) {
-                $username = $_SESSION['username'];
-                echo'<a href="myMusic.php">MY MUSIC</a>';
-            }
-            ?>
+        
             
         <?php
 
@@ -38,6 +32,11 @@
                 echo'<a style="float: right;" href="myAccount.php">MY ACCOUNT</a>';
             } else {
                 echo'<a style="float: right;" href="login.php">LOGIN</a>';
+            }
+
+            if (isset($_SESSION['username'])) {
+                $username = $_SESSION['username'];
+                echo'<a style="float: right;" href="myMusic.php">MY MUSIC</a>';
             }
         ?>
     </div>
