@@ -54,3 +54,8 @@
 .contentIcons {
   margin-right: 2em;
 }
+
+input[type=image] {
+  width: 2em;
+  height: 3em;
+}

@@ -1,5 +1,6 @@
 <?php
 include_once(__DIR__ . "/spotify-api/doSearch.php");
+require_once(__DIR__ . "/DBFunctions.php");
 @$searchTerm = $_GET["searchInput"];
 if (!empty($searchTerm)) {
 	// get all types selected with the checkboxes
@@ -19,6 +20,26 @@ if (!empty($searchTerm)) {
     } else {
         $background = "assets/images/desert.jpg";
     }
+
+    if (isset($_SESSION['tracks'])) {
+        $tracks = $_SESSION['tracks'];
+    } else {
+        $tracks = [];
+    }
+
+
+    if (isset($_SESSION['albums'])) {
+        $albums = $_SESSION['albums'];
+    } else {
+        $albums = [];
+    }
+
+    if (isset($_SESSION['artists'])) {
+        $artists = $_SESSION['artists'];
+    } else {
+        $artists = [];
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +91,8 @@ if (!empty($searchTerm)) {
 	        foreach ($types as $type) {
                 // if the search results don't have any of this type, skip this type
 		        if (!array_key_exists($type, $results)) continue;
-
+                
+                $resultIndex = 0;
 		        foreach ($results[$type]->items as $result) {
                     ?>
                     <div class="contentItem">
@@ -81,18 +103,113 @@ if (!empty($searchTerm)) {
                             <div class="contentLabel"><?=strtoupper($type)?></div>
                             <div class="title"><b><?=$result->name?></b></div>
                             <?php if ($type != SPOTIFY_CONTENT_TYPE::ARTIST) { ?>
-                                <?=implode("; ", SearchComponent::getArtists($result))?>
+                                <?=implode(", ", SearchComponent::getArtists($result))?>
                             <?php } ?>
                         </div>
+                        
+                        <?php
+
+                            $saved = false;
+
+                            if ($type == SPOTIFY_CONTENT_TYPE::TRACK) {
+                                foreach($tracks as $t) {
+                                    if ($t[0] == $result->name && $t[1] == implode(", ", SearchComponent::getArtists($result))) {
+                                        $saved = true;
+                                    }
+                                }
+                            }
+
+                            if ($type == SPOTIFY_CONTENT_TYPE::ALBUM) {
+                                foreach($albums as $a) {
+                                    if ($a[0] == $result->name && $a[2] == implode(", ", SearchComponent::getArtists($result))) {
+                                        $saved = true;
+                                    }
+                                }
+                            }
+
+                            if ($type == SPOTIFY_CONTENT_TYPE::ARTIST) {
+                                foreach($artists as $t) {
+                                    if ($t[0] == $result->name) {
+                                        $saved = true;
+                                    }
+                                }
+                            }
+
+
+                        ?>
 
                         <div class="contentIcons">
 
-                            <img src="assets/images/heart_unfilled.pdf" alt="" style="width: 2em; height: 3em;">
+                            <?php
+                                if ($saved && isset($username)) {
+                            ?>
+
+                                    <form method="post">
+                                        <input type="hidden" name="toUnsave">
+                                        <input type="hidden" name="toSave">
+                                        <input type="hidden" name="index" value=<?=$resultIndex?>>
+                                        <input type="hidden" name="type" value=<?=$type?>>
+                                        <input type="image" src="assets/images/heart_filled.pdf" style="width: 3em; height: 5em;" alt="submit">
+                                    </form>
+
+                                    
+
+                            <?php
+                                } else if (isset($username)) {
+                            ?>
+
+                                    <form method="post">
+                                        <input type="hidden" name="toSave">
+                                        <input type="hidden" name="index" value=<?=$resultIndex?>>
+                                        <input type="hidden" name="type" value=<?=$type?>>
+                                        <input type="image" src="assets/images/heart_unfilled.pdf" style="width: 3em; height: 5em;" alt="submit">
+                                    </form>
+
+                            <?php
+                                }
+                            ?>
+
                         </div>
                     </div>
+
                     <?php
+                    echo $resultIndex;
+                    $resultIndex += 1;
+
+
+
+                    if (isset($_POST["toSave"])) {
+                        $postIndex = $_POST["index"];
+                        $postType = $_POST["type"];
+                        
+                        $resultToSave = ($results[$postType]->items)[$postIndex];
+
+                        if ($postType == SPOTIFY_CONTENT_TYPE::TRACK) {
+                            addTrack($username, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
+                            getTracks($username);
+                        }
+
+                        if ($postType == SPOTIFY_CONTENT_TYPE::ALBUM) {
+                            addAlbum($username, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), ["",""], SearchComponent::extractBiggestImageUrl($resultToSave));
+                            getAlbums($username);
+                        }
+
+                        if ($postType == SPOTIFY_CONTENT_TYPE::ARTIST) {
+                            addArtist($username, $resultToSave->name, SearchComponent::extractBiggestImageUrl($resultToSave));
+                            getArtists($username);
+                        }
+
+                        unset($_POST["toSave"]);
+                        unset($_POST["index"]);
+                        unset($_POST["type"]);
+
+                        $_SESSION['reloadThePage'] = true;
+                        header("Refresh:0");
+                    }
                 }
             }
+
+
         }
         ?>
         </div>

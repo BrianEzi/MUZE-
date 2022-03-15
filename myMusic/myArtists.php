@@ -32,9 +32,9 @@
 
             if (isset($_SESSION['username'])) {
                 $username = $_SESSION['username'];
-                echo'<a style="float: right;" href="myAccount.php">MY ACCOUNT</a>';
+                echo'<a style="float: right;" href="../myAccount.php">MY ACCOUNT</a>';
             } else {
-                echo'<a style="float: right;" href="login.php">LOGIN</a>';
+                echo'<a style="float: right;" href="../login.php">LOGIN</a>';
             }
         ?>
     </div>
