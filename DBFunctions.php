@@ -58,32 +58,6 @@
             // session_start();
             $_SESSION['username'] = $username;
             $_SESSION['background'] = "assets/images/desert.jpg";
-
-            addTrack($username, "God's Plan", "Drake", "https://i.scdn.co/image/ab67616d0000b273f907de96b9a4fbc04accc0d5", 'track');
-            addTrack($username, "Reminder", "The Weeknd", "https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452", 'track');
-            addTrack($username, "Blood On The Leaves", "Kanye West", "https://i.scdn.co/image/ab67616d0000b2731dacfbc31cc873d132958af9", 'track');
-            addTrack($username, "God's Plan", "Drake", "https://i.scdn.co/image/ab67616d0000b273f907de96b9a4fbc04accc0d5", 'track');
-            addTrack($username, "Reminder", "The Weeknd", "https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452", 'track');
-            addTrack($username, "Blood On The Leaves", "Kanye West", "https://i.scdn.co/image/ab67616d0000b2731dacfbc31cc873d132958af9", 'track');
-            addTrack($username, "God's Plan", "Drake", "https://i.scdn.co/image/ab67616d0000b273f907de96b9a4fbc04accc0d5", 'track');
-            addTrack($username, "Reminder", "The Weeknd", "https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452", 'track');
-            addTrack($username, "Blood On The Leaves", "Kanye West", "https://i.scdn.co/image/ab67616d0000b2731dacfbc31cc873d132958af9", 'track');
-
-            addAlbum($username, "SEPT 5TH", "dvsn", ["With Me", "Too Deep", "Try/Effortless", "Do It Well", "In + Out", "SEPT 5TH", "Hallucinations"], "https://i.scdn.co/image/ab67616d0000b273f525f4a1bd3acdc0631ce362");
-            addAlbum($username, "Sail Out", "Jhene Aiko", ["The Vapors", "Bed Peace", "Stay Ready (What A Life)", "WTH", "The Worst", "3:16AM", "Comfort Inn Ending"], "https://i.scdn.co/image/ab67616d0000b273a0fa057b8ad3f3c4969f0c97");
-            
-            addArtist($username, "PARTYNEXTDOOR", "https://i.scdn.co/image/ab6761610000e5eb4e3dee8baac75dad1fea791e");
-            addArtist($username, 'A$AP Rocky', "https://i.scdn.co/image/ab6761610000e5eb6d5529e3962a16bd267bfeb2");
-            addArtist($username, "J. Cole", "https://i.scdn.co/image/ab6761610000e5ebadd503b411a712e277895c8a");
-            addArtist($username, "PARTYNEXTDOOR", "https://i.scdn.co/image/ab6761610000e5eb4e3dee8baac75dad1fea791e");
-            addArtist($username, 'A$AP Rocky', "https://i.scdn.co/image/ab6761610000e5eb6d5529e3962a16bd267bfeb2");
-            addArtist($username, "J. Cole", "https://i.scdn.co/image/ab6761610000e5ebadd503b411a712e277895c8a");
-            addArtist($username, "PARTYNEXTDOOR", "https://i.scdn.co/image/ab6761610000e5eb4e3dee8baac75dad1fea791e");
-            addArtist($username, 'A$AP Rocky', "https://i.scdn.co/image/ab6761610000e5eb6d5529e3962a16bd267bfeb2");
-            addArtist($username, "J. Cole", "https://i.scdn.co/image/ab6761610000e5ebadd503b411a712e277895c8a");
-            addArtist($username, "PARTYNEXTDOOR", "https://i.scdn.co/image/ab6761610000e5eb4e3dee8baac75dad1fea791e");
-            addArtist($username, 'A$AP Rocky', "https://i.scdn.co/image/ab6761610000e5eb6d5529e3962a16bd267bfeb2");
-            addArtist($username, "J. Cole", "https://i.scdn.co/image/ab6761610000e5ebadd503b411a712e277895c8a");
             
             getTracks($username);
             getAlbums($username);
@@ -170,6 +144,22 @@
         ]);
     }
 
+    function removeTrack($username, $title, $artist) {
+        $sql = "DELETE FROM tracks
+                WHERE username=:username AND title=:title AND artist=:artist";
+
+        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'username' => $username,
+            'title' => $title,
+            'artist' => $artist
+        ]);
+    }
+
+
     function getTracks($username) {
         $sql = "SELECT title, artist, image
                 FROM tracks
@@ -230,6 +220,21 @@
             ]);
         }
         
+    }
+
+    function removeAlbum($username, $title, $artist) {
+        $sql = "DELETE FROM albums
+                WHERE username=:username AND title=:title AND artist=:artist";
+                
+        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'username' => $username,
+            'title' => $title,
+            'artist' => $artist
+        ]);
     }
 
     function getAlbums($username) {
@@ -298,6 +303,20 @@
             'username' => $username,
             'artist' => $artist,
             'image' => $image
+        ]);
+    }
+
+    function removeArtist($username, $artist) {
+        $sql = "DELETE FROM albums
+                WHERE username=:username AND artist=:artist";
+                
+        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'username' => $username,
+            'artist' => $artist
         ]);
     }
 

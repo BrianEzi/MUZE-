@@ -40,6 +40,11 @@ if (!empty($searchTerm)) {
         $artists = [];
     }
 
+    if (isset($_SESSION['reloadThePage'])) {
+        // header("Refresh:0");
+        unset($_SESSION['reloadThePage']);
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -146,7 +151,6 @@ if (!empty($searchTerm)) {
 
                                     <form method="post">
                                         <input type="hidden" name="toUnsave">
-                                        <input type="hidden" name="toSave">
                                         <input type="hidden" name="index" value=<?=$resultIndex?>>
                                         <input type="hidden" name="type" value=<?=$type?>>
                                         <input type="image" src="assets/images/heart_filled.pdf" style="width: 3em; height: 5em;" alt="submit">
@@ -178,37 +182,69 @@ if (!empty($searchTerm)) {
 
 
 
-                    if (isset($_POST["toSave"])) {
-                        $postIndex = $_POST["index"];
-                        $postType = $_POST["type"];
-                        
-                        $resultToSave = ($results[$postType]->items)[$postIndex];
-
-                        if ($postType == SPOTIFY_CONTENT_TYPE::TRACK) {
-                            addTrack($username, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
-                            getTracks($username);
-                        }
-
-                        if ($postType == SPOTIFY_CONTENT_TYPE::ALBUM) {
-                            addAlbum($username, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), ["",""], SearchComponent::extractBiggestImageUrl($resultToSave));
-                            getAlbums($username);
-                        }
-
-                        if ($postType == SPOTIFY_CONTENT_TYPE::ARTIST) {
-                            addArtist($username, $resultToSave->name, SearchComponent::extractBiggestImageUrl($resultToSave));
-                            getArtists($username);
-                        }
-
-                        unset($_POST["toSave"]);
-                        unset($_POST["index"]);
-                        unset($_POST["type"]);
-
-                        $_SESSION['reloadThePage'] = true;
-                        header("Refresh:0");
-                    }
+                    
                 }
             }
+            
+            if (isset($_POST["toSave"])) {
+                $postIndex = $_POST["index"];
+                $postType = $_POST["type"];
+                
+                $resultToSave = ($results[$postType]->items)[$postIndex];
 
+                if ($postType == SPOTIFY_CONTENT_TYPE::TRACK) {
+                    addTrack($username, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
+                    getTracks($username);
+                }
+
+                if ($postType == SPOTIFY_CONTENT_TYPE::ALBUM) {
+                    addAlbum($username, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), ["",""], SearchComponent::extractBiggestImageUrl($resultToSave));
+                    getAlbums($username);
+                }
+
+                if ($postType == SPOTIFY_CONTENT_TYPE::ARTIST) {
+                    addArtist($username, $resultToSave->name, SearchComponent::extractBiggestImageUrl($resultToSave));
+                    getArtists($username);
+                }
+
+                unset($_POST["toSave"]);
+                unset($_POST["index"]);
+                unset($_POST["type"]);
+
+                $_SESSION['reloadThePage'] = true;
+                echo "<meta http-equiv='refresh' content='0'>";
+            }
+
+            if (isset($_POST["toUnsave"])) {
+                $postIndex = $_POST["index"];
+                $postType = $_POST["type"];
+
+                $resultToUnsave = ($results[$postType]->items)[$postIndex];
+
+                // print_r($resultToUnsave);
+
+                if ($postType == SPOTIFY_CONTENT_TYPE::TRACK) {
+                    removeTrack($username, $resultToUnsave->name, implode(", ",SearchComponent::getArtists($resultToUnsave)));
+                    getTracks($username);
+                }
+
+                if ($postType == SPOTIFY_CONTENT_TYPE::ALBUM) {
+                    removeAlbum($username, $resultToUnsave->name, implode(", ",SearchComponent::getArtists($resultToUnsave)));
+                    getAlbums($username);
+                }
+
+                if ($postType == SPOTIFY_CONTENT_TYPE::ARTIST) {
+                    removeArtist($username, $resultToUnsave->name);
+                    getArtists($username);
+                }
+
+                unset($_POST["toUnsave"]);
+                unset($_POST["index"]);
+                unset($_POST["type"]);
+
+                $_SESSION['reloadThePage'] = true;
+                echo "<meta http-equiv='refresh' content='0'>";
+            }
 
         }
         ?>
