@@ -40,6 +40,7 @@ if (!empty($searchTerm)) {
         $artists = [];
     }
 
+
 ?>
 
 <!DOCTYPE html>
@@ -170,7 +171,6 @@ if (!empty($searchTerm)) {
                     </div>
 
                     <?php
-                    
                     $resultIndex += 1;
 
 

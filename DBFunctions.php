@@ -120,8 +120,7 @@
             username VARCHAR(30) NOT NULL,
             title VARCHAR(100),
             artist VARCHAR(100),
-            image VARCHAR(100),
-            contentType VARCHAR(30))";
+            image VARCHAR(100))";
         
         $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
@@ -192,8 +191,7 @@
             title VARCHAR(100),
             artist VARCHAR(100),
             trackName VARCHAR(100),
-            image VARCHAR(100),
-            contentType VARCHAR(30))";
+            image VARCHAR(100))";
         
         $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
@@ -283,8 +281,7 @@
             dataID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             username VARCHAR(30) NOT NULL,
             artist VARCHAR(100),
-            image VARCHAR(100),
-            contentType VARCHAR(30))";
+            image VARCHAR(100))";
         
         $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
