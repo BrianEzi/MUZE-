@@ -11,6 +11,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="assets/styles/myStyles.css">
+    <link rel="stylesheet" type="text/css" href="assets/styles/chatStyleSheet.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,6 +40,58 @@
         }
         ?>
 
+    </div>
+
+    <div class="chatArea">
+        <ul class="chatSidebar">
+            <li class="chatOption">
+                <img src="assets/images/aurora.jpg" alt="Someone's profile picture">
+                <div>
+                    <h5>Someone</h5>
+                    <p>Hey!</p>
+                </div>
+            </li>
+            <li class="chatOption selected">
+                <img src="assets/images/aurora.jpg" alt="Someone else's profile picture">
+                <div>
+                    <h5>Someone else</h5>
+                    <p>Hello!</p>
+                </div>
+            </li>
+            <li class="chatOption">
+                <img src="assets/images/aurora.jpg" alt="A friend's profile picture">
+                <div>
+                    <h5>A friend</h5>
+                    <p>Hi!</p>
+                </div>
+            </li>
+            <li class="chatOption">
+                <img src="assets/images/aurora.jpg" alt="Another person's profile picture">
+                <div>
+                    <h5>Another person</h5>
+                    <p>Hola!</p>
+                </div>
+            </li>
+        </ul>
+        <div class="chatMain">
+            <ul class="chatMessages">
+		        <?php for ($i = 0; $i < 10; ++$i) { ?>
+                    <li class="chatMessage">
+                        Lorem ipsum dolor sit amet
+                    </li>
+                    <li class="chatMessage">
+                        consectetur adipiscing elit
+                    </li>
+                    <li class="chatMessage chatMessage-ownMessage">
+                        Ut enim ad minim veniam
+                    </li>
+                    <li class="chatMessage">
+                        Ut enim ad minim veniam
+                    </li>
+		        <?php } ?>
+            </ul>
+            <input class="chatInput" placeholder="Send a message...">
+        </div>
     </div>
 
 </body>
