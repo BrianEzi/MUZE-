@@ -15,13 +15,13 @@ class SearchComponent {
 	public int $limit;
 
 	/** URL to the next page of items. */
-	public string|null $next;
+	public ?string $next;
 
 	/** The offset of the items returned (as set in the query or by default) */
 	public int $offset;
 
 	/** URL to the previous page of items. (null if none) */
-	public string|null $previous;
+	public ?string $previous;
 
 	/** The total number of items available to return. */
 	public int $total;
