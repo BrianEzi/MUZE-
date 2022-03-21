@@ -19,8 +19,7 @@
         searchId int NOT NULL,
         searchName VARCHAR(30) NOT NULL,
         PRIMARY KEY (searchID),
-        FOREIGN KEY (searchName) REFERENCES search(searchName)"
-        );
+        FOREIGN KEY (searchName) REFERENCES search(searchName))";
 
         $pdo = new pdo('mysql:host=localhost;dbname=' . $database_name . '',
         'newuser', 'password');
@@ -44,8 +43,7 @@
         FOREIGN KEY (playlistID) REFERENCES playlist(playlistID),
         FOREIGN KEY (songID) REFERENCES song(songID),
         FOREIGN KEY (searchID) REFERENCES search(searchID),
-        FOREIGN KEY (searchName) REFERENCES search(searchName)"
-        );
+        FOREIGN KEY (searchName) REFERENCES search(searchName))";
 
         $pdo = new pdo('mysql:host=localhost;dbname=' . $database_name . '',
         'newuser', 'password');
@@ -59,7 +57,7 @@
         friendname VARCHAR(30) NOT NULL,
         chat VARCHAR(30) NOT NULL,
         nickname VARCHAR(10) NOT NULL,
-        PRIMARY KEY (friendname)",
+        PRIMARY KEY (friendname))";
 
         $pdo = new pdo('mysql:host=localhost;dbname=' . $database_name . '',
         'newuser', 'password');
@@ -75,7 +73,7 @@
         playlistname VARCHAR(30) NOT NULL,
         searchName VARCHAR(30) NOT NULL,
         PRIMARY KEY (playlistID),
-        FOREIGN KEY (songID) REFERENCES user(songID)",
+        FOREIGN KEY (songID) REFERENCES user(songID))";
 
         $pdo = new pdo('mysql:host=localhost;dbname=' . $database_name . '',
         'newuser', 'password');
@@ -92,7 +90,7 @@
         liked BOOL NOT NULL,
         album VARCHAR(30) NOT NULL,
         weblink VARCHAR(100) NOT NULL,
-        PRIMARY KEY (songID)",
+        PRIMARY KEY (songID))";
 
         $pdo = new pdo('mysql:host=localhost;dbname=' . $database_name . '',
         'newuser', 'password');
@@ -108,7 +106,7 @@
         score int NOT NULL,
         username VARCHAR(30) NOT NULL,
         PRIMARY KEY (highscoreID),
-        FOREIGN KEY (username) REFERENCES user(username)",
+        FOREIGN KEY (username) REFERENCES user(username))";
 
         $pdo = new pdo('mysql:host=localhost;dbname=' . $database_name . '',
         'newuser', 'password');
