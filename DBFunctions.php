@@ -11,7 +11,8 @@
             userID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             username VARCHAR(30) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL,
-            background VARCHAR(200) NOT NULL)";
+            background VARCHAR(200) NOT NULL,
+            profilePicture VARCHAR(200) NOT NULL)";
     
         $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
@@ -43,8 +44,8 @@
         if ($emailExists) {
 
         } else {
-            $sql = "INSERT INTO users (username, password, background)
-                    VALUES (:username, :password, :background)";
+            $sql = "INSERT INTO users (username, password, background, profilePicture)
+                    VALUES (:username, :password, :background, :profilePicture)";
             $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
             
@@ -53,11 +54,13 @@
             $stmt->execute([
                 'username' => $username,
                 'password' => $password,
-                'background' => "assets/images/desert.jpg"
+                'background' => "assets/images/desert.jpg",
+                'profilePicture' => "assets/images/aurora.jpg"
             ]);
             // session_start();
             $_SESSION['username'] = $username;
             $_SESSION['background'] = "assets/images/desert.jpg";
+            $_SESSION['profilePicture'] = "assets/images/aurora.jpg";
             
             getTracks($username);
             getAlbums($username);
@@ -82,7 +85,7 @@
     }
 
     function authenticateUser($username, $password) {
-        $sql = "SELECT password, background
+        $sql = "SELECT password, background, profilePicture
                 FROM users
                 WHERE username = :username";
         $pdo = new pdo("mysql:host=localhost:8889; dbname=loginInfo", 'root', 'root');
@@ -102,13 +105,60 @@
             if (password_verify($password, $row['password'])) {
                 // session_start();
                 $_SESSION['username'] = $username;
+                
                 $background = $row['background'];
                 $_SESSION['background'] = $background;
+
+                $profilePicture = $row['profilePicture'];
+                $_SESSION['profilePicture'] = $profilePicture;
+
                 getTracks($username);
+                getAlbums($username);
+                getArtists($username);
                 
                 header("location: home.php");
             }
         }        
+    }
+
+
+    function changePassword($username, $oldPassword, $newPassword) {
+        $sql = "SELECT password
+                FROM users
+                WHERE username=:username";
+
+        $pdo = new pdo("mysql:host=localhost:8889; dbname=loginInfo", 'root', 'root');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'username' => $username
+        ]);
+
+        $row = $stmt->fetch();
+        
+        if ($row) {
+
+            if (password_verify($oldPassword, $row[0])) {
+                $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+                $sql2 = "UPDATE users
+                        SET password = :password
+                        WHERE username = :username";
+
+                $pdo2 = new pdo("mysql:host=localhost:8889; dbname=loginInfo", 'root', 'root');
+                $pdo2->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+    
+                $stmt2 = $pdo2->prepare($sql2);
+                $stmt2->execute([
+                    'password' => $hashedNewPassword,
+                    'username' => $username
+                ]);
+            } else {
+                $changePasswordError = true;
+                $_SESSION['changePasswordError'] = $changePasswordError;
+            }
+
+        }
     }
 
 
@@ -336,6 +386,96 @@
         $row = $stmt->fetchAll();
 
         $_SESSION['artists'] = $row;
+    }
+
+
+    // STORING ALBUMS
+
+
+    function createPlaylistsTable() {
+        $sql = "CREATE TABLE IF NOT EXISTS playlists (
+            dataID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            username VARCHAR(30) NOT NULL,
+            title VARCHAR(100),
+            trackName VARCHAR(100),
+            image VARCHAR(100))";
+        
+        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+        $pdo->query($sql);
+    }
+
+    function addPlaylist($username, $title, $trackList, $image) {
+
+        foreach ($trackList as $trackName) {
+
+            $sql = "INSERT INTO albums (username, title, trackName, image)
+                VALUES (:username, :title, :trackName, :image)";
+
+            $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                'username' => $username,
+                'title' => $title,
+                'trackName' => $trackName,
+                'image' => $image
+            ]);
+        }
+        
+    }
+
+    function removePlaylist($username, $title) {
+        $sql = "DELETE FROM playlists
+                WHERE username=:username AND title=:title";
+                
+        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'username' => $username,
+            'title' => $title,
+        ]);
+    }
+
+    function getPlaylists($username) {
+        $sql = "SELECT title, trackName, image
+                FROM playlists
+                WHERE username=:username";
+
+        // $sql = "SELECT title, image, username FROM music";
+
+        $pdo = new pdo("mysql:host=localhost:8889; dbname=loginInfo", 'root', 'root');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'username' => $username
+        ]);
+
+        // $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $row = $stmt->fetchAll();
+
+        $playlistTrackNames = [];
+        $playlists = [];
+        foreach($row as $track) {
+            if (in_array($track[1], $playlistsTrackNames)) {
+                
+            } else {
+                array_push($playlistTrackNames, $track[1]);
+                $playlistTracks = [];
+                foreach($row as $tempTrack) {
+                    if ($track[1] == $tempTrack[1]) {
+                        array_push($playlistTracks, $track[1]);
+                    }
+                }
+                $playlistInfo = [$track[0], $playlistTracks, $track[2]];
+                array_push($playlists, $playlistInfo);
+            }
+        }
+        $_SESSION['playlists'] = $playlists;
     }
 
 ?>

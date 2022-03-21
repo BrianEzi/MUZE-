@@ -4,9 +4,27 @@
     margin: 0;
 }
 
+.profilePreview {
+    width: 12em;
+    height: 12em;
+    margin: 0;
+    border-radius: 50%;
+}
+
 .backgroundButton {
     width: 25em;
     height: 15em;
+    padding: 0;
+    padding-top: 1.5em;
+    background-color: rgba(100, 100, 100, 0.6);
+    border: 0;
+    border-radius: 3em;
+    margin: 2em;
+}
+
+.profileButton {
+    width: 20em;
+    height: 20em;
     padding: 0;
     padding-top: 1.5em;
     background-color: rgba(100, 100, 100, 0.6);
@@ -19,6 +37,14 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    margin-bottom: 2em;
+}
+
+.profileButtonContainer {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: 0 4em;
     margin-bottom: 2em;
 }
 
@@ -44,6 +70,12 @@
     text-align: center;
     font-size: 1.5em;
 }
+.profileImageLabel {
+    color: white;
+    text-align: center;
+    font-size: 1.5em;
+    padding-top: 1em;
+}
 
 .logout {
     width: 6em;
@@ -52,8 +84,129 @@
     background-color: white;
     border: 0.05em solid white;
     border-radius: 2em;
+    margin-bottom: 5em;
+    margin-top: 3em;
 }
 
 .logoutForm {
     text-align: center;
+}
+
+.informationContainer {
+    display: flex;
+}
+
+.profileBox {
+    width: 30%;
+    height: 20em;
+    background-color: rgba(100, 100, 100, 0.6);
+    border-radius: 3em;
+    margin-left: auto;
+    margin-right: 1em;
+    text-align: center;
+}
+
+.statsBox {
+    width: 30%;
+    height: 20em;
+    background-color: rgba(100, 100, 100, 0.6);
+    border-radius: 3em;
+    margin-right: auto;
+    margin-left: 1em;
+}
+
+.statsContainer {
+    padding-top: 3em;
+    padding-left: 3em;
+
+}
+
+.stat {
+    font-size: 1.5em;
+    color: white;
+    padding: 0.1em;
+}
+
+.profileBox img {
+    margin: 0 auto;
+    width: 12em;
+    height: 12em;
+    border-radius: 50%;
+    justify-content: center;
+    margin-top: 3em;
+
+}
+
+.profileContainer {
+    width: 100%;
+    display: flex;
+}
+
+.profileName {
+    font-size: 2em;
+    color: white;
+    padding-top: 0.5em;
+}
+
+
+#changePassword {
+    opacity: 1;
+    transition: opacity 1s;
+    padding-top: 2em;
+}
+
+#changePassword input[type=password] {
+    width: 15em;
+    color: white;
+    font-size: 1em;
+    padding: 0.6em;
+    padding-left: 1em;
+    padding-bottom: 0.7em;
+    border: 0.05em solid white;
+    background-color : rgba(10, 10, 10, 0.6);
+    border-radius: 2em;
+    display: block;
+    margin: 0em auto;
+}
+
+#changePassword input[type=submit] {
+    width: 6em;
+    font-size: 1em;
+    padding: 0.3em 0.6em;
+    border: 0.05em solid white;
+    background-color : white;
+    border-radius: 2em;
+    display: block;
+    margin: 0em auto;
+}
+
+#changePassword.hide {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+}
+
+#changePasswordToggle {
+    width: 10em;
+    font-size: 1em;
+    padding: 0.3em 0.6em;
+    border: 0.05em solid white;
+    background-color : white;
+    border-radius: 2em;
+    display: block;
+    margin: 0em auto;
+}
+
+.passwordError {
+    text-align: center;
+    color: red;
+    padding-bottom: 3em;
+    padding-top: 1em;
+}
+
+.passwordChange {
+    text-align: center;
+    color: lime;
+    padding-bottom: 3em;
+    padding-top: 1em;
 }

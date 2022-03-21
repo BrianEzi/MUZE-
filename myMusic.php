@@ -247,5 +247,74 @@
                 ?>
             </div>
 
+    <div class="musicHeading">
+        <h1>My Playlists</h1>
+        <div class="seeAll"><a href="myMusic/myPlaylists.php">SEE ALL</a></div>
+    </div>
+
+            <div class="content">
+                <?php
+                    if (isset($_SESSION['playlists'])) {
+
+                        $playlists = $_SESSION['playlists'];
+                        // print_r($tracks); 
+                        // echo "<br> <br>";
+
+                        if (count($playlists) > 0) {
+
+                            if (count($playlists) < 10) {
+
+                                foreach($playlists as $row) {
+                                    ?>
+
+                                    <div class="contentItem">
+                                        <div class="contentItem-image">
+                                            <img src="<?php echo $row[3]; ?>" alt="">
+                                            
+                                        </div>
+                                        <div class="contentItem-mainText">
+                                            <div class="contentLabel">ALBUM</div>
+                                            <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                            <?php echo $row[2]; ?>
+                                        </div>
+
+                                    </div>
+
+                                    <?php
+                                }
+
+                            } else {
+                                for ($i = 0; $i < 10; $i++) {
+                                    $row = $playlists[$i];
+
+                                    ?>
+            
+                                    <div class="contentItem">
+                                        <div class="contentItem-image">
+                                            <img src="<?php echo $row[3]; ?>" alt="">
+                                            
+                                        </div>
+                                        <div class="contentItem-mainText">
+                                            <div class="contentLabel">ALBUM</div>
+                                            <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                            <?php echo $row[2]; ?>
+                                        </div>
+
+                                    </div>
+
+                                    <?php
+                                    
+                                }
+                            
+                            }
+                        } else {
+                            echo "<h2>You Currently Have No Playlists Saved</h2>";
+                        }
+                    } else {
+                        echo "<h2>You Currently Have No Playlists Saved</h2>";
+                    }
+                ?>
+            </div>
+
 </body>
 </html>

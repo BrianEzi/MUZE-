@@ -1,0 +1,12 @@
+.newPlaylistForm {
+    text-align: center;
+}
+
+.newPlaylist {
+    color: black;
+    font-size: 1em;
+    background-color: white;
+    border: 0.05em solid white;
+    border-radius: 2em;
+    padding: 1em 2em;
+}

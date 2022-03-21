@@ -65,7 +65,7 @@ createArtistsTable();
 
             <input type="text" name="username" id="username" required placeholder="Username"> <br>
 
-            <input type="text" name="password" id="password" required placeholder="Password"> <br>
+            <input type="password" name="password" id="password" required placeholder="Password"> <br>
 
             <input type="hidden" name="action" value="login">
             <input type="submit" name="filled" value="Log in"> <br> <br>
@@ -86,7 +86,7 @@ createArtistsTable();
             
             <input type="text" name="username" id="username" required placeholder="Username"> <br>
 
-            <input type="text" name="password" id="password" required placeholder="Password"> <br>
+            <input type="password" name="password" id="password" required placeholder="Password"> <br>
 
             <input type="hidden" name="action" value="register">
             <input type="submit" name="filled" value="Register"> <br> <br>

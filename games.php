@@ -23,14 +23,7 @@
         <a href="discover.php">DISCOVER</a>
         <a href="chat.php">CHAT</a>
         <a class = "active" href="games.php">GAMES</a>
-    <div class="song">
-        <a href="Account.php">Account information</a>
-        <a href="Settings.php">Account settings</a>
-        <a href="Friends.php">Friends</a>
-    </div>
 
-        
-            
         <?php
 
             if (isset($_SESSION['username'])) {
@@ -46,5 +39,13 @@
             }
         ?>
     </div>
+
+
+
+
+
+
+
+    
 </body>
 </html>

@@ -1,3 +1,6 @@
+
+<?php require_once(__DIR__ . "/DBFunctions.php"); ?>
+
 <?php
     session_start();
     if (isset($_SESSION['background'])) {
@@ -5,6 +8,13 @@
     } else {
         $background = "assets/images/desert.jpg";
     }
+
+    $username = $_SESSION['username'];
+    $profilePicture = $_SESSION['profilePicture'];
+
+    $numberOfTracks = count($_SESSION['tracks']);
+    $numberOfAlbums = count($_SESSION['albums']);
+    $numberOfArtists = count($_SESSION['artists']);
 
     function changeBackground() {
         $background = $_SESSION['background'];
@@ -19,6 +29,22 @@
         $stmt->execute([
             'username' => $username,
             'background' => $background
+        ]);
+    }
+
+    function changeProfilePicture() {
+        $profilePicture = $_SESSION['profilePicture'];
+        $username = $_SESSION['username'];
+        $sql = "UPDATE users
+                SET profilePicture = :profilePicture
+                WHERE username = :username";
+        $pdo = new pdo("mysql:host=localhost:8889; dbname=loginInfo", 'root', 'root');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+        
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'username' => $username,
+            'profilePicture' => $profilePicture
         ]);
     }
 ?>
@@ -71,7 +97,44 @@
                         echo "button[name='sunset'] {background-color: rgba(10, 10, 10, 0.7);}";
                         break;
                 }
-            }        
+            } 
+            
+            if (isset($_SESSION["profilePicture"])) {
+                
+                switch ($_SESSION['profilePicture']) {
+                    case "assets/images/blackwhite.jpg":
+                        echo "button[name='mountain1'] {background-color: rgba(10, 10, 10, 0.7);}";
+                        break;
+                
+                    case "assets/images/redblue.jpg":
+                        echo "button[name='desert1'] {background-color: rgba(10, 10, 10, 0.7);}";
+                        break;
+                    
+                    case "assets/images/purplecyan.jpg":
+                        echo "button[name='forest1'] {background-color: rgba(10, 10, 10, 0.7);}";
+                        break;
+
+                    case "assets/images/pinkred.jpg":
+                        echo "button[name='ocean1'] {background-color: rgba(10, 10, 10, 0.7);}";
+                        break;
+
+                    case "assets/images/redyellow.jpg":
+                        echo "button[name='aurora1'] {background-color: rgba(10, 10, 10, 0.7);}";
+                        break;
+
+                    case "assets/images/bluewhite.jpg":
+                        echo "button[name='city1'] {background-color: rgba(10, 10, 10, 0.7);}";
+                        break;
+
+                    case "assets/images/greenwhite.jpg":
+                        echo "button[name='stars1'] {background-color: rgba(10, 10, 10, 0.7);}";
+                        break;
+
+                    case "assets/images/redblack.jpg":
+                        echo "button[name='sunset1'] {background-color: rgba(10, 10, 10, 0.7);}";
+                        break;
+                }
+            } 
         ?>
         
     </style>
@@ -93,6 +156,136 @@
             session_destroy();
             header("location: login.php");
         }        
+    ?>
+
+    <div class="accountHeading">
+        <h1>Account Information</h1>
+    </div>
+
+    <div class="informationContainer">
+        <div class="profileBox">
+
+            <div class="profileContainer">
+    
+                <img src="<?=$profilePicture?>" alt="">
+    
+            </div>
+
+            <div class="profileName"><?=$username?></div>
+            
+        </div>
+
+        <div class="statsBox">
+
+            <div class="statsContainer">
+                <div class="stat">Songs Saved : <?=$numberOfTracks?></div>
+                <div class="stat">Albums Saved : <?=$numberOfAlbums?></div>
+                <div class="stat">Artists Saved : <?=$numberOfArtists?></div>
+                <!-- <div class="stat">Playlists Created : 3</div> -->
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="accountHeading">
+        <h1>Friends</h1>
+    </div>
+
+    
+    <form method="post">
+
+        <div class="accountHeading">
+            <h1>Profile Picture</h1>
+        </div>
+
+        <div class="profileButtonContainer">
+
+            <button type="submit" name="desert1" class="profileButton">
+                <img class="profilePreview" src="assets/images/redblue.jpg"> <br>
+                <div class="profileImageLabel">Image 1</div>
+            </button>
+    
+            <button type="submit" name="ocean1" class="profileButton">
+                <img class="profilePreview" src="assets/images/pinkred.jpg"> <br>
+                <div class="profileImageLabel">Image 2</div>
+            </button>
+    
+            <button type="submit" name="mountain1" class="profileButton">
+                <img class="profilePreview" src="assets/images/blackwhite.jpg"> <br>
+                <div class="profileImageLabel">Image 3</div>
+            </button>
+            
+            <button type="submit" name="forest1" class="profileButton">
+                <img class="profilePreview" src="assets/images/purplecyan.jpg"> <br>
+                <div class="profileImageLabel">Image 4</div>
+            </button>
+
+            <button type="submit" name="aurora1" class="profileButton">
+                <img class="profilePreview" src="assets/images/redyellow.jpg"> <br>
+                <div class="profileImageLabel">Image 5</div>
+            </button>
+    
+            <button type="submit" name="city1" class="profileButton">
+                <img class="profilePreview" src="assets/images/bluewhite.jpg"> <br>
+                <div class="profileImageLabel">Image 6</div>
+            </button>
+    
+            <button type="submit" name="stars1" class="profileButton">
+                <img class="profilePreview" src="assets/images/greenwhite.jpg"> <br>
+                <div class="profileImageLabel">Image 7</div>
+            </button>
+
+            <button type="submit" name="sunset1" class="profileButton">
+                <img class="profilePreview" src="assets/images/redblack.jpg"> <br>
+                <div class="profileImageLabel">Image 8</div>
+            </button>
+
+        </div>
+    </form>
+
+    <?php
+        if (isset($_POST['mountain1'])) {
+            $_SESSION['profilePicture'] = "assets/images/blackwhite.jpg";
+            echo "<meta http-equiv='refresh' content='0'>";
+            changeProfilePicture();
+            
+        } else if (isset($_POST['desert1'])) {
+            $_SESSION['profilePicture'] = "assets/images/redblue.jpg";
+            echo "<meta http-equiv='refresh' content='0'>";
+            changeProfilePicture();
+
+        } else if (isset($_POST['ocean1'])) {
+            $_SESSION['profilePicture'] = "assets/images/pinkred.jpg";
+            echo "<meta http-equiv='refresh' content='0'>";
+            changeProfilePicture();
+
+        } else if (isset($_POST['city1'])) {
+            $_SESSION['profilePicture'] = "assets/images/bluewhite.jpg";
+            echo "<meta http-equiv='refresh' content='0'>";
+            changeProfilePicture();
+
+        } else if (isset($_POST['forest1'])) {
+            $_SESSION['profilePicture'] = "assets/images/purplecyan.jpg";
+            echo "<meta http-equiv='refresh' content='0'>";
+            changeProfilePicture();
+
+        } else if (isset($_POST['aurora1'])) {
+            $_SESSION['profilePicture'] = "assets/images/redyellow.jpg";
+            echo "<meta http-equiv='refresh' content='0'>";
+            changeProfilePicture();
+
+        } else if (isset($_POST['stars1'])) {
+            $_SESSION['profilePicture'] = "assets/images/greenwhite.jpg";
+            echo "<meta http-equiv='refresh' content='0'>";
+            changeProfilePicture();
+
+        } else if (isset($_POST['sunset1'])) {
+            $_SESSION['profilePicture'] = "assets/images/redblack.jpg";
+            echo "<meta http-equiv='refresh' content='0'>";
+            changeProfilePicture();
+        }
+        
     ?>
 
 
@@ -150,52 +343,104 @@
     <?php
         if (isset($_POST['mountain'])) {
             $_SESSION['background'] = "assets/images/mountain.jpg";
-            header("Refresh: 0");
+            echo "<meta http-equiv='refresh' content='0'>";
             changeBackground();
             
         } else if (isset($_POST['desert'])) {
             $_SESSION['background'] = "assets/images/desert.jpg";
-            header("Refresh: 0");
+            echo "<meta http-equiv='refresh' content='0'>";
             changeBackground();
 
         } else if (isset($_POST['ocean'])) {
             $_SESSION['background'] = "assets/images/ocean.jpg";
-            header("Refresh: 0");
+            echo "<meta http-equiv='refresh' content='0'>";
             changeBackground();
 
         } else if (isset($_POST['city'])) {
             $_SESSION['background'] = "assets/images/city.jpg";
-            header("Refresh: 0");
+            echo "<meta http-equiv='refresh' content='0'>";
             changeBackground();
 
         } else if (isset($_POST['forest'])) {
             $_SESSION['background'] = "assets/images/forest.jpg";
-            header("Refresh: 0");
+            echo "<meta http-equiv='refresh' content='0'>";
             changeBackground();
 
         } else if (isset($_POST['aurora'])) {
             $_SESSION['background'] = "assets/images/aurora.jpg";
-            header("Refresh: 0");
+            echo "<meta http-equiv='refresh' content='0'>";
             changeBackground();
 
         } else if (isset($_POST['stars'])) {
             $_SESSION['background'] = "assets/images/stars.jpg";
-            header("Refresh: 0");
+            echo "<meta http-equiv='refresh' content='0'>";
             changeBackground();
 
         } else if (isset($_POST['sunset'])) {
             $_SESSION['background'] = "assets/images/sunset.jpg";
-            header("Refresh: 0");
+            echo "<meta http-equiv='refresh' content='0'>";
             changeBackground();
+        }
+
+    ?>
+
+    <div class="accountHeading">
+        <h1>Account Settings</h1>
+    </div>
+
+    <button id="changePasswordToggle">Change Password</button>
+
+    <form method="post" id="changePassword" class="hide">
+        <input type="password" name="oldPassword" placeholder="Old Password" required> <br>
+        <input type="password" name="newPassword" placeholder="New Password" required> <br>
+        <input type="submit" value="Confirm">
+    </form>
+
+    <?php
+        if (isset($_POST['oldPassword'])) {
+            $oldPassword = $_POST['oldPassword'];
+            $newPassword = $_POST['newPassword'];
+            changePassword($username, $oldPassword, $newPassword);
+        }
+
+        if (isset($_POST['oldPassword'])) {
+
+            if (isset($_SESSION['changePasswordError'])) {
+                echo "<div class='passwordError'>Incorrect Password</div>";
+                unset($_SESSION['changePasswordError']);
+                unset($_POST['oldPassword']);
+            } else {
+                echo "<div class='passwordChange'>Password Changed Successfully</div>";
+                unset($_POST['oldPassword']);
+            }
         }
 
         
     ?>
 
+    <script>
+  
+          const btn = document.getElementById("changePasswordToggle");
+          btn.onclick = function () {
+              var x = document.getElementById("changePassword");
+              if (x.classList.contains("hide")) {
+                  x.classList.remove("hide");
+              } else {
+                  x.classList.add("hide");
+              }
+          }
+    </script>
+
+
+
+
+
+
     <form method="post" class="logoutForm">
         <input type="submit" name="logout" value="Log Out" class="logout">
     </form>
 
+  
 
 </body>
 </html>
