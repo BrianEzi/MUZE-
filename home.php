@@ -1,14 +1,12 @@
 
 <?php
-
     session_start();
-<<<<<<< HEAD
+    
     if (isset($_SESSION['background'])) {
         $background = $_SESSION['background'];
     } else {
         $background = "assets/images/desert.jpg";
     }
-=======
 
     $database_host = "dbhost.cs.man.ac.uk";
     $database_user = "u95206ma";
@@ -60,7 +58,7 @@
         $sql = "CREATE TABLE friend (
         friendname VARCHAR(30) NOT NULL,
         chat VARCHAR(30) NOT NULL,
-        nickname VARCHAR(10) NOT NULL,  
+        nickname VARCHAR(10) NOT NULL,
         PRIMARY KEY (friendname)",
 
         $pdo = new pdo('mysql:host=localhost;dbname=' . $database_name . '',
@@ -140,10 +138,9 @@
             echo("incorrect email or password");
     }
 
->>>>>>> cd8c0187a1d8e7cf35d614da3ba9daf4cdf419c0
 ?>
 
-<html>
+<html lang="en">
     <head>
         <link rel="stylesheet" type="text/css" href="assets/styles/myStyles.css">
         <meta charset="utf-8">
