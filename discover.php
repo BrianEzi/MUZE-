@@ -52,6 +52,22 @@ if (!empty($searchTerm)) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>MUZE# - Discover</title>
+
+        <script>
+            
+            document.addEventListener("DOMContentLoaded", function (event) {
+                var scrollPosition = localStorage.getItem("scrollPosition");
+                if (scrollPosition) {
+                    window.scrollTo(0, scrollPosition);
+                }
+            });
+
+            window.onscroll = function (e) {
+                localStorage.setItem("scrollPosition", window.scrollY);
+            };
+
+        </script>
+
     </head>
     <body style="background-image: url(<?php echo $background ?>);">
         <div class="topnav">
