@@ -53,13 +53,15 @@
             <?php
             function chatOption($chatId, $chatOption) {
                 ?>
-                <li class="chatOption" id="chatOption<?=$chatId?>">
-                    <img src="assets/images/aurora.jpg" alt="<?=$chatOption["userName"]?>'s profile picture">
-                    <div>
-                        <h5><?=$chatOption["userName"]?></h5>
-                        <p><?=$chatOption["lastMessage"]?></p>
-                    </div>
-                </li>
+                <a href="chat.php?selectedChat=<?=$chatId?>">
+                    <li class="chatOption" id="chatOption<?=$chatId?>">
+                        <img src="assets/images/aurora.jpg" alt="<?=$chatOption["userName"]?>'s profile picture">
+                        <div>
+                            <h5><?=$chatOption["userName"]?></h5>
+                            <p><?=$chatOption["lastMessage"]?></p>
+                        </div>
+                    </li>
+                </a>
                 <?php
             }
             $chats = Chat::ListChats();

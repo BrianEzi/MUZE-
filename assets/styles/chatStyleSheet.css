@@ -31,6 +31,9 @@ body {
   overflow-y: auto;
   padding: 1rem;
 }
+.chatArea .chatSidebar > a {
+  color: inherit;
+}
 .chatArea .chatSidebar .chatOption {
   display: inline-flex;
   width: 13em;
