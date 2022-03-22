@@ -33,6 +33,7 @@ body {
 }
 .chatArea .chatSidebar > a {
   color: inherit;
+  text-decoration: none;
 }
 .chatArea .chatSidebar .chatOption {
   display: inline-flex;
@@ -42,6 +43,8 @@ body {
   padding: 0.5rem 1rem;
   transition: margin 0.2s, padding 0.2s;
   cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .chatArea .chatSidebar .chatOption:hover {
   background: rgba(0, 0, 0, 0.05);
@@ -59,9 +62,13 @@ body {
 .chatArea .chatSidebar .chatOption > div {
   flex: 1;
   padding-top: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .chatArea .chatSidebar .chatOption > div h5, .chatArea .chatSidebar .chatOption > div p {
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .chatArea .chatMain {
   flex: 1;
@@ -123,8 +130,12 @@ body {
     overflow-x: hidden;
     white-space: inherit;
   }
+  .chatArea .chatSidebar > a {
+    display: block;
+  }
   .chatArea .chatSidebar .chatOption {
     display: flex;
+    width: 100%;
     max-width: initial;
     margin-bottom: 1rem;
   }
