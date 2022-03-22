@@ -1,10 +1,16 @@
 <?php
     session_start();
+
+    require_once "internal-api/Chat.php";
+
     if (isset($_SESSION['background'])) {
         $background = $_SESSION['background'];
     } else {
         $background = "assets/images/desert.jpg";
     }
+
+    // todo: remove this! used as placeholder for logging in
+    $_SESSION["userId"] ??= 12;
 ?>
 
 <!DOCTYPE html>
@@ -44,51 +50,41 @@
 
     <div class="chatArea">
         <ul class="chatSidebar">
-            <li class="chatOption">
-                <img src="assets/images/aurora.jpg" alt="Someone's profile picture">
-                <div>
-                    <h5>Someone</h5>
-                    <p>Hey!</p>
-                </div>
-            </li>
-            <li class="chatOption selected">
-                <img src="assets/images/aurora.jpg" alt="Someone else's profile picture">
-                <div>
-                    <h5>Someone else</h5>
-                    <p>Hello!</p>
-                </div>
-            </li>
-            <li class="chatOption">
-                <img src="assets/images/aurora.jpg" alt="A friend's profile picture">
-                <div>
-                    <h5>A friend</h5>
-                    <p>Hi!</p>
-                </div>
-            </li>
-            <li class="chatOption">
-                <img src="assets/images/aurora.jpg" alt="Another person's profile picture">
-                <div>
-                    <h5>Another person</h5>
-                    <p>Hola!</p>
-                </div>
-            </li>
+            <?php
+            function chatOption($chatId, $chatOption) {
+                ?>
+                <li class="chatOption" id="chatOption<?=$chatId?>">
+                    <img src="assets/images/aurora.jpg" alt="<?=$chatOption["userName"]?>'s profile picture">
+                    <div>
+                        <h5><?=$chatOption["userName"]?></h5>
+                        <p><?=$chatOption["lastMessage"]?></p>
+                    </div>
+                </li>
+                <?php
+            }
+            $chats = Chat::ListChats();
+            $selectedChatId = $_GET["selectedChat"] ?? "";
+            if (!empty($selectedChatId)) { // show selected chat first
+	            chatOption($selectedChatId, $chats[$selectedChatId]);
+            }
+            foreach ($chats as $chatId => $chatOption) { // now show the rest of the chats
+                if ($chatId == $selectedChatId) continue; // don't repeat the selected chat
+                chatOption($chatId, $chatOption);
+            }
+            ?>
         </ul>
         <div class="chatMain">
             <ul class="chatMessages">
-		        <?php for ($i = 0; $i < 10; ++$i) { ?>
-                    <li class="chatMessage">
-                        Lorem ipsum dolor sit amet
+                <?php
+                if (!empty($selectedChatId)) foreach (Chat::GetChatMessages($selectedChatId) as $messageId => $messageObj) {
+                    $ownMessage = $messageObj["author"] == $_SESSION["userId"] ? "chatMessage-ownMessage": "";
+                    ?>
+                    <li class="chatMessage <?=$ownMessage?>" id="chatMessage<?=$messageId?>">
+                        <?=$messageObj["text"]?>
                     </li>
-                    <li class="chatMessage">
-                        consectetur adipiscing elit
-                    </li>
-                    <li class="chatMessage chatMessage-ownMessage">
-                        Ut enim ad minim veniam
-                    </li>
-                    <li class="chatMessage">
-                        Ut enim ad minim veniam
-                    </li>
-		        <?php } ?>
+                    <?php
+                }
+                ?>
             </ul>
             <input class="chatInput" placeholder="Send a message...">
         </div>
