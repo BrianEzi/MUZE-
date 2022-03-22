@@ -42,7 +42,11 @@
     </div>
 
     <div class="musicHeading">
-        <h1>My Tracks</h1>
+        <div class="emptySpace"></div>
+
+        <div class="heading">
+            <b>My Tracks</b>
+        </div>
         <div class="seeAll"><a href="myMusic/myTracks.php">SEE ALL</a></div>
     </div>
             <div class="content">
@@ -112,7 +116,11 @@
             </div>
             
     <div class="musicHeading">
-        <h1>My Albums</h1>
+        <div class="emptySpace"></div>
+
+        <div class="heading">
+            <b>My Albums</b>
+        </div>
         <div class="seeAll"><a href="myMusic/myAlbums.php">SEE ALL</a></div>
     </div>
 
@@ -181,7 +189,10 @@
             </div>
 
     <div class="musicHeading">
-        <h1>My Artists</h1>
+        <div class="emptySpace"></div>
+        <div class="heading">
+            <b>My Artists</b>
+        </div>
         <div class="seeAll"><a href="myMusic/myArtists.php">SEE ALL</a></div>
     </div>
 
@@ -248,7 +259,10 @@
             </div>
 
     <div class="musicHeading">
-        <h1>My Playlists</h1>
+        <div class="emptySpace"></div>
+        <div class="heading">
+            <b>My Playlists</b>
+        </div>
         <div class="seeAll"><a href="myMusic/myPlaylists.php">SEE ALL</a></div>
     </div>
 
@@ -315,6 +329,8 @@
                     }
                 ?>
             </div>
+
+            <br><br><br><br>
 
 </body>
 </html>

@@ -45,7 +45,10 @@
             
     <div class="musicHeading">
         <div class="back"><a href="../myMusic.php">BACK</a></div>
-        <h1>My Playlists</h1>
+        <div class="heading">
+            <b>My Playlists</b>
+        </div>
+        <div class="emptySpace"></div>
     </div>
 
             <div class="content">
@@ -67,7 +70,7 @@
                                         
                                     </div>
                                     <div class="contentItem-mainText">
-                                        <div class="contentLabel">ALBUM</div>
+                                        <div class="contentLabel">PLAYLIST</div>
                                         <div class="title"><b><?php echo $row[0]; ?></b></div>
                                         <?php echo $row[2]; ?>
                                     </div>
@@ -86,6 +89,8 @@
                 ?>
             </div>
 
+            <br><br>
+
     <div class="newPlaylistForm">
 
         <form method="post">
@@ -94,6 +99,8 @@
 
         </form>
     </div>
+
+    <br><br><br><br>
 
 </body>
 </html>

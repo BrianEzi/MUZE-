@@ -59,40 +59,41 @@ padding-bottom: 0.6em;
   padding: 0 10em;
 }
 
-.musicHeading h1 {
+.heading {
   text-align: center;
   font-size: 3em;
   color: white;
-  text-decoration: underline;
-  margin-left: 40%;
-  
-  
-  /* display: inline-block; */
-  /* padding: 0.2em 0.4em;
+  margin-top: 0.8em;
   background-color: rgba(100, 100, 100, 0.6);
-  border-radius: 0.6em; */
+  border-radius: 0.6em;
+  padding: 0.2em 0.4em;
   
+}
+
+.emptySpace {
+  width: 10em;
 }
 
 .seeAll {
-
+  width: 5em;
   text-align: center;
   font-size: 2em;
-  margin-top: 1.5em;
-  
-  /* display: inline-block; */
+  margin-top: 2em;
+  background-color: rgba(100, 100, 100, 0.6);
+  border-radius: 0.6em;
+  padding: 0.2em 0.4em;
+  transition: all 0.3s;
+}
+
+.seeAll:hover {
+  background-color: rgba(10, 10, 10, 0.6);
 }
 
 .seeAll a {
-  color: rgb(70, 70, 70);
+  color: white;
   text-decoration: none;
 }
 
-.seeAll a:hover{
-  color: rgb(70, 70, 70);
-  text-decoration: underline;
-}
-
 .content h2 {
-  padding-left: 35%;
+  margin: 0 auto;
 }

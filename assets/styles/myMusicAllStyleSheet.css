@@ -59,37 +59,42 @@ padding-bottom: 0.6em;
   padding: 0 10em;
 }
 
-.musicHeading h1 {
-  margin-right: 40%;
+.heading {
   text-align: center;
   font-size: 3em;
   color: white;
-  text-decoration: underline;
-  
-  
-  /* display: inline-block; */
-  /* padding: 0.2em 0.4em;
+  margin-top: 0.8em;
   background-color: rgba(100, 100, 100, 0.6);
-  border-radius: 0.6em; */
+  border-radius: 0.6em;
+  padding: 0.2em 0.4em;
   
 }
 
+.emptySpace {
+  width: 8em;
+}
 
 .back {
-
+  width: 4em;
   text-align: center;
   font-size: 2em;
-  margin-top: 1.5em;
-  
-  /* display: inline-block; */
+  margin-top: 2em;
+  background-color: rgba(100, 100, 100, 0.6);
+  border-radius: 0.6em;
+  padding: 0.2em 0.4em;
+  transition: all 0.3s;
+
+}
+
+.back:hover {
+  background-color: rgba(10, 10, 10, 0.6);
 }
 
 .back a {
-  color: rgb(70, 70, 70);
+  color: white;
   text-decoration: none;
 }
 
-.back a:hover{
-  color: rgb(70, 70, 70);
-  text-decoration: underline;
+.content h2 {
+  margin: 0 auto;
 }
