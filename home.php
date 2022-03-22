@@ -149,7 +149,13 @@
         <div class="topnav">
             <a class="active" href="home.php">HOME</a>
             <a href="discover.php">DISCOVER</a>
-            <a href="chat.php">CHAT</a>
+
+            <?php
+                if (isset($_SESSION['username'])) {
+                    echo '<a href="chat.php">CHAT</a>';
+                }
+            ?>
+            
             <a href="games.php">GAMES</a>
             
 
