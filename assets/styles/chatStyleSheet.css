@@ -1,38 +1,56 @@
-.chatArea {
+body {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
+  gap: 1rem;
+  height: 100vh;
+  max-height: 100vh;
+}
+
+.topnav {
+  flex-shrink: 0;
+}
+
+.chatArea {
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
   background: rgba(255, 255, 255, 0.5);
-  height: 85vh;
-  max-height: 85vh;
   width: 100%;
   max-width: 1200px;
   margin: auto;
+  overflow-y: hidden;
 }
 .chatArea .chatSidebar {
+  flex-shrink: 0;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
   list-style: none;
-  max-width: 30%;
   border-inline-end: rgba(0, 0, 0, 0.2) 1px solid;
   max-height: 100%;
   overflow-y: auto;
   padding: 1rem;
 }
+.chatArea .chatSidebar > a {
+  color: inherit;
+  text-decoration: none;
+}
 .chatArea .chatSidebar .chatOption {
-  display: flex;
+  display: inline-flex;
+  width: 13em;
   flex-flow: row nowrap;
   gap: 1rem;
-  margin-bottom: 1rem;
   padding: 0.5rem 1rem;
   transition: margin 0.2s, padding 0.2s;
-  cursor: hand;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .chatArea .chatSidebar .chatOption:hover {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.05);
 }
 .chatArea .chatSidebar .chatOption.selected {
   background: rgba(0, 0, 0, 0.1);
-  margin-left: -1rem;
-  margin-right: -1rem;
-  padding: 0.5rem 2rem;
 }
 .chatArea .chatSidebar .chatOption > img {
   aspect-ratio: 1;
@@ -44,13 +62,17 @@
 .chatArea .chatSidebar .chatOption > div {
   flex: 1;
   padding-top: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .chatArea .chatSidebar .chatOption > div h5, .chatArea .chatSidebar .chatOption > div p {
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .chatArea .chatMain {
   flex: 1;
-  max-height: 100%;
+  max-height: 100vh;
   overflow: hidden;
   padding: 1rem;
   display: flex;
@@ -65,21 +87,61 @@
 }
 .chatArea .chatMain .chatMessages {
   flex: 1;
+  position: relative;
   list-style: none;
   overflow-y: auto;
+  padding: 0;
 }
+.chatArea .chatMain .chatMessages:empty::before, .chatArea .chatMain .chatMessages:-moz-only-whitespace::before,
 .chatArea .chatMain .chatMessages .chatMessage {
   display: table;
   background: rgba(255, 255, 255, 0.9);
   padding: 1rem;
   width: auto;
   border-radius: 2rem;
-  max-width: 70%;
+}
+.chatArea .chatMain .chatMessages .chatMessage {
   margin: 0 0 1rem 0;
+  max-width: 90%;
+}
+@media screen and (min-width: 350px) {
+  .chatArea .chatMain .chatMessages .chatMessage {
+    max-width: 70%;
+  }
 }
 .chatArea .chatMain .chatMessages .chatMessage.chatMessage-ownMessage {
   background: rgba(240, 240, 240, 0.9);
   margin-left: auto;
 }
-
-/*# sourceMappingURL=chatStyleSheet.css.map */
+.chatArea .chatMain .chatMessages:empty::before, .chatArea .chatMain .chatMessages:-moz-only-whitespace::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 100%;
+  transform: translate(-50%, -50%);
+  content: "Say hi or select a chat!";
+}
+@media screen and (min-width: 700px) {
+  .chatArea {
+    flex-flow: row nowrap;
+  }
+  .chatArea .chatSidebar {
+    max-width: 30%;
+    overflow-x: hidden;
+    white-space: inherit;
+  }
+  .chatArea .chatSidebar > a {
+    display: block;
+  }
+  .chatArea .chatSidebar .chatOption {
+    display: flex;
+    width: 100%;
+    max-width: initial;
+    margin-bottom: 1rem;
+  }
+  .chatArea .chatSidebar .chatOption.selected {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding: 0.5rem 2rem;
+  }
+}
