@@ -32,12 +32,12 @@ body {
 }
 .chatArea .chatSidebar .chatOption {
   display: inline-flex;
-  max-width: 50vw;
+  width: 13em;
   flex-flow: row nowrap;
   gap: 1rem;
   padding: 0.5rem 1rem;
   transition: margin 0.2s, padding 0.2s;
-  cursor: hand;
+  cursor: pointer;
 }
 .chatArea .chatSidebar .chatOption:hover {
   background: rgba(0, 0, 0, 0.05);
