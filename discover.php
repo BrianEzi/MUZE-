@@ -73,7 +73,13 @@ if (!empty($searchTerm)) {
         <div class="topnav">
             <a href="home.php">HOME</a>
             <a class = "active" href="discover.php">DISCOVER</a>
-            <a href="chat.php">CHAT</a>
+            
+            <?php
+                if (isset($_SESSION['username'])) {
+                    echo '<a href="chat.php">CHAT</a>';
+                }
+            ?>
+            
             <a href="games.php">GAMES</a>
             
             <?php

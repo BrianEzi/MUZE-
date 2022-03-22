@@ -44,7 +44,10 @@
             
     <div class="musicHeading">
         <div class="back"><a href="../myMusic.php">BACK</a></div>
-        <h1>My Albums</h1>
+        <div class="heading">
+            <b>My Albums</b>
+        </div>
+        <div class="emptySpace"></div>
     </div>
 
             <div class="content">
@@ -84,6 +87,8 @@
                     }
                 ?>
             </div>
+
+            <br><br><br><br>
 
 </body>
 </html>
