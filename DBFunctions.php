@@ -65,6 +65,7 @@
             getTracks($username);
             getAlbums($username);
             getArtists($username);
+            getPlaylists($username);
 
             header("location: home.php");
         }
@@ -115,6 +116,7 @@
                 getTracks($username);
                 getAlbums($username);
                 getArtists($username);
+                getPlaylists($username);
                 
                 header("location: home.php");
             }

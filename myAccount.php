@@ -15,6 +15,7 @@
     $numberOfTracks = count($_SESSION['tracks']);
     $numberOfAlbums = count($_SESSION['albums']);
     $numberOfArtists = count($_SESSION['artists']);
+    $numberOfPlaylists = count($_SESSION['playlists']);
 
     function changeBackground() {
         $background = $_SESSION['background'];
@@ -169,6 +170,7 @@
     <?php
 
         if (isset($_POST['logout'])) {
+
             session_destroy();
             header("location: login.php");
         }        
@@ -197,7 +199,7 @@
                 <div class="stat">Songs Saved : <?=$numberOfTracks?></div>
                 <div class="stat">Albums Saved : <?=$numberOfAlbums?></div>
                 <div class="stat">Artists Saved : <?=$numberOfArtists?></div>
-                <!-- <div class="stat">Playlists Created : 3</div> -->
+                <div class="stat">Playlists Created : <?=$numberOfPlaylists?></div>
 
             </div>
 
