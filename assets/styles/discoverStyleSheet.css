@@ -13,7 +13,7 @@
 }
 
 .contentItem {
-  width: 23em;
+  width: 35em;
   background-color: rgba(100, 100, 100, 0.6);
   display: flex;
   padding: 1em;
@@ -21,6 +21,9 @@
   margin: 1em;
   border-radius: 1.7em;
   transition: background-color 0.3s;
+  border-color: rgba(100, 100, 100, 0.6);
+  text-align: left;
+  border: 1em rgba(100, 100, 100, 0.6);
 }
 
 .contentItem:hover {
@@ -28,13 +31,13 @@
 }
 
 .contentItem .contentItem-image {
-    width: 5em;
-    height: 5em;
+    width: 10em;
+    height: 10em;
 }
 .contentItem .contentItem-image img,
 .contentItem .contentItem-image picture {
-    width: 5em;
-    height: 5em;
+    width: 10em;
+    height: 10em;
     object-fit: cover;
 }
 
@@ -42,10 +45,11 @@
 .contentItem .contentItem-mainText {
   color: white;
   padding-left: 1em;
+  font-size: 1.5em;
 }
 
 .contentItem .contentItem-mainText .title {
-  font-size: 1.3em;
+  font-size: 1.15em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -55,10 +59,12 @@
 .contentItem .contentItem-mainText .contentLabel {
   color: #111111;
   padding-bottom: 0.6em;
+  font-size: 1em;
 }
 
 .contentIcons {
-  margin-right: 2em;
+  margin-right: 0em;
+  margin-left: 1em;
 }
 
 input[type=image] {
