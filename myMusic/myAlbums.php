@@ -61,9 +61,20 @@
                         if (count($albums) > 0) {
 
                             foreach($albums as $row) {
+
+                                $type = "ALBUM";
                                 ?>
 
-                                <div class="contentItem">
+                                <form method="post">
+
+                                <input type="hidden" name="artist" value="<?=$row[2]?>">
+                                <input type="hidden" name="contentType" value="<?=$type?>">
+                                <input type="hidden" name="title" value="<?=$row[0]?>">
+                                <input type="hidden" name="image" value="<?=$row[3]?>">
+
+                                <button type="submit" class="contentItem" name="expand">
+
+                                <!-- <div class="contentItem"> -->
                                     <div class="contentItem-image">
                                         <img src="<?php echo $row[3]; ?>" alt="">
                                         
@@ -74,7 +85,10 @@
                                         <?php echo $row[2]; ?>
                                     </div>
 
-                                </div>
+                                <!-- </div> -->
+
+                                </form>
+                                </button>
 
                                 <?php
                             }
@@ -87,6 +101,19 @@
                     }
                 ?>
             </div>
+
+            <?php
+
+            if (isset($_POST['expand'])) {
+                $_SESSION['title'] = $_POST['title'];
+                $_SESSION['image'] = $_POST['image'];
+                $_SESSION['type'] = $_POST['contentType'];
+                $_SESSION['artist'] = $_POST['artist'];
+
+                echo "<meta http-equiv='refresh' content='0;URL=../myContentInfo.php'>";
+            }
+
+            ?>
 
             <br><br><br><br>
 

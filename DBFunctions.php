@@ -399,6 +399,7 @@
             dataID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             username VARCHAR(30) NOT NULL,
             title VARCHAR(100),
+            artist VARCHAR(100),
             trackName VARCHAR(100),
             image VARCHAR(100))";
         
@@ -407,12 +408,19 @@
         $pdo->query($sql);
     }
 
-    function addPlaylist($username, $title, $trackList, $image) {
+    function dropPlaylistTable() {
+        $sql = "DROP TABLE playlists";
+        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+        $pdo->query($sql);
+    }
+
+    function addPlaylist($username, $title, $artist, $trackList, $image) {
 
         foreach ($trackList as $trackName) {
 
-            $sql = "INSERT INTO albums (username, title, trackName, image)
-                VALUES (:username, :title, :trackName, :image)";
+            $sql = "INSERT INTO playlists (username, title, trackName, artist, image)
+                VALUES (:username, :title, :trackName, :artist, :image)";
 
             $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
@@ -422,6 +430,7 @@
                 'username' => $username,
                 'title' => $title,
                 'trackName' => $trackName,
+                'artist' => $artist,
                 'image' => $image
             ]);
         }
@@ -443,7 +452,7 @@
     }
 
     function getPlaylists($username) {
-        $sql = "SELECT title, trackName, image
+        $sql = "SELECT title, trackName, artist, image
                 FROM playlists
                 WHERE username=:username";
 
@@ -460,24 +469,24 @@
         // $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $row = $stmt->fetchAll();
 
-        $playlistTrackNames = [];
-        $playlists = [];
+        $albumImages = [];
+        $albums = [];
         foreach($row as $track) {
-            if (in_array($track[1], $playlistsTrackNames)) {
+            if (in_array($track[0], $albumImages)) {
                 
             } else {
-                array_push($playlistTrackNames, $track[1]);
-                $playlistTracks = [];
+                array_push($albumImages, $track[0]);
+                $albumTracks = [];
                 foreach($row as $tempTrack) {
-                    if ($track[1] == $tempTrack[1]) {
-                        array_push($playlistTracks, $track[1]);
+                    if ($track[0] == $tempTrack[0]) {
+                        array_push($albumTracks, $track[1]);
                     }
                 }
-                $playlistInfo = [$track[0], $playlistTracks, $track[2]];
-                array_push($playlists, $playlistInfo);
+                $albumInfo = [$track[0], $albumTracks, $track[2], $track[3]];
+                array_push($albums, $albumInfo);
             }
         }
-        $_SESSION['playlists'] = $playlists;
+        $_SESSION['playlists'] = $albums;
     }
 
 ?>

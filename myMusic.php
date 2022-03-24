@@ -62,11 +62,24 @@
                             if (count($tracks) < 10) {
 
                                 foreach($tracks as $row) {
+                                    $type = "TRACK";
                                     ?>
-        
-                                    <div class="contentItem">
+
+
+                                    <form method="post">
+
+                                        
+                                    <input type="hidden" name="artist" value="<?=$row[1]?>">
+                                    <input type="hidden" name="contentType" value="<?=$type?>">
+                                    <input type="hidden" name="title" value="<?=$row[0]?>">
+                                    <input type="hidden" name="image" value="<?=$row[2]?>">
+
+                                    <button type="submit" class="contentItem" name="expand">
+
+                                    <!-- <div class="contentItem"> -->
+
                                         <div class="contentItem-image">
-                                            <img src="<?php echo $row[2]; ?>" alt="">
+                                            <img src="<?=$row[2]?>" alt="">
                                             
                                         </div>
                                         <div class="contentItem-mainText">
@@ -75,7 +88,9 @@
                                             <?php echo $row[1]; ?>
                                         </div>
         
-                                    </div>
+                                    <!-- </div> -->
+                                    </button>
+                                    </form>
         
                                     <?php
                                 }
@@ -84,9 +99,20 @@
                                 for ($i = 0; $i < 10; $i++) {
                                     $row = $tracks[$i];
 
+                                    $type = "TRACK";
                                     ?>
+
+                                    <form method="post">
+
+                                                                            
+                                    <input type="hidden" name="artist" value="<?=$row[1]?>">
+                                    <input type="hidden" name="contentType" value="<?=$type?>">
+                                    <input type="hidden" name="title" value="<?=$row[0]?>">
+                                    <input type="hidden" name="image" value="<?=$row[2]?>">
+
+                                    <button type="submit" class="contentItem" name="expand">
             
-                                    <div class="contentItem">
+                                    <!-- <div class="contentItem"> -->
                                         <div class="contentItem-image">
                                             <img src="<?php echo $row[2]; ?>" alt="">
                                             
@@ -97,7 +123,9 @@
                                             <?php echo $row[1]; ?>
                                         </div>
         
-                                    </div>
+                                    <!-- </div> -->
+                                    </button>
+                                    </form>
         
                                     <?php
                                     
@@ -137,9 +165,20 @@
                             if (count($albums) < 10) {
 
                                 foreach($albums as $row) {
+
+                                    $type = "ALBUM";
                                     ?>
 
-                                    <div class="contentItem">
+                                    <form method="post">
+
+                                    <input type="hidden" name="artist" value="<?=$row[2]?>">
+                                    <input type="hidden" name="contentType" value="<?=$type?>">
+                                    <input type="hidden" name="title" value="<?=$row[0]?>">
+                                    <input type="hidden" name="image" value="<?=$row[3]?>">
+
+                                    <button type="submit" class="contentItem" name="expand">
+
+                                    <!-- <div class="contentItem"> -->
                                         <div class="contentItem-image">
                                             <img src="<?php echo $row[3]; ?>" alt="">
                                             
@@ -150,7 +189,10 @@
                                             <?php echo $row[2]; ?>
                                         </div>
 
-                                    </div>
+                                    <!-- </div> -->
+                                    </button>
+                                    </form>
+
 
                                     <?php
                                 }
@@ -159,9 +201,21 @@
                                 for ($i = 0; $i < 10; $i++) {
                                     $row = $albums[$i];
 
+                                    $type = "ALBUM";
+
                                     ?>
+
+                                    <form method="post">
+
+                                                                            
+                                    <input type="hidden" name="artist" value="<?=$row[2]?>">
+                                    <input type="hidden" name="contentType" value="<?=$type?>">
+                                    <input type="hidden" name="title" value="<?=$row[0]?>">
+                                    <input type="hidden" name="image" value="<?=$row[3]?>">
+
+                                    <button type="submit" class="contentItem" name="expand">
             
-                                    <div class="contentItem">
+                                    <!-- <div class="contentItem"> -->
                                         <div class="contentItem-image">
                                             <img src="<?php echo $row[3]; ?>" alt="">
                                             
@@ -172,7 +226,9 @@
                                             <?php echo $row[2]; ?>
                                         </div>
 
-                                    </div>
+                                    <!-- </div> -->
+                                    </button>
+                                    </form>
 
                                     <?php
                                     
@@ -209,9 +265,19 @@
                             if (count($artists) < 10) {
 
                                 foreach($artists as $row) {
+
+                                    $type = "ARTIST";
                                     ?>
 
-                                    <div class="contentItem">
+                                    <form method="post">
+
+                                                                            
+                                    <input type="hidden" name="contentType" value="<?=$type?>">
+                                    <input type="hidden" name="title" value="<?=$row[0]?>">
+                                    <input type="hidden" name="image" value="<?=$row[1]?>">
+
+                                    <button type="submit" class="contentItem" name="expand">
+                                    <!-- <div class="contentItem"> -->
                                         <div class="contentItem-image">
                                             <img src="<?php echo $row[1]; ?>" alt="">
                                             
@@ -221,17 +287,28 @@
                                             <div class="title"><b><?php echo $row[0]; ?></b></div>
                                         </div>
 
-                                    </div>
+                                    <!-- </div> -->
+                                    </button>
+                                    </form>
 
                                     <?php
                                 }
                             } else {
                                 for ($i = 0; $i < 10; $i++) {
                                     $row = $artists[$i];
-
+                                    
+                                    $type = "ARTIST";
                                     ?>
 
-                                    <div class="contentItem">
+                                    <form method="post">
+
+                                                                                                                
+                                    <input type="hidden" name="contentType" value="<?=$type?>">
+                                    <input type="hidden" name="title" value="<?=$row[0]?>">
+                                    <input type="hidden" name="image" value="<?=$row[1]?>">
+                                    <button type="submit" class="contentItem" name="expand">
+
+                                    <!-- <div class="contentItem"> -->
                                         <div class="contentItem-image">
                                             <img src="<?php echo $row[1]; ?>" alt="">
                                             
@@ -241,7 +318,9 @@
                                             <div class="title"><b><?php echo $row[0]; ?></b></div>
                                         </div>
 
-                                    </div>
+                                    <!-- </div> -->
+                                    </button>
+                                    </form>
 
                                     <?php
                                     
@@ -280,20 +359,38 @@
 
                                 foreach($playlists as $row) {
                                     ?>
+                                    <form method="post">
 
-                                    <div class="contentItem">
-                                        <div class="contentItem-image">
-                                            <img src="<?php echo $row[3]; ?>" alt="">
-                                            
-                                        </div>
-                                        <div class="contentItem-mainText">
-                                            <div class="contentLabel">ALBUM</div>
-                                            <div class="title"><b><?php echo $row[0]; ?></b></div>
-                                            <?php echo $row[2]; ?>
-                                        </div>
+                                    <?php
+                                    $type = "PLAYLIST";
 
-                                    </div>
+                                    ?>
+                                        <form method="post">
 
+                                                                            
+                                        <input type="hidden" name="artist" value="<?=$row[2]?>">
+                                        <input type="hidden" name="contentType" value="<?=$type?>">
+                                        <input type="hidden" name="title" value="<?=$row[0]?>">
+                                        <input type="hidden" name="image" value="<?=$row[3]?>">
+
+                                        <button type="submit" class="contentItem" name="expand">
+
+                                        <!-- <div class="contentItem"> -->
+                                            <div class="contentItem-image">
+                                                <img src="<?php echo $row[3]; ?>" alt="">
+                                                
+                                            </div>
+                                            <div class="contentItem-mainText">
+                                                <div class="contentLabel">PLAYLIST</div>
+                                                <div class="title"><b><?php echo $row[0]; ?></b></div>
+                                                <?php //echo $row[2]; ?>
+                                            </div>
+
+                                        <!-- </div> -->
+
+                                        </button>
+                                        </form>
+                                    
                                     <?php
                                 }
 
@@ -302,19 +399,39 @@
                                     $row = $playlists[$i];
 
                                     ?>
-            
-                                    <div class="contentItem">
+                                    
+                                    <form method="post">
+
+                                    <?php
+                                    $type = "PLAYLIST";
+
+                                    ?>
+                                    
+                                    <form method="post">
+
+                                                                            
+                                    <input type="hidden" name="artist" value="<?=$row[2]?>">
+                                    <input type="hidden" name="contentType" value="<?=$type?>">
+                                    <input type="hidden" name="title" value="<?=$row[0]?>">
+                                    <input type="hidden" name="image" value="<?=$row[3]?>">
+
+                                    <button type="submit" class="contentItem" name="expand">
+
+                                    <!-- <div class="contentItem"> -->
                                         <div class="contentItem-image">
                                             <img src="<?php echo $row[3]; ?>" alt="">
                                             
                                         </div>
                                         <div class="contentItem-mainText">
-                                            <div class="contentLabel">ALBUM</div>
+                                            <div class="contentLabel">PLAYLIST</div>
                                             <div class="title"><b><?php echo $row[0]; ?></b></div>
-                                            <?php echo $row[2]; ?>
+                                            <?php //echo $row[2]; ?>
                                         </div>
 
-                                    </div>
+                                    <!-- </div> -->
+
+                                    </button>
+                                    </form>
 
                                     <?php
                                     
@@ -329,6 +446,21 @@
                     }
                 ?>
             </div>
+
+            <?php
+
+            if (isset($_POST['expand'])) {
+                $_SESSION['title'] = $_POST['title'];
+                $_SESSION['image'] = $_POST['image'];
+                $_SESSION['type'] = $_POST['contentType'];
+                // $_SESSION['type'] = "TRACK";
+                if (isset($_POST['artist'])) {
+                    $_SESSION['artist'] = $_POST['artist'];
+                }
+                echo "<meta http-equiv='refresh' content='0;URL=myContentInfo.php'>";
+            }
+
+            ?>
 
             <br><br><br><br>
 

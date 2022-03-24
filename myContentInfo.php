@@ -22,7 +22,7 @@
 <body style="background-image: url(<?php echo $background ?>);">
     <div class="topnav">
         <a href="home.php">HOME</a>
-        <a class = "active" href="discover.php">DISCOVER</a>
+        <a href="discover.php">DISCOVER</a>
         
         <?php
             if (isset($_SESSION['username'])) {
@@ -43,7 +43,7 @@
 
             if (isset($_SESSION['username'])) {
                 $username = $_SESSION['username'];
-                echo'<a style="float: right;" href="myMusic.php">MY MUSIC</a>';
+                echo'<a class = "active" style="float: right;" href="myMusic.php">MY MUSIC</a>';
             }
         ?>
     </div>
@@ -109,20 +109,21 @@
         }
 
         if ($type=="PLAYLIST") {
-            ?>
+        ?>
                 
-            <div class="contentWrapper">
-                <div class="imageWrapper">
-                    <img src="<?=$image?>" alt="">
-                </div>
-                <div class="textWrapper">
-                    <div class="type"><?=$type?></div>
-                    <div class="title"><b><?=$title?></b></div>
-                </div>
+        <div class="contentWrapper">
+            <div class="imageWrapper">
+                <img src="<?=$image?>" alt="">
             </div>
+            <div class="textWrapper">
+                <div class="type"><?=$type?></div>
+                <div class="title"><b><?=$title?></b></div>
+            </div>
+        </div>
     
         <?php
         }
+
         ?>
     
 
