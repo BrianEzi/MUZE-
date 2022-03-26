@@ -1,4 +1,3 @@
-
 <?php require_once(__DIR__ . "/DBFunctions.php"); ?>
 
 <?php
@@ -208,14 +207,23 @@
         <h1>Friends</h1>
     </div>
 
-    
     <form method="post">
 
         <div class="accountHeading">
             <h1>Profile Picture</h1>
         </div>
 
+        <div>
+            <button id="nuts" name="Add Friend" type="button">Add Friend</button>
+            <script type="text/javascript">
+                document.getElementById("nuts").onclick = function(){
+                    location.href = "friend.php";
+                };
+            </script>
+        </div>
+
         <div class="profileButtonContainer">
+
 
             <button type="submit" name="desert1" class="profileButton">
                 <img class="profilePreview" src="assets/images/redblue.jpg"> <br>
