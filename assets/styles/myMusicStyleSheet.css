@@ -10,22 +10,24 @@
   }
   
 .contentItem {
-  width: 23em;
+  width: 38em;
   background-color: rgba(100, 100, 100, 0.6);
   display: flex;
   padding: 1em;
   padding-top: 1.1em;
   margin: 1em;
   border-radius: 1.7em;
+  text-align: left;
+  border: 1em rgba(100, 100, 100, 0.6);
 }
 .contentItem .contentItem-image {
-    width: 8em;
-    height: 8em;
+    width: 13em;
+    height: 13em;
 }
 .contentItem .contentItem-image img,
 .contentItem .contentItem-image picture {
-    width: 8em;
-    height: 8em;
+    width: 13em;
+    height: 13em;
     object-fit: cover;
 }
 
@@ -33,6 +35,7 @@
 .contentItem .contentItem-mainText {
   color: white;
   padding-left: 1em;
+  font-size: 1.5em;
 }
 
 .contentItem .contentItem-mainText .title {

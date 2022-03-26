@@ -1,3 +1,6 @@
+
+<?php require_once(__DIR__ . "/../DBFunctions.php"); ?>
+
 <?php
     session_start();
     if (isset($_SESSION['background'])) {
@@ -62,9 +65,21 @@
                         if (count($playlists) > 0) {
 
                             foreach($playlists as $row) {
+
+                                $type = "PLAYLIST";
                                 ?>
 
-                                <div class="contentItem">
+                                <form method="post">
+
+                                                                                                            
+                                <input type="hidden" name="artist" value="<?=$row[2]?>">
+                                <input type="hidden" name="contentType" value="<?=$type?>">
+                                <input type="hidden" name="title" value="<?=$row[0]?>">
+                                <input type="hidden" name="image" value="<?=$row[3]?>">
+
+                                <button type="submit" class="contentItem" name="expand">
+
+                                <!-- <div class="contentItem"> -->
                                     <div class="contentItem-image">
                                         <img src="<?php echo $row[3]; ?>" alt="">
                                         
@@ -72,10 +87,13 @@
                                     <div class="contentItem-mainText">
                                         <div class="contentLabel">PLAYLIST</div>
                                         <div class="title"><b><?php echo $row[0]; ?></b></div>
-                                        <?php echo $row[2]; ?>
+                                        <?php //echo $row[2]; ?>
                                     </div>
 
-                                </div>
+                                <!-- </div> -->
+
+                                </button>
+                                </form>
 
                                 <?php
                             }
@@ -93,12 +111,53 @@
 
     <div class="newPlaylistForm">
 
-        <form method="post">
+        <button class="newPlaylist" id="createPlaylistToggle">Create New</button> <br> <br>
 
-            <input type="submit" class="newPlaylist" value="Create New">
-
+        <form method="post" id="createPlaylist" class="hide">
+            <input type="text" name="playlistName" placeholder="Playlist Name" required> <br>
+            <input type="submit" value="Confirm">
         </form>
+
+        <script>
+  
+          const btn = document.getElementById("createPlaylistToggle");
+          btn.onclick = function () {
+              var x = document.getElementById("createPlaylist");
+              if (x.classList.contains("hide")) {
+                  x.classList.remove("hide");
+              } else {
+                  x.classList.add("hide");
+              }
+          }
+        </script>
+
     </div>
+
+
+    <?php
+        if (isset($_POST['playlistName'])) {
+            $title = $_POST['playlistName'];
+            addPlaylist($username, $title, $username, ["",""], "https://community.spotify.com/t5/image/serverpage/image-id/25294i2836BD1C1A31BDF2?v=v2");
+            getPlaylists($username);
+            unset($_POST['playlistName']);
+            echo "<meta http-equiv='refresh' content='0'>";
+        }
+
+    ?>
+
+    <?php
+
+    if (isset($_POST['expand'])) {
+        $_SESSION['title'] = $_POST['title'];
+        $_SESSION['image'] = $_POST['image'];
+        $_SESSION['type'] = $_POST['contentType'];
+
+        $_SESSION['artist'] = $_POST['artist'];
+
+        echo "<meta http-equiv='refresh' content='0;URL=../myContentInfo.php'>";
+    }
+
+    ?>
 
     <br><br><br><br>
 

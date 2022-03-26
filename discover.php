@@ -115,82 +115,116 @@ if (!empty($searchTerm)) {
                 
                 $resultIndex = 0;
 		        foreach ($results[$type]->items as $result) {
+
+                    $_SESSION['searchResults'] = $results[$type]->items;
+
                     ?>
-                    <div class="contentItem">
-                        <div class="contentItem-image">
-                            <?=SearchComponent::extractImageTag($result, "5em")?>
-                        </div>
-                        <div class="contentItem-mainText">
-                            <div class="contentLabel"><?=strtoupper($type)?></div>
-                            <div class="title"><b><?=$result->name?></b></div>
-                            <?php if ($type != SPOTIFY_CONTENT_TYPE::ARTIST) { ?>
-                                <?=implode(", ", SearchComponent::getArtists($result))?>
-                            <?php } ?>
-                        </div>
-                        
-                        <?php
-
-                            $saved = false;
-
-                            if ($type == SPOTIFY_CONTENT_TYPE::TRACK) {
-                                foreach($tracks as $t) {
-                                    if ($t[0] == $result->name && $t[1] == implode(", ", SearchComponent::getArtists($result))) {
-                                        $saved = true;
-                                    }
-                                }
-                            }
-
-                            if ($type == SPOTIFY_CONTENT_TYPE::ALBUM) {
-                                foreach($albums as $a) {
-                                    if ($a[0] == $result->name && $a[2] == implode(", ", SearchComponent::getArtists($result))) {
-                                        $saved = true;
-                                    }
-                                }
-                            }
-
-                            if ($type == SPOTIFY_CONTENT_TYPE::ARTIST) {
-                                foreach($artists as $t) {
-                                    if ($t[0] == $result->name) {
-                                        $saved = true;
-                                    }
-                                }
-                            }
 
 
-                        ?>
 
-                        <div class="contentIcons">
-
+                    <form method="post">
                             <?php
-                                if ($saved && isset($username)) {
-                            ?>
 
-                                    <form method="post">
-                                        <input type="hidden" name="toUnsave">
-                                        <input type="hidden" name="index" value=<?=$resultIndex?>>
-                                        <input type="hidden" name="type" value=<?=$type?>>
-                                        <input type="image" src="assets/images/heart_filled.pdf" style="width: 3em; height: 5em;" alt="submit">
-                                    </form>
-
+                                if ($type == SPOTIFY_CONTENT_TYPE::TRACK) {
+                                    echo '<input type="hidden" name="artist" value="' . implode(", ", SearchComponent::getArtists($result)) . '">';
                                     
-
-                            <?php
-                                } else if (isset($username)) {
-                            ?>
-
-                                    <form method="post">
-                                        <input type="hidden" name="toSave">
-                                        <input type="hidden" name="index" value=<?=$resultIndex?>>
-                                        <input type="hidden" name="type" value=<?=$type?>>
-                                        <input type="image" src="assets/images/heart_unfilled.pdf" style="width: 3em; height: 5em;" alt="submit">
-                                    </form>
-
-                            <?php
                                 }
-                            ?>
+                                
+                                if ($type == SPOTIFY_CONTENT_TYPE::ALBUM) {
+                                    echo '<input type="hidden" name="artist" value="' . implode(", ", SearchComponent::getArtists($result)) . '">';
+                                }
+                                
+                                if ($type == SPOTIFY_CONTENT_TYPE::ARTIST) {
+                                    
+                                }
+                                ?>
 
-                        </div>
-                    </div>
+                            <input type="hidden" name="contentType" value="<?=strtoupper($result->type)?>">
+                            <input type="hidden" name="title" value="<?=$result->name?>">
+                            <input type="hidden" name="image" value="<?=SearchComponent::extractBiggestImageUrl($result)?>">
+
+                            <button type="submit" class="contentItem" name="expand">
+                            <!-- <div class="contentItem"> -->
+                                <div class="contentItem-image">
+                                    <?=SearchComponent::extractImageTag($result, "5em")?>
+                                </div>
+                                <div class="contentItem-mainText">
+                                    <div class="contentLabel"><?=strtoupper($type)?></div>
+                                    <div class="title"><b><?=$result->name?></b></div>
+                                    <?php if ($type != SPOTIFY_CONTENT_TYPE::ARTIST) { ?>
+                                        <?=implode(", ", SearchComponent::getArtists($result))?>
+                                    <?php } ?>
+                                </div>
+                                
+                                <?php
+        
+                                    $saved = false;
+        
+                                    if ($type == SPOTIFY_CONTENT_TYPE::TRACK) {
+                                        foreach($tracks as $t) {
+                                            if ($t[0] == $result->name && $t[1] == implode(", ", SearchComponent::getArtists($result))) {
+                                                $saved = true;
+                                            }
+                                        }
+                                    }
+        
+                                    if ($type == SPOTIFY_CONTENT_TYPE::ALBUM) {
+                                        foreach($albums as $a) {
+                                            if ($a[0] == $result->name && $a[2] == implode(", ", SearchComponent::getArtists($result))) {
+                                                $saved = true;
+                                            }
+                                        }
+                                    }
+        
+                                    if ($type == SPOTIFY_CONTENT_TYPE::ARTIST) {
+                                        foreach($artists as $t) {
+                                            if ($t[0] == $result->name) {
+                                                $saved = true;
+                                            }
+                                        }
+                                    }
+        
+        
+                                ?>
+        
+                                <div class="contentIcons">
+        
+                                    <?php
+                                        if ($saved && isset($username)) {
+                                    ?>
+        
+                                            <form method="post">
+                                                <input type="hidden" name="toUnsave">
+                                                <input type="hidden" name="index" value=<?=$resultIndex?>>
+                                                <input type="hidden" name="type" value=<?=$type?>>
+                                                <input type="image" src="assets/images/heart_filled.pdf" style="width: 3em; height: 5em;" alt="submit">
+                                            </form>
+        
+                                            
+        
+                                    <?php
+                                        } else if (isset($username)) {
+                                    ?>
+        
+                                            <form method="post">
+                                                <input type="hidden" name="toSave">
+                                                <input type="hidden" name="index" value=<?=$resultIndex?>>
+                                                <input type="hidden" name="type" value=<?=$type?>>
+                                                <input type="image" src="assets/images/heart_unfilled.pdf" style="width: 3em; height: 5em;" alt="submit">
+                                            </form>
+        
+                                    <?php
+                                        }
+                                    ?>
+        
+                                </div>
+                            <!-- </div> -->
+        
+                        </button>
+                    </form>
+
+                        
+
 
                     <?php
                     $resultIndex += 1;
@@ -260,6 +294,18 @@ if (!empty($searchTerm)) {
                 $_SESSION['reloadThePage'] = true;
                 echo "<meta http-equiv='refresh' content='0'>";
             }
+
+            if (isset($_POST['expand'])) {
+                $_SESSION['title'] = $_POST['title'];
+                $_SESSION['image'] = $_POST['image'];
+                $_SESSION['type'] = $_POST['contentType'];
+                // $_SESSION['type'] = "TRACK";
+                if (isset($_POST['artist'])) {
+                    $_SESSION['artist'] = $_POST['artist'];
+                }
+                echo "<meta http-equiv='refresh' content='0;URL=contentInfo.php'>";
+            }
+
 
         }
         ?>
