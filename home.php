@@ -1,4 +1,3 @@
-
 <?php
     session_start();
     
@@ -21,8 +20,8 @@
         PRIMARY KEY (searchID),
         FOREIGN KEY (searchName) REFERENCES search(searchName))";
 
-        $pdo = new pdo('mysql:host=localhost;dbname=' . $database_name . '',
-        'newuser', 'password');
+        $pdo = new pdo('mysql:host='.$database_host.';dbname=' . $database_name . '',
+        $databse_user, $database_pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $pdo->query($sql);
     }
@@ -45,8 +44,8 @@
         FOREIGN KEY (searchID) REFERENCES search(searchID),
         FOREIGN KEY (searchName) REFERENCES search(searchName))";
 
-        $pdo = new pdo('mysql:host=localhost;dbname=' . $database_name . '',
-        'newuser', 'password');
+        $pdo = new pdo('mysql:host='.$database_host.';dbname=' . $database_name . '',
+        $databse_user, $database_pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $pdo->query($sql);
     }
@@ -59,8 +58,8 @@
         nickname VARCHAR(10) NOT NULL,
         PRIMARY KEY (friendname))";
 
-        $pdo = new pdo('mysql:host=localhost;dbname=' . $database_name . '',
-        'newuser', 'password');
+        $pdo = new pdo('mysql:host='.$database_host.';dbname=' . $database_name . '',
+        $databse_user, $database_pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $pdo->query($sql);
     }
@@ -75,8 +74,8 @@
         PRIMARY KEY (playlistID),
         FOREIGN KEY (songID) REFERENCES user(songID))";
 
-        $pdo = new pdo('mysql:host=localhost;dbname=' . $database_name . '',
-        'newuser', 'password');
+        $pdo = new pdo('mysql:host='.$database_host.';dbname=' . $database_name . '',
+        $databse_user, $database_pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $pdo->query($sql);
     }
@@ -92,8 +91,8 @@
         weblink VARCHAR(100) NOT NULL,
         PRIMARY KEY (songID))";
 
-        $pdo = new pdo('mysql:host=localhost;dbname=' . $database_name . '',
-        'newuser', 'password');
+        $pdo = new pdo('mysql:host='.$database_host.';dbname=' . $database_name . '',
+        $databse_user, $database_pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $pdo->query($sql);
     }
@@ -108,8 +107,8 @@
         PRIMARY KEY (highscoreID),
         FOREIGN KEY (username) REFERENCES user(username))";
 
-        $pdo = new pdo('mysql:host=localhost;dbname=' . $database_name . '',
-        'newuser', 'password');
+        $pdo = new pdo('mysql:host='.$database_host.';dbname=' . $database_name . '',
+        $databse_user, $database_pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $pdo->query($sql);
     }
@@ -120,8 +119,8 @@
         FROM user
         WHERE username = :username";
 
-        $pdo = new pdo('mysql:host=localhost;dbname=mydb',
-        'newuser', 'password');
+        $pdo = new pdo('mysql:host='.$database_host.';dbname=' . $database_name . '',
+        $databse_user, $database_pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
         $stmt = $pdo->prepare($sql);
