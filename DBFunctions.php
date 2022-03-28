@@ -398,9 +398,9 @@
         $sql = "CREATE TABLE IF NOT EXISTS playlists (
             dataID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             username VARCHAR(30) NOT NULL,
-            title VARCHAR(100),
-            artist VARCHAR(100),
-            trackName VARCHAR(100),
+            title VARCHAR(100) NOT NULL,
+            artist VARCHAR(100) NOT NULL,
+            trackName VARCHAR(100) NOT NULL,
             image VARCHAR(100))";
         
         $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
@@ -415,18 +415,21 @@
         $pdo->query($sql);
     }
 
-    function addPlaylist($username, $title, $artist, $trackList, $image) {
+    function addPlaylist($username, $title, $artist, $tracklist, $image) {
 
-        foreach ($trackList as $trackName) {
+        $sql = "INSERT INTO playlists (username, title, trackName, artist, image)
+            VALUES (:username, :title, :trackName, :artist, :image)";
 
-            $sql = "INSERT INTO playlists (username, title, trackName, artist, image)
-                VALUES (:username, :title, :trackName, :artist, :image)";
+        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-            $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+        $stmtlist = [];
 
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([
+        for($a=0; $a<count($tracklist); $a++) {
+
+            $stmtlist[$a] = $pdo->prepare($sql);
+            $trackName = $tracklist[$a];
+            $stmtlist[$a]->execute([
                 'username' => $username,
                 'title' => $title,
                 'trackName' => $trackName,
@@ -434,7 +437,22 @@
                 'image' => $image
             ]);
         }
-        
+    }
+
+    function addToPlaylist($username, $title, $trackName, $artist, $image) {
+        $sql = "INSERT INTO playlists (username, title, trackName, artist, image)
+                VALUES (:username, :title, :trackName, :artist, :image)";
+        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'username' => $username,
+            'title' => $title,
+            'trackName' => $trackName,
+            'artist' => $artist,
+            'image' => $image
+        ]);
     }
 
     function removePlaylist($username, $title) {
@@ -471,6 +489,7 @@
 
         $albumImages = [];
         $albums = [];
+
         foreach($row as $track) {
             if (in_array($track[0], $albumImages)) {
                 
@@ -479,7 +498,7 @@
                 $albumTracks = [];
                 foreach($row as $tempTrack) {
                     if ($track[0] == $tempTrack[0]) {
-                        array_push($albumTracks, $track[1]);
+                        array_push($albumTracks, $tempTrack[1]);
                     }
                 }
                 $albumInfo = [$track[0], $albumTracks, $track[2], $track[3]];

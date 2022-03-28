@@ -15,7 +15,6 @@ createTable();
 createTracksTable();
 createAlbumsTable();
 createArtistsTable();
-dropPlaylistTable();
 createPlaylistsTable();
 
 ?>

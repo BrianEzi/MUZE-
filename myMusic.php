@@ -457,6 +457,13 @@
                 if (isset($_POST['artist'])) {
                     $_SESSION['artist'] = $_POST['artist'];
                 }
+                if ($_POST['contentType'] == "PLAYLIST") {
+                    foreach($_SESSION['playlists'] as $p) {
+                        if ($p[0] == $_POST['title']) {
+                            $_SESSION['tracklist'] = $p[1];
+                        }
+                    }
+                }
                 echo "<meta http-equiv='refresh' content='0;URL=myContentInfo.php'>";
             }
 

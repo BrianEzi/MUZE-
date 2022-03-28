@@ -40,6 +40,7 @@
             } else {
                 echo'<a style="float: right;" href="../login.php">LOGIN</a>';
             }
+
         ?>
         <a style="float: right;" class = "active" href="../myMusic.php">MY MUSIC</a>
         
@@ -153,6 +154,12 @@
         $_SESSION['type'] = $_POST['contentType'];
 
         $_SESSION['artist'] = $_POST['artist'];
+
+        foreach($_SESSION['playlists'] as $p) {
+            if ($p[0] == $_POST['title']) {
+                $_SESSION['tracklist'] = $p[1];
+            }
+        }
 
         echo "<meta http-equiv='refresh' content='0;URL=../myContentInfo.php'>";
     }

@@ -56,6 +56,10 @@
         if (isset($_SESSION['artist'])) {
             $artist = $_SESSION['artist'];
         }
+
+        if (isset($_SESSION['tracklist'])) {
+            $tracklist = $_SESSION['tracklist'];
+        }
     ?>
 
         <?php
@@ -120,8 +124,13 @@
                 <div class="title"><b><?=$title?></b></div>
             </div>
         </div>
-    
+
+        
         <?php
+
+            foreach($tracklist as $t) {
+                echo $t . "<br>";
+            }
         }
 
         ?>

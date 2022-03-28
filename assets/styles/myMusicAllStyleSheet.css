@@ -19,7 +19,13 @@
   border-radius: 1.7em;
   text-align: left;
   border: 1em rgba(100, 100, 100, 0.6);
+  transition: all 0.3s;
 }
+
+.contentItem:hover {
+  background-color: rgba(50, 50, 50, 0.6)
+}
+
 .contentItem .contentItem-image {
     width: 10em;
     height: 10em;

@@ -106,14 +106,20 @@ if (!empty($searchTerm)) {
             </form>
         </div>
 
+
+
+
+
+
         <div class="content">
         <?php
+        $resultIndex = 0;
         if (!empty($searchTerm)) {
+            $tempIndex = 5;
 	        foreach ($types as $type) {
                 // if the search results don't have any of this type, skip this type
 		        if (!array_key_exists($type, $results)) continue;
                 
-                $resultIndex = 0;
 		        foreach ($results[$type]->items as $result) {
 
                     $_SESSION['searchResults'] = $results[$type]->items;
@@ -156,63 +162,23 @@ if (!empty($searchTerm)) {
                                     <?php } ?>
                                 </div>
                                 
-                                <?php
-        
-                                    $saved = false;
-        
-                                    if ($type == SPOTIFY_CONTENT_TYPE::TRACK) {
-                                        foreach($tracks as $t) {
-                                            if ($t[0] == $result->name && $t[1] == implode(", ", SearchComponent::getArtists($result))) {
-                                                $saved = true;
-                                            }
-                                        }
-                                    }
-        
-                                    if ($type == SPOTIFY_CONTENT_TYPE::ALBUM) {
-                                        foreach($albums as $a) {
-                                            if ($a[0] == $result->name && $a[2] == implode(", ", SearchComponent::getArtists($result))) {
-                                                $saved = true;
-                                            }
-                                        }
-                                    }
-        
-                                    if ($type == SPOTIFY_CONTENT_TYPE::ARTIST) {
-                                        foreach($artists as $t) {
-                                            if ($t[0] == $result->name) {
-                                                $saved = true;
-                                            }
-                                        }
-                                    }
-        
-        
-                                ?>
         
                                 <div class="contentIcons">
         
                                     <?php
-                                        if ($saved && isset($username)) {
+                                        if (isset($username)) {
+                                        echo $resultIndex;
+
                                     ?>
-        
-                                            <form method="post">
-                                                <input type="hidden" name="toUnsave">
-                                                <input type="hidden" name="index" value=<?=$resultIndex?>>
-                                                <input type="hidden" name="type" value=<?=$type?>>
-                                                <input type="image" src="assets/images/heart_filled.pdf" style="width: 3em; height: 5em;" alt="submit">
-                                            </form>
-        
-                                            
-        
-                                    <?php
-                                        } else if (isset($username)) {
-                                    ?>
-        
-                                            <form method="post">
-                                                <input type="hidden" name="toSave">
-                                                <input type="hidden" name="index" value=<?=$resultIndex?>>
-                                                <input type="hidden" name="type" value=<?=$type?>>
-                                                <input type="image" src="assets/images/heart_unfilled.pdf" style="width: 3em; height: 5em;" alt="submit">
-                                            </form>
-        
+
+                                    <form method="post" id="form">
+
+                                        <a type="submit" class="addButton" href="javascript:void(0)" onclick="document.getElementsByClassName('light')[<?=$resultIndex?>].style.display='block';document.getElementById('fade').style.display='block'">
+                                            +
+                                        </a>
+
+                                    </form>
+
                                     <?php
                                         }
                                     ?>
@@ -223,27 +189,74 @@ if (!empty($searchTerm)) {
                         </button>
                     </form>
 
+
+                    <div class="light" class="white_content">
+
+                        <form class="playlistMenu" method="post">
+                        <input type="hidden" name="index" value="<?=strval($resultIndex)?>">
+                        <?php
+                            if (isset($_SESSION['playlists'])) {
+                                $playlists = $_SESSION['playlists'];
+                                foreach($playlists as $p) {
+                                    ?>
+                                        <button type="submit" name="playlistSubmitted" value="<?=$p[0]?>">
+                                            <?=$p[0]?>
+                                        </button>
+                                        <br>
+                                    <?php
+                                }
+                                echo $result->name;
+                            }
+                        ?>
+                        </form>
+                        <a href="javascript:void(0)" onclick="document.getElementsByClassName('light')[<?=$resultIndex?>].style.display='none';document.getElementById('fade').style.display='none'">Close</a>
+                    </div>
                         
 
 
                     <?php
                     $resultIndex += 1;
-
-
-
-                    
                 }
+        
+                    
             }
+        }
             
-            if (isset($_POST["toSave"])) {
-                $postIndex = $_POST["index"];
-                $postType = $_POST["type"];
+            if (isset($_POST["playlistSubmitted"])) {
                 
-                $resultToSave = ($results[$postType]->items)[$postIndex];
+                $playlistName = $_POST['playlistSubmitted'];
+                $postIndex = intval($_POST["index"]);
+                
+                if ($postIndex < 19) {
+                    $postType = "TRACK";
+                    $spotifyType = SPOTIFY_CONTENT_TYPE::TRACK;
+                } else if ($postIndex < 39) {
+                    $postIndex -= 20;
+                    $postType = "ALBUM";
+                    $spotifyType = SPOTIFY_CONTENT_TYPE::ALBUM;
+                } else {
+                    $postIndex -= 40;
+                    $postType = "ARTIST";
+                    $spotifyType = SPOTIFY_CONTENT_TYPE::ARTIST;
+                }
+                echo $_POST['index'];
+                
+                // $resultToSave = ($results[$postType]->items)[$postIndex];
 
-                if ($postType == SPOTIFY_CONTENT_TYPE::TRACK) {
-                    addTrack($username, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
-                    getTracks($username);
+                $name = ($results[$spotifyType]->items)[$postIndex]->name;
+                
+                
+                if ($postType == "TRACK") {
+
+                    if ($playlistName == "My Tracks") {
+                        addTrack($username, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
+                        getTracks($username);
+                    } else {
+                        
+                        addToPlaylist($username, $playlistName, $name, "me", "");
+                        getPlaylists($username);
+                    }
+
                 }
 
                 if ($postType == SPOTIFY_CONTENT_TYPE::ALBUM) {
@@ -256,40 +269,11 @@ if (!empty($searchTerm)) {
                     getArtists($username);
                 }
 
-                unset($_POST["toSave"]);
+                unset($_POST["playlistSubmitted"]);
                 unset($_POST["index"]);
                 unset($_POST["type"]);
 
-                $_SESSION['reloadThePage'] = true;
-                echo "<meta http-equiv='refresh' content='0'>";
-            }
 
-            if (isset($_POST["toUnsave"])) {
-                $postIndex = $_POST["index"];
-                $postType = $_POST["type"];
-
-                $resultToUnsave = ($results[$postType]->items)[$postIndex];
-
-                // print_r($resultToUnsave);
-
-                if ($postType == SPOTIFY_CONTENT_TYPE::TRACK) {
-                    removeTrack($username, $resultToUnsave->name, implode(", ",SearchComponent::getArtists($resultToUnsave)));
-                    getTracks($username);
-                }
-
-                if ($postType == SPOTIFY_CONTENT_TYPE::ALBUM) {
-                    removeAlbum($username, $resultToUnsave->name, implode(", ",SearchComponent::getArtists($resultToUnsave)));
-                    getAlbums($username);
-                }
-
-                if ($postType == SPOTIFY_CONTENT_TYPE::ARTIST) {
-                    removeArtist($username, $resultToUnsave->name);
-                    getArtists($username);
-                }
-
-                unset($_POST["toUnsave"]);
-                unset($_POST["index"]);
-                unset($_POST["type"]);
 
                 $_SESSION['reloadThePage'] = true;
                 echo "<meta http-equiv='refresh' content='0'>";
@@ -303,13 +287,20 @@ if (!empty($searchTerm)) {
                 if (isset($_POST['artist'])) {
                     $_SESSION['artist'] = $_POST['artist'];
                 }
+                if ($_POST['contentType'] == "PLAYLIST") {
+                    foreach($_SESSION['playlists'] as $p) {
+                        if ($p[0] == $_POST['title']) {
+                            $_SESSION['tracklist'] = $p[1];
+                        }
+                    }
+                }
                 echo "<meta http-equiv='refresh' content='0;URL=contentInfo.php'>";
             }
 
-
-        }
         ?>
         </div>
+
+        <div id="fade" class="black_overlay"></div>
 
     </body>
 </html>

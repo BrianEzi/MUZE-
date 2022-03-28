@@ -406,6 +406,16 @@
         <h1>Account Settings</h1>
     </div>
 
+    <div class="settingsWrapper">
+
+
+    
+    </div>
+
+    <form method="post" class="logoutForm">
+        <input type="submit" name="logout" value="Log Out" class="logout">
+    </form>
+
     <button id="changePasswordToggle">Change Password</button>
 
     <form method="post" id="changePassword" class="hide">
@@ -454,9 +464,7 @@
 
 
 
-    <form method="post" class="logoutForm">
-        <input type="submit" name="logout" value="Log Out" class="logout">
-    </form>
+    
 
   
 

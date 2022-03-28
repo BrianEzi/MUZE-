@@ -1,0 +1,35 @@
+.gamesWrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 2em;
+}
+
+.individualGame {
+    width: 30em;
+    height: 32em;
+    margin: 2em 3em;
+    background-color: rgba(100, 100, 100, 0.6);
+    border-radius: 3em;
+    border: 1em;
+    transition: all 0.3s;
+    display: block;
+
+}
+
+.individualGame:hover {
+    background-color: rgba(50, 50, 50, 0.6)
+}
+
+.individualGame img {
+    margin: 0 auto;
+    height: 20em;
+}
+
+.gameTitle {
+    font-size: 3em;
+    color: white;
+    padding-top: 0.5em;
+}

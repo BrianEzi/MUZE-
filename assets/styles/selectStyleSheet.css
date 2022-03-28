@@ -1,0 +1,54 @@
+.mainTitle {
+
+  display: inline-block;
+  text-align: center;
+  font-size: 3em;
+  color: white;
+  margin-top: 0.8em;
+  background-color: rgba(100, 100, 100, 0.6);
+  border-radius: 0.6em;
+  padding: 0.2em 0.4em;
+}
+
+.titleWrapper {
+    
+  
+    display: flex;
+    margin-top: 1em;
+    border: 2em;
+    justify-content: space-between;
+    padding: 0 10em;
+}
+
+button.select {
+    opacity: 0;
+}
+
+#changePassword input[type=submit] {
+    width: 6em;
+    font-size: 1em;
+    padding: 0.3em 0.6em;
+    border: 0.05em solid white;
+    background-color : white;
+    border-radius: 2em;
+    display: block;
+    margin: 0em auto;
+}
+
+
+#changePasswordToggle {
+    width: 10em;
+    font-size: 1em;
+    padding: 0.3em 0.6em;
+    border: 0.05em solid white;
+    border-radius: 2em;
+    display: block;
+    margin: 0em auto;
+}
+.hide {
+    background-color: blue;
+}
+
+.secondWrapper {
+    display: flex;
+}
