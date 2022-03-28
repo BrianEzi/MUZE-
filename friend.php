@@ -8,8 +8,13 @@
         $background = "assets/images/desert.jpg";
     }
 
-    $username = $_SESSION['username'];
-    $profilePicture = $_SESSION['profilePicture'];
+    // $username = $_SESSION['username'];
+    // $profilePicture = $_SESSION['profilePicture'];
+?>
+
+<?php 
+	
+
 ?>
 
 <!DOCTYPE html>
@@ -35,16 +40,18 @@
 	    </div>
 
 	    <?php
-
-        if (isset($_POST['logout'])) {
+		if (isset($_POST['logout'])) {
             session_destroy();
             header("location: login.php");
         }        
     	?>
 
     	<div class="accountHeading">
-        	<h1>Friends</h1>
+        	<h1>Add Friends</h1>
     	</div>
+
+    	<input type="text" id="slugmanuts" placeholder="Find Friends you sado" style="width: 100%;">
+    	<input type="submit" name="submit">
 	<body>
 
 </body>
