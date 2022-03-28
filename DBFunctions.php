@@ -61,8 +61,9 @@
             $_SESSION['username'] = $username;
             $_SESSION['background'] = "assets/images/desert.jpg";
             $_SESSION['profilePicture'] = "assets/images/aurora.jpg";
+
+            addPlaylist($username, "My Tracks", $username, [""], "https://community.spotify.com/t5/image/serverpage/image-id/25294i2836BD1C1A31BDF2?v=v2");
             
-            getTracks($username);
             getAlbums($username);
             getArtists($username);
             getPlaylists($username);
@@ -113,7 +114,6 @@
                 $profilePicture = $row['profilePicture'];
                 $_SESSION['profilePicture'] = $profilePicture;
 
-                getTracks($username);
                 getAlbums($username);
                 getArtists($username);
                 getPlaylists($username);
@@ -162,76 +162,6 @@
 
         }
     }
-
-
-    // STORING TRACKS
-
-    function createTracksTable() {
-        $sql = "CREATE TABLE IF NOT EXISTS tracks (
-            dataID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            username VARCHAR(30) NOT NULL,
-            title VARCHAR(100),
-            artist VARCHAR(100),
-            image VARCHAR(100))";
-        
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-        $pdo->query($sql);
-    }
-
-    function addTrack($username, $title, $artist, $image) {
-        $sql = "INSERT INTO tracks (username, title, artist, image)
-                VALUES (:username, :title, :artist, :image)";
-
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            'username' => $username,
-            'title' => $title,
-            'artist' => $artist,
-            'image' => $image
-        ]);
-    }
-
-    function removeTrack($username, $title, $artist) {
-        $sql = "DELETE FROM tracks
-                WHERE username=:username AND title=:title AND artist=:artist";
-
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            'username' => $username,
-            'title' => $title,
-            'artist' => $artist
-        ]);
-    }
-
-
-    function getTracks($username) {
-        $sql = "SELECT title, artist, image
-                FROM tracks
-                WHERE username=:username";
-
-        // $sql = "SELECT title, image, username FROM music";
-
-        $pdo = new pdo("mysql:host=localhost:8889; dbname=loginInfo", 'root', 'root');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            'username' => $username
-        ]);
-
-        // $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $row = $stmt->fetchAll();
-
-        $_SESSION['tracks'] = $row;
-    }
-
 
     // STORING ALBUMS
 
@@ -496,9 +426,11 @@
             } else {
                 array_push($albumImages, $track[0]);
                 $albumTracks = [];
+                $albumInfo = [];
                 foreach($row as $tempTrack) {
                     if ($track[0] == $tempTrack[0]) {
-                        array_push($albumTracks, $tempTrack[1]);
+                        $tempInfo = [$tempTrack[1], $tempTrack[2], $tempTrack[3]];
+                        array_push($albumTracks, $tempInfo);
                     }
                 }
                 $albumInfo = [$track[0], $albumTracks, $track[2], $track[3]];

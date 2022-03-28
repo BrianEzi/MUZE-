@@ -166,22 +166,32 @@ if (!empty($searchTerm)) {
                                 <div class="contentIcons">
         
                                     <?php
-                                        if (isset($username)) {
-                                        echo $resultIndex;
+                                        if (isset($username) AND $type==SPOTIFY_CONTENT_TYPE::TRACK) {
 
                                     ?>
 
-                                    <form method="post" id="form">
+                                    <form method="post" id="form" class="addForm">
 
-                                        <a type="submit" class="addButton" href="javascript:void(0)" onclick="document.getElementsByClassName('light')[<?=$resultIndex?>].style.display='block';document.getElementById('fade').style.display='block'">
+                                        <a type="submit" class="addButton" href="javascript:void(0)" onclick="document.getElementsByClassName('light')[<?=$resultIndex?>].style.display='flex';document.getElementById('fade').style.display='block'">
                                             +
                                         </a>
 
-                                    </form>
+                                    
+
+                                    <?php
+                                        } else if (isset($username)) {
+                                    ?>
+
+                                        <input type="hidden" name="index" value="<?=strval($resultIndex)?>">
+                                        <input type="hidden" name="submitted">
+                                        <input type="submit" class="inputSubmit" value="+">
+
 
                                     <?php
                                         }
                                     ?>
+
+                                    </form>
         
                                 </div>
                             <!-- </div> -->
@@ -190,7 +200,8 @@ if (!empty($searchTerm)) {
                     </form>
 
 
-                    <div class="light" class="white_content">
+                    <div class="light">
+                        <div class="emptySpace"></div>
 
                         <form class="playlistMenu" method="post">
                         <input type="hidden" name="index" value="<?=strval($resultIndex)?>">
@@ -202,14 +213,14 @@ if (!empty($searchTerm)) {
                                         <button type="submit" name="playlistSubmitted" value="<?=$p[0]?>">
                                             <?=$p[0]?>
                                         </button>
-                                        <br>
+                                        <br><br>
                                     <?php
                                 }
-                                echo $result->name;
                             }
                         ?>
                         </form>
-                        <a href="javascript:void(0)" onclick="document.getElementsByClassName('light')[<?=$resultIndex?>].style.display='none';document.getElementById('fade').style.display='none'">Close</a>
+                        <br>
+                        <a class="closePopup" href="javascript:void(0)" onclick="document.getElementsByClassName('light')[<?=$resultIndex?>].style.display='none';document.getElementById('fade').style.display='none'">✕</a>
                     </div>
                         
 
@@ -243,7 +254,7 @@ if (!empty($searchTerm)) {
                 
                 // $resultToSave = ($results[$postType]->items)[$postIndex];
 
-                $name = ($results[$spotifyType]->items)[$postIndex]->name;
+                $resultToSave = ($results[$spotifyType]->items)[$postIndex];
                 
                 
                 if ($postType == "TRACK") {
@@ -253,7 +264,7 @@ if (!empty($searchTerm)) {
                         getTracks($username);
                     } else {
                         
-                        addToPlaylist($username, $playlistName, $name, "me", "");
+                        addToPlaylist($username, $playlistName, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
                         getPlaylists($username);
                     }
 
@@ -278,6 +289,68 @@ if (!empty($searchTerm)) {
                 $_SESSION['reloadThePage'] = true;
                 echo "<meta http-equiv='refresh' content='0'>";
             }
+
+
+
+
+            if (isset($_POST['submitted'])) {
+                $postIndex = intval($_POST["index"]);
+                
+                if ($postIndex < 19) {
+                    $postType = "TRACK";
+                    $spotifyType = SPOTIFY_CONTENT_TYPE::TRACK;
+                } else if ($postIndex < 39) {
+                    $postIndex -= 20;
+                    $postType = "ALBUM";
+                    $spotifyType = SPOTIFY_CONTENT_TYPE::ALBUM;
+                } else {
+                    $postIndex -= 40;
+                    $postType = "ARTIST";
+                    $spotifyType = SPOTIFY_CONTENT_TYPE::ARTIST;
+                }
+                echo $_POST['index'];
+                
+                // $resultToSave = ($results[$postType]->items)[$postIndex];
+
+                $resultToSave = ($results[$spotifyType]->items)[$postIndex];
+
+                print_r($resultToSave);
+                
+                
+                if ($postType == "TRACK") {
+
+                    if ($playlistName == "My Tracks") {
+                        addTrack($username, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
+                        getTracks($username);
+                    } else {
+                        
+                        addToPlaylist($username, $playlistName, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
+                        getPlaylists($username);
+                    }
+
+                }
+
+                if ($postType == "ALBUM") {
+                    addAlbum($username, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), ["",""], SearchComponent::extractBiggestImageUrl($resultToSave));
+                    getAlbums($username);
+                }
+
+                if ($postType == "ARTIST") {
+                    addArtist($username, $resultToSave->name, SearchComponent::extractBiggestImageUrl($resultToSave));
+                    getArtists($username);
+                }
+
+                unset($_POST["index"]);
+                unset($_POST["type"]);
+
+
+
+                $_SESSION['reloadThePage'] = true;
+                echo "<meta http-equiv='refresh' content='0'>";
+            }
+
+
+
 
             if (isset($_POST['expand'])) {
                 $_SESSION['title'] = $_POST['title'];

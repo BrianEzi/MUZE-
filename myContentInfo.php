@@ -125,15 +125,39 @@
             </div>
         </div>
 
-        
+        <br><br><br><br>
+
         <?php
 
-            foreach($tracklist as $t) {
-                echo $t . "<br>";
+            foreach(array_slice($tracklist, 1) as $t) {
+                ?>
+                <div class="trackWrapper">
+
+                    <img src="<?=$t[2]?>" alt="" class="trackImage">
+
+                    <div class="trackTextWrapper">
+
+                        <div class="trackTitle">
+                            <?=$t[0]?>
+                        </div>
+    
+                        <div class="trackArtist">
+                            <?=$t[1]?>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <br><br>
+
+                <?php
             }
         }
 
         ?>
+       
     
 
 

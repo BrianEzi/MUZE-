@@ -32,3 +32,32 @@
     color: white;
     font-size: 1.2em;
 }
+
+.trackTitle {
+    font-size: 1.5em;
+    color: white;
+}
+
+.trackArtist {
+    font-size: 1em;
+    color: white;
+}
+
+.trackWrapper {
+    background-color: rgba(100, 100, 100, 0.6);
+    border-radius: 1em;
+    width: 70%;
+    margin: 0 auto;
+    padding: 1em;
+    display: flex;
+
+}
+
+.trackImage {
+    width: 4em;
+    height: 4em;
+}
+
+.trackTextWrapper {
+    padding-left: 1em;
+}

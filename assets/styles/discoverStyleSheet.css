@@ -79,11 +79,38 @@ input[type=image] {
   text-decoration: none;
 }
 
+.inputSubmit {
+  background-color: rgba(100, 100, 100, 0);
+  border-color: rgba(100, 100, 100, 0);
+  font-size: 4em;
+  cursor:pointer;
+}
+
 .playlistMenu {
   color: aqua;
   background-attachment: fixed;
   /* z-index: 1000;
   position: fixed; */
+}
+
+.playlistMenu button {
+  font-size: 2em;
+  color: black;
+  width: 15em;
+  background-color: rgb(160, 160, 160);
+  border: 1em white;
+  border-radius: 1em;
+  padding: 0.2em 0.7em;
+  padding-bottom: 0.4em;
+  cursor: pointer;
+  border: 0.1em solid black;
+
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+
 }
 
 
@@ -100,7 +127,7 @@ input[type=image] {
   -moz-opacity: 0.8;
   opacity: .80;
   filter: alpha(opacity=80);
-  /* background-attachment: fixed; */
+
 }
 .light {
   display: none;
@@ -115,4 +142,20 @@ input[type=image] {
   z-index: 1002;
   overflow: auto;
   /* background-attachment: fixed; */
+  text-align: center;
+  justify-content: space-between;
+  border: 0.3em solid black;
 }
+
+.closePopup {
+  color: black;
+  font-size: 2em;
+  text-decoration: none;
+  text-align: center;
+  color: white;
+}
+
+.emptySpace {
+  width: 4em;
+}
+

@@ -3,7 +3,8 @@
 <?php
 
 try {
-    $conn = new pdo('mysql:host=dbhost.cs.man.ac.uk:u95206ma;', 'u95206ma', 'deeznuts123');
+    // $conn = new pdo('mysql:host=dbhost.cs.man.ac.uk:u95206ma;', 'u95206ma', 'deeznuts123');
+    $conn = new pdo('mysql:host=localhost:8889;', 'root', 'root');
     // echo "connected to localhost:8889 successfully";
 }
 catch(PDOException $pe) {
@@ -12,7 +13,6 @@ catch(PDOException $pe) {
 
 createDatabase();
 createTable();
-createTracksTable();
 createAlbumsTable();
 createArtistsTable();
 createPlaylistsTable();
