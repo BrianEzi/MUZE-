@@ -1,15 +1,10 @@
 <?php
-include_once(__DIR__ . "/spotify-api/doSearch.php");
+include_once(__DIR__ . "/genius-api/doSearch.php");
 require_once(__DIR__ . "/DBFunctions.php");
 @$searchTerm = $_GET["searchInput"];
 if (!empty($searchTerm)) {
-	// get all types selected with the checkboxes
-	$types = array_filter(SPOTIFY_CONTENT_TYPE::$ALL, function($type) { return array_key_exists($type, $_GET); });
-	// use all types if none are specified
-	if (empty($types)) $types = SPOTIFY_CONTENT_TYPE::$ALL;
-
-    // call spotify api
-	$results = doSearch($searchTerm, $types);
+    // search with genius api
+	$results = doSearch($searchTerm, "5em");
 }
 ?>
 
@@ -116,13 +111,13 @@ if (!empty($searchTerm)) {
         $resultIndex = 0;
         if (!empty($searchTerm)) {
             $tempIndex = 5;
-	        foreach ($types as $type) {
+	        foreach (GENIUS_CONTENT_TYPE::$ALL as $type) {
                 // if the search results don't have any of this type, skip this type
 		        if (!array_key_exists($type, $results)) continue;
-                
-		        foreach ($results[$type]->items as $result) {
 
-                    $_SESSION['searchResults'] = $results[$type]->items;
+		        $_SESSION['searchResults'] = $results[$type];
+                
+		        foreach ($results[$type] as $result) {
 
                     ?>
 
@@ -131,34 +126,35 @@ if (!empty($searchTerm)) {
                     <form method="post">
                             <?php
 
-                                if ($type == SPOTIFY_CONTENT_TYPE::TRACK) {
-                                    echo '<input type="hidden" name="artist" value="' . implode(", ", SearchComponent::getArtists($result)) . '">';
+                                if ($type == GENIUS_CONTENT_TYPE::SONG) {
+                                    echo '<input type="hidden" name="artist" value="' . $result["artist"] . '">';
                                     
                                 }
                                 
-                                if ($type == SPOTIFY_CONTENT_TYPE::ALBUM) {
+                                /*if ($type == GENIUS_CONTENT_TYPE::ALBUM) {
                                     echo '<input type="hidden" name="artist" value="' . implode(", ", SearchComponent::getArtists($result)) . '">';
-                                }
+                                }*/
                                 
-                                if ($type == SPOTIFY_CONTENT_TYPE::ARTIST) {
+                                if ($type == GENIUS_CONTENT_TYPE::ARTIST) {
                                     
                                 }
                                 ?>
 
-                            <input type="hidden" name="contentType" value="<?=strtoupper($result->type)?>">
-                            <input type="hidden" name="title" value="<?=$result->name?>">
-                            <input type="hidden" name="image" value="<?=SearchComponent::extractBiggestImageUrl($result)?>">
+                            <input type="hidden" name="id" value="<?=$result["id"]?>">
+                            <input type="hidden" name="contentType" value="<?=strtoupper($result["type"])?>">
+                            <input type="hidden" name="title" value="<?=$result["name"]?>">
+                            <input type="hidden" name="image" value="<?=$result["biggest_image_url"]?>">
 
                             <button type="submit" class="contentItem" name="expand">
                             <!-- <div class="contentItem"> -->
                                 <div class="contentItem-image">
-                                    <?=SearchComponent::extractImageTag($result, "5em")?>
+                                    <?=$result["image_tag"]?>
                                 </div>
                                 <div class="contentItem-mainText">
                                     <div class="contentLabel"><?=strtoupper($type)?></div>
-                                    <div class="title"><b><?=$result->name?></b></div>
-                                    <?php if ($type != SPOTIFY_CONTENT_TYPE::ARTIST) { ?>
-                                        <?=implode(", ", SearchComponent::getArtists($result))?>
+                                    <div class="title"><b><?=$result["name"]?></b></div>
+                                    <?php if ($type != GENIUS_CONTENT_TYPE::ARTIST) { ?>
+                                        <?=$result["artist"]?>
                                     <?php } ?>
                                 </div>
                                 
@@ -166,7 +162,7 @@ if (!empty($searchTerm)) {
                                 <div class="contentIcons">
         
                                     <?php
-                                        if (isset($username) AND $type==SPOTIFY_CONTENT_TYPE::TRACK) {
+                                        if (isset($username) AND $type==GENIUS_CONTENT_TYPE::SONG) {
 
                                     ?>
 
@@ -229,7 +225,7 @@ if (!empty($searchTerm)) {
                     $resultIndex += 1;
                 }
         
-                    
+
             }
         }
             
@@ -240,43 +236,43 @@ if (!empty($searchTerm)) {
                 
                 if ($postIndex < 19) {
                     $postType = "TRACK";
-                    $spotifyType = SPOTIFY_CONTENT_TYPE::TRACK;
+                    $geniusType = GENIUS_CONTENT_TYPE::SONG;
                 } else if ($postIndex < 39) {
-                    $postIndex -= 20;
+                    /*$postIndex -= 20;
                     $postType = "ALBUM";
-                    $spotifyType = SPOTIFY_CONTENT_TYPE::ALBUM;
+	                $geniusType = GENIUS_CONTENT_TYPE::ALBUM;*/
                 } else {
                     $postIndex -= 40;
                     $postType = "ARTIST";
-                    $spotifyType = SPOTIFY_CONTENT_TYPE::ARTIST;
+	                $geniusType = GENIUS_CONTENT_TYPE::ARTIST;
                 }
                 echo $_POST['index'];
                 
                 // $resultToSave = ($results[$postType]->items)[$postIndex];
 
-                $resultToSave = ($results[$spotifyType]->items)[$postIndex];
+                $resultToSave = ($results[$geniusType]->items)[$postIndex];
                 
                 
                 if ($postType == "TRACK") {
 
                     if ($playlistName == "My Tracks") {
-                        addTrack($username, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
+                        addTrack($username, $resultToSave["name"], $resultToSave["artist"], $resultToSave["biggest_image_url"]);
                         getTracks($username);
                     } else {
                         
-                        addToPlaylist($username, $playlistName, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
+                        addToPlaylist($username, $playlistName, $resultToSave["name"], $resultToSave["artist"], $resultToSave["biggest_image_url"]);
                         getPlaylists($username);
                     }
 
                 }
 
-                if ($postType == SPOTIFY_CONTENT_TYPE::ALBUM) {
-                    addAlbum($username, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), ["",""], SearchComponent::extractBiggestImageUrl($resultToSave));
+                /*if ($postType == GENIUS_CONTENT_TYPE::ALBUM) {
+                    addAlbum($username, $resultToSave["name"], $resultToSave["artist"], ["",""], $resultToSave["biggest_image_url"]);
                     getAlbums($username);
-                }
+                }*/
 
-                if ($postType == SPOTIFY_CONTENT_TYPE::ARTIST) {
-                    addArtist($username, $resultToSave->name, SearchComponent::extractBiggestImageUrl($resultToSave));
+                if ($postType == GENIUS_CONTENT_TYPE::ARTIST) {
+                    addArtist($username, $resultToSave["name"], $resultToSave["biggest_image_url"]);
                     getArtists($username);
                 }
 
@@ -298,21 +294,21 @@ if (!empty($searchTerm)) {
                 
                 if ($postIndex < 19) {
                     $postType = "TRACK";
-                    $spotifyType = SPOTIFY_CONTENT_TYPE::TRACK;
+	                $geniusType = GENIUS_CONTENT_TYPE::SONG;
                 } else if ($postIndex < 39) {
-                    $postIndex -= 20;
+                    /*$postIndex -= 20;
                     $postType = "ALBUM";
-                    $spotifyType = SPOTIFY_CONTENT_TYPE::ALBUM;
+	                $geniusType = GENIUS_CONTENT_TYPE::ALBUM;*/
                 } else {
                     $postIndex -= 40;
                     $postType = "ARTIST";
-                    $spotifyType = SPOTIFY_CONTENT_TYPE::ARTIST;
+	                $geniusType = GENIUS_CONTENT_TYPE::ARTIST;
                 }
                 echo $_POST['index'];
                 
                 // $resultToSave = ($results[$postType]->items)[$postIndex];
 
-                $resultToSave = ($results[$spotifyType]->items)[$postIndex];
+                $resultToSave = ($results[$geniusType]->items)[$postIndex];
 
                 print_r($resultToSave);
                 
@@ -320,23 +316,23 @@ if (!empty($searchTerm)) {
                 if ($postType == "TRACK") {
 
                     if ($playlistName == "My Tracks") {
-                        addTrack($username, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
+                        addTrack($username, $resultToSave["name"], $resultToSave["artist"], $resultToSave["biggest_image_url"]);
                         getTracks($username);
                     } else {
                         
-                        addToPlaylist($username, $playlistName, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
+                        addToPlaylist($username, $playlistName, $resultToSave["name"], $resultToSave["artist"], $resultToSave["biggest_image_url"]);
                         getPlaylists($username);
                     }
 
                 }
 
                 if ($postType == "ALBUM") {
-                    addAlbum($username, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), ["",""], SearchComponent::extractBiggestImageUrl($resultToSave));
+                    addAlbum($username, $resultToSave["name"], $resultToSave["artist"], ["",""], $resultToSave["biggest_image_url"]);
                     getAlbums($username);
                 }
 
                 if ($postType == "ARTIST") {
-                    addArtist($username, $resultToSave->name, SearchComponent::extractBiggestImageUrl($resultToSave));
+                    addArtist($username, $resultToSave["name"], $resultToSave["biggest_image_url"]);
                     getArtists($username);
                 }
 

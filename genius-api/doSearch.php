@@ -25,8 +25,9 @@ function doSearch(string $searchTerm, string $imageSize="25vw"): array {
 		$songs[] = array(
 			"id" => $result->id,
 			"type" => GENIUS_CONTENT_TYPE::SONG,
-			"title" => $result->title,
+			"name" => $result->title,
 			"artist" => $result->primary_artist->name,
+			"biggest_image_url" => $result->song_art_image_url,
 			"image_tag" => '<img class="genius-song-art"
 								srcset="'.implode(", ", $srcset).'"
 								src="'.$result->song_art_image_thumbnail_url.'"
@@ -38,8 +39,9 @@ function doSearch(string $searchTerm, string $imageSize="25vw"): array {
 		$artists->add(array(
 			"id" => $result->primary_artist->id,
 			"type" => GENIUS_CONTENT_TYPE::ARTIST,
-			"title" => $result->primary_artist->name,
+			"name" => $result->primary_artist->name,
 			"artist" => "Artist",
+			"biggest_image_url" => $result->primary_artist->image_url,
 			"image_tag" => '<img class="genius-song-art"
 								src="'.$result->primary_artist->image_url.'"
 								sizes="'.$imageSize.'"
@@ -48,5 +50,8 @@ function doSearch(string $searchTerm, string $imageSize="25vw"): array {
 								>'
 		));
 	}
-	return array_merge($songs, $artists->toArray());
+	return array(
+		GENIUS_CONTENT_TYPE::SONG => $songs,
+		GENIUS_CONTENT_TYPE::ARTIST => $artists->toArray()
+	);
 }
