@@ -27,16 +27,18 @@
     <h1>Search results for '<?=$_GET["searchTerm"]?>'</h1>
 
     <?php $results = doSearch($_GET["searchTerm"]); ?>
-            
-    <ul class="inline-list">
-        <?php foreach ($results as $result) { ?>
-            <li>
-                <?=$result["image_tag"]?>
-                <h2><?=$result["title"]?></h2>
-                <p><?=$result["artist"]?></p>
-            </li>
-        <?php } ?>
-    </ul>
+
+    <?php foreach ($results as $type => $results_of_type) { ?>
+        <ul class="inline-list">
+			<?php foreach ($results_of_type as $result) { ?>
+                <li>
+					<?=$result["image_tag"]?>
+                    <h2><?=$result["name"]?></h2>
+                    <p><?=$result["artist"]?></p>
+                </li>
+			<?php } ?>
+        </ul>
+    <?php } ?>
 
 <?php } else { ?>
 

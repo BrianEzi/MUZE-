@@ -14,3 +14,15 @@ class GeniusRequester extends BaseRequester {
 		));
 	}
 }
+
+/**
+ * An enum of possible content types with the Genius API.
+ */
+class GENIUS_CONTENT_TYPE {
+	public const SONG = "song";
+	public const ARTIST = "artist";
+
+	public static array $ALL = array(
+		self::SONG, self::ARTIST
+	);
+}

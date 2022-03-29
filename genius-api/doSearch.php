@@ -1,5 +1,6 @@
 <?php
 require_once(__DIR__ . "/genius-api.php");
+require_once(__DIR__ . "/../all-apis/Set.php");
 
 
 /**
@@ -13,16 +14,20 @@ function doSearch(string $searchTerm, string $imageSize="25vw"): array {
 		"q" => $searchTerm,
 	), false);
 
-	$hits = [];
+	$songs = [];
+	$artists = new Set();
 	foreach ($response->response->hits as $hit) {
 		$result = $hit->result;
 		$srcset = [
 			$result->song_art_image_thumbnail_url . " 300w",
 			$result->song_art_image_url . " 1000w",
 		];
-		$hits[] = array(
-			"title" => $result->title,
+		$songs[] = array(
+			"id" => $result->id,
+			"type" => GENIUS_CONTENT_TYPE::SONG,
+			"name" => $result->title,
 			"artist" => $result->primary_artist->name,
+			"biggest_image_url" => $result->song_art_image_url,
 			"image_tag" => '<img class="genius-song-art"
 								srcset="'.implode(", ", $srcset).'"
 								src="'.$result->song_art_image_thumbnail_url.'"
@@ -31,6 +36,22 @@ function doSearch(string $searchTerm, string $imageSize="25vw"): array {
 								alt="'.$result->full_title.'"
 								>'
 		);
+		$artists->add(array(
+			"id" => $result->primary_artist->id,
+			"type" => GENIUS_CONTENT_TYPE::ARTIST,
+			"name" => $result->primary_artist->name,
+			"artist" => "Artist",
+			"biggest_image_url" => $result->primary_artist->image_url,
+			"image_tag" => '<img class="genius-song-art"
+								src="'.$result->primary_artist->image_url.'"
+								sizes="'.$imageSize.'"
+								width="300" height="300"
+								alt="'.$result->primary_artist->name.'"
+								>'
+		));
 	}
-	return $hits;
+	return array(
+		GENIUS_CONTENT_TYPE::SONG => $songs,
+		GENIUS_CONTENT_TYPE::ARTIST => $artists->toArray()
+	);
 }
