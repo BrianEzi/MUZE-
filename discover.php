@@ -1,10 +1,15 @@
 <?php
-include_once(__DIR__ . "/lastfm-api/doSearch.php");
+include_once(__DIR__ . "/spotify-api/doSearch.php");
 require_once(__DIR__ . "/DBFunctions.php");
 @$searchTerm = $_GET["searchInput"];
 if (!empty($searchTerm)) {
-    // search with lastfm api
-	$results = doSearch($searchTerm, "5em");
+	// get all types selected with the checkboxes
+	$types = array_filter(SPOTIFY_CONTENT_TYPE::$ALL, function($type) { return array_key_exists($type, $_GET); });
+	// use all types if none are specified
+	if (empty($types)) $types = SPOTIFY_CONTENT_TYPE::$ALL;
+
+    // search with spotify api
+	$results = doSearch($searchTerm, $types, "5em");
 }
 ?>
 
@@ -111,7 +116,7 @@ if (!empty($searchTerm)) {
         $resultIndex = 0;
         if (!empty($searchTerm)) {
             $tempIndex = 5;
-	        foreach (LASTFM_CONTENT_TYPE::$ALL as $type) {
+	        foreach (SPOTIFY_CONTENT_TYPE::$ALL as $type) {
                 // if the search results don't have any of this type, skip this type
 		        if (!array_key_exists($type, $results)) continue;
 
@@ -126,16 +131,16 @@ if (!empty($searchTerm)) {
                     <form method="post">
                             <?php
 
-                                if ($type == LASTFM_CONTENT_TYPE::TRACK) {
+                                if ($type == SPOTIFY_CONTENT_TYPE::TRACK) {
                                     echo '<input type="hidden" name="artist" value="' . $result["artist"] . '">';
                                     
                                 }
                                 
-                                if ($type == LASTFM_CONTENT_TYPE::ALBUM) {
+                                if ($type == SPOTIFY_CONTENT_TYPE::ALBUM) {
                                     echo '<input type="hidden" name="artist" value="' . $result["artist"] . '">';
                                 }
                                 
-                                if ($type == LASTFM_CONTENT_TYPE::ARTIST) {
+                                if ($type == SPOTIFY_CONTENT_TYPE::ARTIST) {
                                     
                                 }
                                 ?>
@@ -152,7 +157,7 @@ if (!empty($searchTerm)) {
                                 <div class="contentItem-mainText">
                                     <div class="contentLabel"><?=strtoupper($type)?></div>
                                     <div class="title"><b><?=$result["name"]?></b></div>
-                                    <?php if ($type != LASTFM_CONTENT_TYPE::ARTIST) { ?>
+                                    <?php if ($type != SPOTIFY_CONTENT_TYPE::ARTIST) { ?>
                                         <?=$result["artist"]?>
                                     <?php } ?>
                                 </div>
@@ -161,7 +166,7 @@ if (!empty($searchTerm)) {
                                 <div class="contentIcons">
         
                                     <?php
-                                        if (isset($username) AND $type==LASTFM_CONTENT_TYPE::TRACK) {
+                                        if (isset($username) AND $type==SPOTIFY_CONTENT_TYPE::TRACK) {
 
                                     ?>
 
@@ -235,15 +240,15 @@ if (!empty($searchTerm)) {
                 
                 if ($postIndex < 19) {
                     $postType = "TRACK";
-                    $geniusType = LASTFM_CONTENT_TYPE::TRACK;
+                    $geniusType = SPOTIFY_CONTENT_TYPE::TRACK;
                 } else if ($postIndex < 39) {
                     $postIndex -= 20;
                     $postType = "ALBUM";
-	                $geniusType = LASTFM_CONTENT_TYPE::ALBUM;
+	                $geniusType = SPOTIFY_CONTENT_TYPE::ALBUM;
                 } else {
                     $postIndex -= 40;
                     $postType = "ARTIST";
-	                $geniusType = LASTFM_CONTENT_TYPE::ARTIST;
+	                $geniusType = SPOTIFY_CONTENT_TYPE::ARTIST;
                 }
                 echo $_POST['index'];
                 
@@ -265,12 +270,12 @@ if (!empty($searchTerm)) {
 
                 }
 
-                if ($postType == LASTFM_CONTENT_TYPE::ALBUM) {
+                if ($postType == SPOTIFY_CONTENT_TYPE::ALBUM) {
                     addAlbum($username, $resultToSave["name"], $resultToSave["artist"], ["",""], $resultToSave["biggest_image_url"]);
                     getAlbums($username);
                 }
 
-                if ($postType == LASTFM_CONTENT_TYPE::ARTIST) {
+                if ($postType == SPOTIFY_CONTENT_TYPE::ARTIST) {
                     addArtist($username, $resultToSave["name"], $resultToSave["biggest_image_url"]);
                     getArtists($username);
                 }
@@ -293,15 +298,15 @@ if (!empty($searchTerm)) {
                 
                 if ($postIndex < 19) {
                     $postType = "TRACK";
-	                $geniusType = LASTFM_CONTENT_TYPE::TRACK;
+	                $geniusType = SPOTIFY_CONTENT_TYPE::TRACK;
                 } else if ($postIndex < 39) {
                     $postIndex -= 20;
                     $postType = "ALBUM";
-	                $geniusType = LASTFM_CONTENT_TYPE::ALBUM;
+	                $geniusType = SPOTIFY_CONTENT_TYPE::ALBUM;
                 } else {
                     $postIndex -= 40;
                     $postType = "ARTIST";
-	                $geniusType = LASTFM_CONTENT_TYPE::ARTIST;
+	                $geniusType = SPOTIFY_CONTENT_TYPE::ARTIST;
                 }
                 echo $_POST['index'];
                 
