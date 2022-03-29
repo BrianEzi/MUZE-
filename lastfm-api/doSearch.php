@@ -28,8 +28,6 @@ function doSearch(string $searchTerm, string $imageSize="25vw"): array {
 		"method" => "track.search",
 		"track" => $searchTerm
 	), false);
-	print_r($response);
-	die;
 	$tracks = [];
 	foreach ($response->results->trackmatches->track as $track) {
 		$srcset = [];
