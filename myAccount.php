@@ -11,7 +11,6 @@
     $username = $_SESSION['username'];
     $profilePicture = $_SESSION['profilePicture'];
 
-    $numberOfTracks = count($_SESSION['tracks']);
     $numberOfAlbums = count($_SESSION['albums']);
     $numberOfArtists = count($_SESSION['artists']);
     $numberOfPlaylists = count($_SESSION['playlists']);
@@ -195,7 +194,6 @@
         <div class="statsBox">
 
             <div class="statsContainer">
-                <div class="stat">Songs Saved : <?=$numberOfTracks?></div>
                 <div class="stat">Albums Saved : <?=$numberOfAlbums?></div>
                 <div class="stat">Artists Saved : <?=$numberOfArtists?></div>
                 <div class="stat">Playlists Created : <?=$numberOfPlaylists?></div>

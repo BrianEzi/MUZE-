@@ -258,16 +258,9 @@ if (!empty($searchTerm)) {
                 
                 
                 if ($postType == "TRACK") {
-
-                    if ($playlistName == "My Tracks") {
-                        addTrack($username, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
-                        getTracks($username);
-                    } else {
                         
-                        addToPlaylist($username, $playlistName, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
-                        getPlaylists($username);
-                    }
-
+                    addToPlaylist($username, $playlistName, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
+                    getPlaylists($username);
                 }
 
                 if ($postType == SPOTIFY_CONTENT_TYPE::ALBUM) {
@@ -318,15 +311,9 @@ if (!empty($searchTerm)) {
                 
                 
                 if ($postType == "TRACK") {
-
-                    if ($playlistName == "My Tracks") {
-                        addTrack($username, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
-                        getTracks($username);
-                    } else {
                         
-                        addToPlaylist($username, $playlistName, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
-                        getPlaylists($username);
-                    }
+                    addToPlaylist($username, $playlistName, $resultToSave->name, implode(", ",SearchComponent::getArtists($resultToSave)), SearchComponent::extractBiggestImageUrl($resultToSave));
+                    getPlaylists($username);
 
                 }
 
@@ -360,13 +347,7 @@ if (!empty($searchTerm)) {
                 if (isset($_POST['artist'])) {
                     $_SESSION['artist'] = $_POST['artist'];
                 }
-                if ($_POST['contentType'] == "PLAYLIST") {
-                    foreach($_SESSION['playlists'] as $p) {
-                        if ($p[0] == $_POST['title']) {
-                            $_SESSION['tracklist'] = $p[1];
-                        }
-                    }
-                }
+                
                 echo "<meta http-equiv='refresh' content='0;URL=contentInfo.php'>";
             }
 

@@ -34,22 +34,25 @@
 
     <script>
 
-        var albums = <?php echo $albums ?>;
-        var playlists = <?php echo $playlists ?>;
+        document.addEventListener("DOMContentLoaded", function (event) {
+            var scrollPosition = localStorage.getItem("scrollPosition");
+            var albumItems = document.getElementById("albums");
+            var albumScroll = localStorage.getItem("albumScroll");
+            if (scrollPosition) {
+                window.scrollTo(0, scrollPosition);
+            }
+            if (albumScroll) {
+                albumItems.scrollTo(albumScroll, 0);
+            }
+        });
 
-        // function selectAlbum(index) {
-        //     var x = document.getElementById(index);
+        window.onscroll = function (e) {
+            localStorage.setItem("scrollPosition", window.scrollY);
+        };
 
-        //     if (x.classList.contains("select")) {
-        //         x.classList.remove("select");
-        //     } else {
-        //         x.classList.add("select");
-        //     }
-        // }
-
-        function selectAlbum() {
-            var x = document.getElementById("hello").style.color = "red";
-        }
+        albumItems.onscroll = function (e) {
+            localStorage.setItem("albumScroll", albumItems.scrollX);
+        };
 
     </script>
 
@@ -95,7 +98,7 @@
         <div class="seeAll"><a href="myMusic/myAlbums.php">SEE ALL</a></div>
     </div>
 
-            <div class="content">
+            <div class="content" id="albums">
                 <?php
                     if (isset($_SESSION['albums'])) {
 
@@ -183,7 +186,7 @@
         <div class="seeAll"><a href="myMusic/myPlaylists.php">SEE ALL</a></div>
     </div>
 
-            <div class="content">
+            <div class="content" id="playlists">
                 <?php
                     if (isset($_SESSION['playlists'])) {
 
@@ -209,7 +212,7 @@
 
                                     <button type="submit" class="contentItem" name="select"> 
 
-                                    <div class="contentItem">
+                                    <!-- <div class="contentItem"> -->
                                         <div class="contentItem-image">
                                             <img src="<?php echo $row[3]; ?>" alt="">
                                             
@@ -217,7 +220,6 @@
                                         <div class="contentItem-mainText">
                                             <div class="contentLabel">PLAYLIST</div>
                                             <div class="title"><b><?php echo $row[0]; ?></b></div>
-                                            <?php echo $row[2]; ?>
                                         </div>
 
                                     <!-- </div> -->
@@ -295,7 +297,7 @@
                     echo "<meta http-equiv='refresh' content='0'>";
                 }
 
-                print_r($_SESSION['selectedAlbums']);
+                // print_r($_SESSION['selectedAlbums']);
 
             ?>
 

@@ -73,7 +73,7 @@
 
     }
 
-    function getUser($id){
+    function getUser($id) {
         $sql = "SELECT username, password
                 FROM users
                 WHERE userID=:id";
