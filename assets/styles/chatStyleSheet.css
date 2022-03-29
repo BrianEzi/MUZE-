@@ -92,8 +92,21 @@ body {
   overflow-y: auto;
   padding: 0;
 }
-.chatArea .chatMain .chatMessages:empty::before, .chatArea .chatMain .chatMessages:-moz-only-whitespace::before,
 .chatArea .chatMain .chatMessages .chatMessage {
+  display: table;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1rem;
+  width: auto;
+  border-radius: 2rem;
+}
+.chatArea .chatMain .chatMessages:empty::before {
+  display: table;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1rem;
+  width: auto;
+  border-radius: 2rem;
+}
+.chatArea .chatMain .chatMessages:-moz-only-whitespace::before {
   display: table;
   background: rgba(255, 255, 255, 0.9);
   padding: 1rem;
@@ -145,3 +158,5 @@ body {
     padding: 0.5rem 2rem;
   }
 }
+
+/*# sourceMappingURL=chatStyleSheet.css.map */
