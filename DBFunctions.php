@@ -1,10 +1,10 @@
 <?php
-    function createDatabase(){
-    $sql = "CREATE DATABASE IF NOT EXISTS loginInfo";
-    $pdo = new pdo('mysql:host=localhost:8889;', 'root', 'root');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-    $pdo->query($sql);
-    }
+    // function createDatabase(){
+    // $sql = "CREATE DATABASE IF NOT EXISTS loginInfo";
+    // $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk;', 'u95206ma', 'deeznuts123');
+    // $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+    // $pdo->query($sql);
+    // }
 
     function createTable(){
         $sql = "CREATE TABLE IF NOT EXISTS users (
@@ -14,7 +14,7 @@
             background VARCHAR(200) NOT NULL,
             profilePicture VARCHAR(200) NOT NULL)";
     
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $pdo->query($sql);
     }
@@ -22,21 +22,21 @@
 
     function dropUsersTable(){
         $sql = "DROP TABLE users";
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $pdo->query($sql);
     }
 
     function dropTracksTable(){
         $sql = "DROP TABLE tracks";
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $pdo->query($sql);
     }
 
     function addUser($username, $password){
         $sql = "SELECT * FROM users WHERE username=?";
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$username]);
@@ -46,7 +46,7 @@
         } else {
             $sql = "INSERT INTO users (username, password, background, profilePicture)
                     VALUES (:username, :password, :background, :profilePicture)";
-            $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+            $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
             
             $stmt = $pdo->prepare($sql);
@@ -77,7 +77,7 @@
         $sql = "SELECT username, password
                 FROM users
                 WHERE userID=:id";
-        $pdo = new pdo("mysql:host=localhost:8889; dbname=loginInfo", 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         
         $stmt = $pdo->prepare($sql);
@@ -90,7 +90,7 @@
         $sql = "SELECT password, background, profilePicture
                 FROM users
                 WHERE username = :username";
-        $pdo = new pdo("mysql:host=localhost:8889; dbname=loginInfo", 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
         $stmt = $pdo->prepare($sql);
@@ -129,7 +129,7 @@
                 FROM users
                 WHERE username=:username";
 
-        $pdo = new pdo("mysql:host=localhost:8889; dbname=loginInfo", 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
         $stmt = $pdo->prepare($sql);
@@ -147,7 +147,7 @@
                         SET password = :password
                         WHERE username = :username";
 
-                $pdo2 = new pdo("mysql:host=localhost:8889; dbname=loginInfo", 'root', 'root');
+                $pdo2 = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
                 $pdo2->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
     
                 $stmt2 = $pdo2->prepare($sql2);
@@ -175,7 +175,7 @@
             trackName VARCHAR(100),
             image VARCHAR(100))";
         
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $pdo->query($sql);
     }
@@ -187,7 +187,7 @@
             $sql = "INSERT INTO albums (username, title, trackName, artist, image)
                 VALUES (:username, :title, :trackName, :artist, :image)";
 
-            $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+            $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
             $stmt = $pdo->prepare($sql);
@@ -206,7 +206,7 @@
         $sql = "DELETE FROM albums
                 WHERE username=:username AND title=:title AND artist=:artist";
                 
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
         $stmt = $pdo->prepare($sql);
@@ -224,7 +224,7 @@
 
         // $sql = "SELECT title, image, username FROM music";
 
-        $pdo = new pdo("mysql:host=localhost:8889; dbname=loginInfo", 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
         $stmt = $pdo->prepare($sql);
@@ -265,7 +265,7 @@
             artist VARCHAR(100),
             image VARCHAR(100))";
         
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $pdo->query($sql);
     }
@@ -274,7 +274,7 @@
         $sql = "INSERT INTO artists (username, artist, image)
                 VALUES (:username, :artist, :image)";
 
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
         $stmt = $pdo->prepare($sql);
@@ -289,7 +289,7 @@
         $sql = "DELETE FROM artists
                 WHERE username=:username AND artist=:artist";
                 
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
         $stmt = $pdo->prepare($sql);
@@ -306,7 +306,7 @@
 
         // $sql = "SELECT title, image, username FROM music";
 
-        $pdo = new pdo("mysql:host=localhost:8889; dbname=loginInfo", 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
         $stmt = $pdo->prepare($sql);
@@ -333,14 +333,14 @@
             trackName VARCHAR(100) NOT NULL,
             image VARCHAR(100))";
         
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $pdo->query($sql);
     }
 
     function dropPlaylistTable() {
         $sql = "DROP TABLE playlists";
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $pdo->query($sql);
     }
@@ -350,7 +350,7 @@
         $sql = "INSERT INTO playlists (username, title, trackName, artist, image)
             VALUES (:username, :title, :trackName, :artist, :image)";
 
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
         $stmtlist = [];
@@ -372,7 +372,7 @@
     function addToPlaylist($username, $title, $trackName, $artist, $image) {
         $sql = "INSERT INTO playlists (username, title, trackName, artist, image)
                 VALUES (:username, :title, :trackName, :artist, :image)";
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
         $stmt = $pdo->prepare($sql);
@@ -389,7 +389,7 @@
         $sql = "DELETE FROM playlists
                 WHERE username=:username AND title=:title";
                 
-        $pdo = new pdo('mysql:host=localhost:8889; dbname=loginInfo', 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
         $stmt = $pdo->prepare($sql);
@@ -406,7 +406,7 @@
 
         // $sql = "SELECT title, image, username FROM music";
 
-        $pdo = new pdo("mysql:host=localhost:8889; dbname=loginInfo", 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
         $stmt = $pdo->prepare($sql);
