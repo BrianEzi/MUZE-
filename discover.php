@@ -1,9 +1,9 @@
 <?php
-include_once(__DIR__ . "/genius-api/doSearch.php");
+include_once(__DIR__ . "/lastfm-api/doSearch.php");
 require_once(__DIR__ . "/DBFunctions.php");
 @$searchTerm = $_GET["searchInput"];
 if (!empty($searchTerm)) {
-    // search with genius api
+    // search with lastfm api
 	$results = doSearch($searchTerm, "5em");
 }
 ?>
@@ -111,7 +111,7 @@ if (!empty($searchTerm)) {
         $resultIndex = 0;
         if (!empty($searchTerm)) {
             $tempIndex = 5;
-	        foreach (GENIUS_CONTENT_TYPE::$ALL as $type) {
+	        foreach (LASTFM_CONTENT_TYPE::$ALL as $type) {
                 // if the search results don't have any of this type, skip this type
 		        if (!array_key_exists($type, $results)) continue;
 
@@ -126,22 +126,21 @@ if (!empty($searchTerm)) {
                     <form method="post">
                             <?php
 
-                                if ($type == GENIUS_CONTENT_TYPE::SONG) {
+                                if ($type == LASTFM_CONTENT_TYPE::TRACK) {
                                     echo '<input type="hidden" name="artist" value="' . $result["artist"] . '">';
                                     
                                 }
                                 
-                                /*if ($type == GENIUS_CONTENT_TYPE::ALBUM) {
-                                    echo '<input type="hidden" name="artist" value="' . implode(", ", SearchComponent::getArtists($result)) . '">';
-                                }*/
+                                if ($type == LASTFM_CONTENT_TYPE::ALBUM) {
+                                    echo '<input type="hidden" name="artist" value="' . $result["artist"] . '">';
+                                }
                                 
-                                if ($type == GENIUS_CONTENT_TYPE::ARTIST) {
+                                if ($type == LASTFM_CONTENT_TYPE::ARTIST) {
                                     
                                 }
                                 ?>
 
-                            <input type="hidden" name="id" value="<?=$result["id"]?>">
-                            <input type="hidden" name="contentType" value="<?=strtoupper($result["type"])?>">
+                            <input type="hidden" name="contentType" value="<?=strtoupper($type)?>">
                             <input type="hidden" name="title" value="<?=$result["name"]?>">
                             <input type="hidden" name="image" value="<?=$result["biggest_image_url"]?>">
 
@@ -153,7 +152,7 @@ if (!empty($searchTerm)) {
                                 <div class="contentItem-mainText">
                                     <div class="contentLabel"><?=strtoupper($type)?></div>
                                     <div class="title"><b><?=$result["name"]?></b></div>
-                                    <?php if ($type != GENIUS_CONTENT_TYPE::ARTIST) { ?>
+                                    <?php if ($type != LASTFM_CONTENT_TYPE::ARTIST) { ?>
                                         <?=$result["artist"]?>
                                     <?php } ?>
                                 </div>
@@ -162,7 +161,7 @@ if (!empty($searchTerm)) {
                                 <div class="contentIcons">
         
                                     <?php
-                                        if (isset($username) AND $type==GENIUS_CONTENT_TYPE::SONG) {
+                                        if (isset($username) AND $type==LASTFM_CONTENT_TYPE::TRACK) {
 
                                     ?>
 
@@ -236,15 +235,15 @@ if (!empty($searchTerm)) {
                 
                 if ($postIndex < 19) {
                     $postType = "TRACK";
-                    $geniusType = GENIUS_CONTENT_TYPE::SONG;
+                    $geniusType = LASTFM_CONTENT_TYPE::TRACK;
                 } else if ($postIndex < 39) {
-                    /*$postIndex -= 20;
+                    $postIndex -= 20;
                     $postType = "ALBUM";
-	                $geniusType = GENIUS_CONTENT_TYPE::ALBUM;*/
+	                $geniusType = LASTFM_CONTENT_TYPE::ALBUM;
                 } else {
                     $postIndex -= 40;
                     $postType = "ARTIST";
-	                $geniusType = GENIUS_CONTENT_TYPE::ARTIST;
+	                $geniusType = LASTFM_CONTENT_TYPE::ARTIST;
                 }
                 echo $_POST['index'];
                 
@@ -266,12 +265,12 @@ if (!empty($searchTerm)) {
 
                 }
 
-                /*if ($postType == GENIUS_CONTENT_TYPE::ALBUM) {
+                if ($postType == LASTFM_CONTENT_TYPE::ALBUM) {
                     addAlbum($username, $resultToSave["name"], $resultToSave["artist"], ["",""], $resultToSave["biggest_image_url"]);
                     getAlbums($username);
-                }*/
+                }
 
-                if ($postType == GENIUS_CONTENT_TYPE::ARTIST) {
+                if ($postType == LASTFM_CONTENT_TYPE::ARTIST) {
                     addArtist($username, $resultToSave["name"], $resultToSave["biggest_image_url"]);
                     getArtists($username);
                 }
@@ -294,15 +293,15 @@ if (!empty($searchTerm)) {
                 
                 if ($postIndex < 19) {
                     $postType = "TRACK";
-	                $geniusType = GENIUS_CONTENT_TYPE::SONG;
+	                $geniusType = LASTFM_CONTENT_TYPE::TRACK;
                 } else if ($postIndex < 39) {
-                    /*$postIndex -= 20;
+                    $postIndex -= 20;
                     $postType = "ALBUM";
-	                $geniusType = GENIUS_CONTENT_TYPE::ALBUM;*/
+	                $geniusType = LASTFM_CONTENT_TYPE::ALBUM;
                 } else {
                     $postIndex -= 40;
                     $postType = "ARTIST";
-	                $geniusType = GENIUS_CONTENT_TYPE::ARTIST;
+	                $geniusType = LASTFM_CONTENT_TYPE::ARTIST;
                 }
                 echo $_POST['index'];
                 
