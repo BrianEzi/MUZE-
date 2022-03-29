@@ -12,3 +12,17 @@ class LastfmRequester extends BaseRequester {
 		$data["format"] = "json";
 	}
 }
+
+/**
+ * An enum of possible content types with the Genius API.
+ */
+class LASTFM_CONTENT_TYPE {
+	public const TRACK = "track";
+	public const ALBUM = "album";
+	public const ARTIST = "artist";
+
+	public static array $ALL = array(
+		self::TRACK, self::ALBUM, self::ARTIST
+	);
+}
+
