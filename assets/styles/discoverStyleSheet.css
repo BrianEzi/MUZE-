@@ -21,9 +21,11 @@
   margin: 1em;
   border-radius: 1.7em;
   transition: background-color 0.3s;
-  border-color: rgba(100, 100, 100, 0.6);
   text-align: left;
   border: 1em rgba(100, 100, 100, 0.6);
+}
+button.contentItem {
+  cursor: pointer;
 }
 
 .contentItem:hover {
@@ -39,6 +41,7 @@
     width: 10em;
     height: 10em;
     object-fit: cover;
+    border-radius: 1em;
 }
 
 
@@ -63,7 +66,7 @@
 }
 
 .contentIcons {
-  margin-right: 0em;
+  margin-right: 0;
   margin-left: 1em;
 }
 
@@ -98,7 +101,6 @@ input[type=image] {
   color: black;
   width: 15em;
   background-color: rgb(160, 160, 160);
-  border: 1em white;
   border-radius: 1em;
   padding: 0.2em 0.7em;
   padding-bottom: 0.4em;
@@ -118,8 +120,8 @@ input[type=image] {
 .black_overlay {
   display: none;
   position: fixed;
-  top: 0%;
-  left: 0%;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-color: black;
@@ -148,7 +150,6 @@ input[type=image] {
 }
 
 .closePopup {
-  color: black;
   font-size: 2em;
   text-decoration: none;
   text-align: center;
