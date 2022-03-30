@@ -157,7 +157,9 @@ button, .logout, #changePasswordToggle {
 .profileBox img {
     margin: 0 auto;
     width: 12em;
-    height: 12em;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1;
     border-radius: 50%;
     justify-content: center;
     margin-top: 3em;
