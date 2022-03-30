@@ -16,7 +16,7 @@
     border: 1em;
     transition: all 0.3s;
     display: block;
-
+    cursor: pointer;
 }
 
 .individualGame:hover {
