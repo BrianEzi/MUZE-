@@ -113,9 +113,8 @@ if (!empty($searchTerm)) {
 
         <div class="content">
         <?php
-        $resultIndex = 0;
+
         if (!empty($searchTerm)) {
-            $tempIndex = 5;
 	        foreach (SPOTIFY_CONTENT_TYPE::$ALL as $type) {
                 // if the search results don't have any of this type, skip this type
 		        if (!array_key_exists($type, $results)) continue;
@@ -124,8 +123,8 @@ if (!empty($searchTerm)) {
                 
 		        foreach ($results[$type] as $result) {
 
+                    $resultIndex = 0;
                     ?>
-
 
 
                     <form method="post">
@@ -183,6 +182,7 @@ if (!empty($searchTerm)) {
                                     ?>
 
                                         <input type="hidden" name="index" value="<?=strval($resultIndex)?>">
+                                        <input type="hidden" name="type" value="<?=strtoupper($type)?>">
                                         <input type="hidden" name="submitted">
                                         <input type="submit" class="inputSubmit" value="+">
 
@@ -238,18 +238,9 @@ if (!empty($searchTerm)) {
                 $playlistName = $_POST['playlistSubmitted'];
                 $postIndex = intval($_POST["index"]);
                 
-                if ($postIndex < 19) {
-                    $postType = "TRACK";
-                    $geniusType = SPOTIFY_CONTENT_TYPE::TRACK;
-                } else if ($postIndex < 39) {
-                    $postIndex -= 20;
-                    $postType = "ALBUM";
-	                $geniusType = SPOTIFY_CONTENT_TYPE::ALBUM;
-                } else {
-                    $postIndex -= 40;
-                    $postType = "ARTIST";
-	                $geniusType = SPOTIFY_CONTENT_TYPE::ARTIST;
-                }
+                $postType = "TRACK";
+                $geniusType = SPOTIFY_CONTENT_TYPE::TRACK;
+
                 echo $_POST['index'];
                 
                 // $resultToSave = ($results[$postType]->items)[$postIndex];
@@ -289,26 +280,19 @@ if (!empty($searchTerm)) {
 
             if (isset($_POST['submitted'])) {
                 $postIndex = intval($_POST["index"]);
-                
-                if ($postIndex < 19) {
-                    $postType = "TRACK";
-	                $geniusType = SPOTIFY_CONTENT_TYPE::TRACK;
-                } else if ($postIndex < 39) {
-                    $postIndex -= 20;
-                    $postType = "ALBUM";
-	                $geniusType = SPOTIFY_CONTENT_TYPE::ALBUM;
-                } else {
-                    $postIndex -= 40;
-                    $postType = "ARTIST";
-	                $geniusType = SPOTIFY_CONTENT_TYPE::ARTIST;
+                $postType = $_POST['type'];
+
+                if ($postType == "ALBUM") {
+                    $geniusType = SPOTIFY_CONTENT_TYPE::ALBUM;
+
+                } else if ($postType == "ARTIST") {
+                    $geniusType = SPOTIFY_CONTENT_TYPE::ARTIST;
                 }
-                echo $_POST['index'];
+                
                 
                 // $resultToSave = ($results[$postType]->items)[$postIndex];
 
-                $resultToSave = ($results[$geniusType]->items)[$postIndex];
-
-                print_r($resultToSave);
+                $resultToSave = ($results[$geniusType])[$postIndex];
                 
                 
                 if ($postType == "TRACK") {
