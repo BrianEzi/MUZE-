@@ -90,7 +90,7 @@
                 ?>
             </ul>
             <form id="chatInputForm" action="chat.php" method="post">
-                <input type="hidden" name="selectedChat" value="<?=$_GET["selectedChat"]?>">
+                <input type="hidden" name="selectedChat" value="<?=$_GET["selectedChat"] ?? ""?>">
                 <input class="chatInput" name="chatInput" placeholder="Send a message..." aria-label="Send a message">
             </form>
         </div>
