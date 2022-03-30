@@ -63,7 +63,7 @@
                         <img src="assets/images/aurora.jpg" alt="<?=$chatOption["userName"]?>'s profile picture">
                         <div>
                             <h5><?=$chatOption["userName"]?></h5>
-                            <p><?=$chatOption["lastMessage"]?></p>
+                            <p class="lastMessage"><?=$chatOption["lastMessage"]?></p>
                         </div>
                     </li>
                 </a>
