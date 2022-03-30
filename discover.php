@@ -254,19 +254,13 @@ if (!empty($searchTerm)) {
                 
                 // $resultToSave = ($results[$postType]->items)[$postIndex];
 
-                $resultToSave = ($results[$geniusType]->items)[$postIndex];
+                $resultToSave = ($results[$geniusType])[$postIndex];
                 
                 
                 if ($postType == "TRACK") {
-
-                    if ($playlistName == "My Tracks") {
-                        addTrack($username, $resultToSave["name"], $resultToSave["artist"], $resultToSave["biggest_image_url"]);
-                        getTracks($username);
-                    } else {
-                        
-                        addToPlaylist($username, $playlistName, $resultToSave["name"], $resultToSave["artist"], $resultToSave["biggest_image_url"]);
-                        getPlaylists($username);
-                    }
+    
+                    addToPlaylist($username, $playlistName, $resultToSave["name"], $resultToSave["artist"], $resultToSave["biggest_image_url"]);
+                    getPlaylists($username);
 
                 }
 
@@ -318,15 +312,9 @@ if (!empty($searchTerm)) {
                 
                 
                 if ($postType == "TRACK") {
-
-                    if ($playlistName == "My Tracks") {
-                        addTrack($username, $resultToSave["name"], $resultToSave["artist"], $resultToSave["biggest_image_url"]);
-                        getTracks($username);
-                    } else {
                         
-                        addToPlaylist($username, $playlistName, $resultToSave["name"], $resultToSave["artist"], $resultToSave["biggest_image_url"]);
-                        getPlaylists($username);
-                    }
+                    addToPlaylist($username, $playlistName, $resultToSave["name"], $resultToSave["artist"], $resultToSave["biggest_image_url"]);
+                    getPlaylists($username);
 
                 }
 
