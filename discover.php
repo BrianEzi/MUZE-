@@ -121,9 +121,9 @@ if (!empty($searchTerm)) {
 
 		        $_SESSION['searchResults'] = $results[$type];
                 
+                $resultIndex = 0;
 		        foreach ($results[$type] as $result) {
 
-                    $resultIndex = 0;
                     ?>
 
 

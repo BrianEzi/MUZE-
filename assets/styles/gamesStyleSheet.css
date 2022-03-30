@@ -26,6 +26,8 @@
 .individualGame img {
     margin: 0 auto;
     height: 20em;
+    background-color: white;
+    padding: 0 4em;
 }
 
 .gameTitle {

@@ -199,7 +199,16 @@
                                 $itemIndex = 0;
                                 foreach($playlists as $row) {
 
-                                    $type = "PLAYLISTs";
+                                    $type = "PLAYLIST";
+                                    $selected = false;
+
+
+                                    foreach($_SESSION['selectedPlaylists'] as $sa) {
+                                        if ($row==$sa) {
+                                            $selected = true;
+                                        }
+                                    }
+
                                     ?>
 
                                     <form method="post">
@@ -210,7 +219,14 @@
                                     <input type="hidden" name="image" value="<?=$row[3]?>">
                                     <input type="hidden" name="index" value="<?=$itemIndex?>">
 
-                                    <button type="submit" class="contentItem" name="select"> 
+                                    <!-- <button type="submit" class="contentItem" name="select">  -->
+                                    <?php
+                                        if ($selected) {
+                                            echo '<button type="submit" class="contentItem" name="unselect" style="background-color: rgba(10, 10, 10, 0.6)">';
+                                        } else {
+                                            echo '<button type="submit" class="contentItem" name="select">';
+                                        }
+                                    ?>
 
                                     <!-- <div class="contentItem"> -->
                                         <div class="contentItem-image">
@@ -242,6 +258,41 @@
             </div>
 
             <?php
+                
+                $notEmpty = false;
+                if (count($_SESSION['selectedPlaylists']) > 0) {
+
+                    foreach($_SESSION['selectedPlaylists'] as $sp) {
+                        if (count($sp[1]) > 1) {
+                            $notEmpty = true;
+                        }
+                    }
+                }
+                
+                if (count($_SESSION['selectedAlbums']) > 0 OR $notEmpty) {
+                    ?>
+
+                    <form method="post" class="startForm">
+                        <input type="submit" name="startGame" value="Start Game" class="startGame">
+                    </form>
+
+                    <?php
+                }
+
+            ?>
+
+            <?php
+
+                if (isset($_POST['startGame'])) {
+
+                    unset($_SESSION['currentGameState']);
+                    unset($_SESSION['gameTrackName']);
+                    unset($_SESSION['newGame']);
+                    unset($_SESSION['incorrectGuesses']);
+                    unset($_SESSION['guesses']);
+                    
+                    echo "<meta http-equiv='refresh' content='0;URL=songHangman.php'>";
+                }
 
                 if (isset($_POST['select'])) {
                     
@@ -256,7 +307,7 @@
                         
                     }
                     if ($contentType == "PLAYLIST") {
-                        $playlistInfo = $playlist[$index];
+                        $playlistInfo = $playlists[$index];
                         $selectedPlaylists = $_SESSION['selectedPlaylists'];
                         array_push($selectedPlaylists, $playlistInfo);
                         $_SESSION['selectedPlaylists'] = $selectedPlaylists;
@@ -296,8 +347,6 @@
                     }
                     echo "<meta http-equiv='refresh' content='0'>";
                 }
-
-                // print_r($_SESSION['selectedAlbums']);
 
             ?>
 

@@ -52,7 +52,7 @@
     <form method="post">
 
             <button class="individualGame" type="submit" name="startGame" value="game1">
-                <img src="https://media.istockphoto.com/illustrations/simple-illustration-of-hangman-game-illustration-id1196954772?k=20&m=1196954772&s=612x612&w=0&h=nzsr9bCwxp9xW3dp-nBJeXE7TVGqnWtdJpbaXvEyl3E=" alt="">
+                <img src="assets/images/hangman/hangman_stage10.pdf" alt="">
                 <div class="gameTitle">
                     Song Hangman
                 </div>
@@ -125,6 +125,8 @@
     <?php
 
         if (isset($_POST['startGame'])) {
+            unset($_SESSION['selectedAlbums']);
+            unset($_SESSION['selectedPlaylists']);
             switch ($_POST['startGame']) {
                 case "game1":
                     echo "<meta http-equiv='refresh' content='0;URL=selectTracks.php'>";

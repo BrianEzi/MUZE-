@@ -52,3 +52,17 @@ button.select {
 .secondWrapper {
     display: flex;
 }
+
+.startForm {
+    text-align: center;
+}
+
+.startGame {
+    background-color: white;
+    color: black;
+    border-radius: 1em;
+    font-size: 2em;
+    border: white;
+    padding: 0.1em 0.6em;
+    margin: 1em 0;
+}

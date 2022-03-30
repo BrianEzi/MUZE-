@@ -1,0 +1,72 @@
+.content {
+    display: flex;
+    justify-content: space-between;
+}
+
+img {
+    padding-right: 1em;
+}
+
+.gameState {
+    font-size: 3em;
+    text-align: center;
+    color: white;
+}
+
+.gameObjects {
+    width: 60%;
+    height: 42em;
+    background-color: rgba(100, 100, 100, 0.6);
+    border-radius: 3em;
+    margin: 2em auto;
+    text-align: center;
+    padding: 3em;
+    padding-top: 1em;
+}
+
+.hangmanStages {
+    margin: 0 auto;
+    align-self: center;
+}
+
+.submitLetter input {
+    font-size: 3em;
+    width: 2em;
+    background-color: rgba(10, 10, 10, 0.6);
+    border-radius: 0.3em;
+    color: white;
+    border: 0.02em solid white;
+    padding-left: 0.6em;
+    margin-bottom: 1em;
+}
+
+h2 {
+    color: white;
+}
+
+.new {
+    font-size: 1em;
+    width: 7em;
+    background-color: white;
+    border-radius: 1em;
+    color: black;
+    border: white;
+    margin-bottom: 1em;
+}
+
+.guesses {
+    width: 30%;
+    height: 42em;
+    background-color: rgba(100, 100, 100, 0.6);
+    border-radius: 3em;
+    margin: 2em auto;
+    text-align: center;
+    padding: 3em;
+    overflow: scroll;
+
+}
+
+.guessText {
+    font-size: 2em;
+    color: white;
+}
