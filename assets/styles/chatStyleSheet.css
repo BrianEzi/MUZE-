@@ -170,6 +170,9 @@ body {
     background: rgba(10, 10, 10, 0.8);
     color: white;
   }
+  .chatArea .chatSidebar {
+    border-inline-end-color: rgba(255, 255, 255, 0.2);
+  }
   .chatArea .chatSidebar .chatOption:hover {
     background: rgba(255, 255, 255, 0.05);
   }
