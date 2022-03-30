@@ -51,4 +51,10 @@ class Chat {
 			),
 		);
 	}
+
+	public static function SendMessage(string $selectedChat, string $newMessage) {
+		// todo: add $newMessage to the database
+		echo "Something something send message:";
+		echo $newMessage;
+	}
 }

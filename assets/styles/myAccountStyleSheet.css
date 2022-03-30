@@ -101,16 +101,18 @@
     padding-top: 1em;
 }
 
-.logout {
+button, .logout, #changePasswordToggle {
     width: 6em;
     color: black;
     font-size: 1em;
     background-color: white;
     border: 0.05em solid white;
     border-radius: 2em;
+    padding: 0.3em 0.6em;
+}
+.logout {
     margin-bottom: 2em;
     margin-top: 2em;
-    padding: 0.3em 0.6em;
 }
 
 .logoutForm {
@@ -155,7 +157,9 @@
 .profileBox img {
     margin: 0 auto;
     width: 12em;
-    height: 12em;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1;
     border-radius: 50%;
     justify-content: center;
     margin-top: 3em;
@@ -215,11 +219,6 @@
 
 #changePasswordToggle {
     width: 10em;
-    font-size: 1em;
-    padding: 0.3em 0.6em;
-    border: 0.05em solid white;
-    background-color : white;
-    border-radius: 2em;
     display: block;
     margin: 0em auto;
 }

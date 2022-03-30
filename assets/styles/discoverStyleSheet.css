@@ -6,6 +6,9 @@
     flex-flow: row wrap;
     justify-content: center;
   }
+.content > * {
+  max-width: 100%;
+}
   
 .searchbar {
   padding-top: 2em;
@@ -23,9 +26,6 @@
   transition: background-color 0.3s;
   text-align: left;
   border: 1em rgba(100, 100, 100, 0.6);
-}
-button.contentItem {
-  cursor: pointer;
 }
 
 .contentItem:hover {
@@ -160,3 +160,14 @@ input[type=image] {
   width: 4em;
 }
 
+@media screen and (max-width: 650px) {
+  .content {
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+  }
+  .contentItem .contentItem-image,
+  .contentItem .contentItem-image img {
+    width: 5rem;
+    height: 5rem;
+  }
+}
