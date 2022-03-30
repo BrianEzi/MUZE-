@@ -3,6 +3,10 @@
 
     require_once "internal-api/Chat.php";
 
+    if (!empty($_POST["chatInput"])) {
+	    Chat::SendMessage($_POST["selectedChat"], $_POST["chatInput"]);
+    }
+
     if (isset($_SESSION['background'])) {
         $background = $_SESSION['background'];
     } else {
@@ -85,7 +89,10 @@
                 }
                 ?>
             </ul>
-            <input class="chatInput" placeholder="Send a message...">
+            <form id="chatInputForm" action="chat.php" method="post">
+                <input type="hidden" name="selectedChat" value="<?=$_GET["selectedChat"]?>">
+                <input class="chatInput" name="chatInput" placeholder="Send a message..." aria-label="Send a message">
+            </form>
         </div>
     </div>
 
