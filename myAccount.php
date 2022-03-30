@@ -207,19 +207,14 @@
         <h1>Friends</h1>
     </div>
 
+    <div style="text-align: center;">
+        <button style="width: 10em;" name="Add Friend" type="button" onclick="location.href = 'friend.php';">Add Friend</button>
+    </div>
+
     <form method="post">
 
         <div class="accountHeading">
             <h1>Profile Picture</h1>
-        </div>
-
-        <div>
-            <button id="nuts" name="Add Friend" type="button">Add Friend</button>
-            <script type="text/javascript">
-                document.getElementById("nuts").onclick = function(){
-                    location.href = "friend.php";
-                };
-            </script>
         </div>
 
         <div class="profileButtonContainer">
