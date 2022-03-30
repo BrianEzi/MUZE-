@@ -24,9 +24,6 @@
   text-align: left;
   border: 1em rgba(100, 100, 100, 0.6);
 }
-button.contentItem {
-  cursor: pointer;
-}
 
 .contentItem:hover {
   background-color: rgba(50, 50, 50, 0.6);
