@@ -6,6 +6,9 @@
     flex-flow: row wrap;
     justify-content: center;
   }
+.content > * {
+  max-width: 100%;
+}
   
 .searchbar {
   padding-top: 2em;
@@ -157,3 +160,14 @@ input[type=image] {
   width: 4em;
 }
 
+@media screen and (max-width: 650px) {
+  .content {
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+  }
+  .contentItem .contentItem-image,
+  .contentItem .contentItem-image img {
+    width: 5rem;
+    height: 5rem;
+  }
+}
