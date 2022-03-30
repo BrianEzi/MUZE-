@@ -125,6 +125,9 @@ body {
    background-color: rgba(100, 0, 100, 0.6);
 
  }
+button.contentItem {
+  cursor: pointer;
+}
 @media screen and (max-width: 850px) {
   .topnav a {
     font-size: 1em;
