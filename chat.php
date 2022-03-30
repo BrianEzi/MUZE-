@@ -51,10 +51,11 @@
     <div class="chatArea">
         <ul class="chatSidebar">
             <?php
-            function chatOption($chatId, $chatOption) {
+            function chatOption($chatId, $chatOption, $isSelected=false) {
+                $selected = $isSelected ? "selected" : "";
                 ?>
                 <a href="chat.php?selectedChat=<?=$chatId?>">
-                    <li class="chatOption" id="chatOption<?=$chatId?>">
+                    <li class="chatOption <?=$selected?>" id="chatOption<?=$chatId?>">
                         <img src="assets/images/aurora.jpg" alt="<?=$chatOption["userName"]?>'s profile picture">
                         <div>
                             <h5><?=$chatOption["userName"]?></h5>
@@ -66,12 +67,8 @@
             }
             $chats = Chat::ListChats();
             $selectedChatId = $_GET["selectedChat"] ?? "";
-            if (!empty($selectedChatId)) { // show selected chat first
-	            chatOption($selectedChatId, $chats[$selectedChatId]);
-            }
             foreach ($chats as $chatId => $chatOption) { // now show the rest of the chats
-                if ($chatId == $selectedChatId) continue; // don't repeat the selected chat
-                chatOption($chatId, $chatOption);
+                chatOption($chatId, $chatOption, $chatId == $selectedChatId);
             }
             ?>
         </ul>

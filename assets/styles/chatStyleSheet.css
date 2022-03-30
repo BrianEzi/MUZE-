@@ -156,5 +156,6 @@ body {
     margin-left: -1rem;
     margin-right: -1rem;
     padding: 0.5rem 2rem;
+    width: auto;
   }
 }
