@@ -71,6 +71,7 @@
                                 <input type="hidden" name="contentType" value="<?=$type?>">
                                 <input type="hidden" name="title" value="<?=$row[0]?>">
                                 <input type="hidden" name="image" value="<?=$row[3]?>">
+                                <input type="hidden" name="url" value="<?=$row[4]?>">
 
                                 <button type="submit" class="contentItem" name="expand">
 
@@ -109,6 +110,7 @@
                 $_SESSION['image'] = $_POST['image'];
                 $_SESSION['type'] = $_POST['contentType'];
                 $_SESSION['artist'] = $_POST['artist'];
+                $_SESSION['url'] = $_POST['url'];
 
                 echo "<meta http-equiv='refresh' content='0;URL=../myContentInfo.php'>";
             }

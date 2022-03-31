@@ -57,6 +57,10 @@
             $artist = $_SESSION['artist'];
         }
 
+        if (isset($_SESSION['url'])) {
+            $url = $_SESSION['url'];
+        }
+
         if (isset($_SESSION['tracklist'])) {
             $tracklist = $_SESSION['tracklist'];
         }
@@ -74,6 +78,8 @@
                 <div class="type"><?=$type?></div>
                 <div class="title"><b><?=$title?></b></div>
                 <div class="artist"><?=$artist?></div>
+                <br>
+                <a target="_blank"  class="link" href="<?=$url?>">Listen on Spotify</a>
             </div>
         </div>
 
@@ -90,6 +96,8 @@
                 <div class="type"><?=$type?></div>
                 <div class="title"><b><?=$title?></b></div>
                 <div class="artist"><?=$artist?></div>
+                <br>
+                <a target="_blank"  class="link" href="<?=$url?>">Listen on Spotify</a>
             </div>
         </div>
 
@@ -106,6 +114,8 @@
             <div class="textWrapper">
                 <div class="type"><?=$type?></div>
                 <div class="title"><b><?=$title?></b></div>
+                <br>
+                <a target="_blank"  class="link" href="<?=$url?>">Listen on Spotify</a>
             </div>
         </div>
 
@@ -131,24 +141,35 @@
 
             foreach(array_slice($tracklist, 1) as $t) {
                 ?>
-                <div class="trackWrapper">
+                <form method="post">
 
-                    <img src="<?=$t[2]?>" alt="" class="trackImage">
+                    <input type="hidden" name="contentType" value="TRACK">
+                    <input type="hidden" name="title" value="<?=$t[0]?>">
+                    <input type="hidden" name="image" value="<?=$t[2]?>">
+                    <input type="hidden" name="artist" value="<?=$t[1]?>">
+                    <input type="hidden" name="url" value="<?=$t[3]?>">
 
-                    <div class="trackTextWrapper">
-
-                        <div class="trackTitle">
-                            <?=$t[0]?>
+                    <button type="submit" name="expand" class="trackWrapper">
+    
+                        <img src="<?=$t[2]?>" alt="" class="trackImage">
+    
+                        <div class="trackTextWrapper">
+    
+                            <div class="trackTitle">
+                                <?=$t[0]?>
+                            </div>
+        
+                            <div class="trackArtist">
+                                <?=$t[1]?>
+                            </div>
+                            
+    
                         </div>
     
-                        <div class="trackArtist">
-                            <?=$t[1]?>
-                        </div>
+    
+                    </button>
 
-                    </div>
-
-
-                </div>
+                </form>
 
                 <br><br>
 
@@ -156,7 +177,19 @@
             }
         }
 
+        if (isset($_POST['expand'])) {
+            $_SESSION['title'] = $_POST['title'];
+            $_SESSION['image'] = $_POST['image'];
+            $_SESSION['type'] = $_POST['contentType'];
+            $_SESSION['artist'] = $_POST['artist'];
+            $_SESSION['url'] = $_POST['url'];
+                
+            echo "<meta http-equiv='refresh' content='0;URL=myContentInfo.php'>";
+        }
+
         ?>
+
+
        
     
 

@@ -108,9 +108,6 @@ if (!empty($searchTerm)) {
 
 
 
-
-
-
         <div class="content">
         <?php
 
@@ -132,21 +129,24 @@ if (!empty($searchTerm)) {
 
                                 if ($type == SPOTIFY_CONTENT_TYPE::TRACK) {
                                     echo '<input type="hidden" name="artist" value="' . $result["artist"] . '">';
+                                    echo '<input type="hidden" name="url" value="' . $result["url"] . '"?>';
                                     
                                 }
                                 
                                 if ($type == SPOTIFY_CONTENT_TYPE::ALBUM) {
                                     echo '<input type="hidden" name="artist" value="' . $result["artist"] . '">';
+                                    echo '<input type="hidden" name="url" value="' . $result["url"] . '"?>';
                                 }
                                 
                                 if ($type == SPOTIFY_CONTENT_TYPE::ARTIST) {
-                                    
+                                    echo '<input type="hidden" name="url" value="' . $result["url"] . '"?>';
                                 }
                                 ?>
 
                             <input type="hidden" name="contentType" value="<?=strtoupper($type)?>">
                             <input type="hidden" name="title" value="<?=$result["name"]?>">
                             <input type="hidden" name="image" value="<?=$result["biggest_image_url"]?>">
+                            <input type="hidden" name="id" value="<?=$result["id"]?>">
 
                             <button type="submit" class="contentItem" name="expand">
                             <!-- <div class="contentItem"> -->
@@ -247,23 +247,9 @@ if (!empty($searchTerm)) {
 
                 $resultToSave = ($results[$geniusType])[$postIndex];
                 
-                
-                if ($postType == "TRACK") {
     
-                    addToPlaylist($username, $playlistName, $resultToSave["name"], $resultToSave["artist"], $resultToSave["biggest_image_url"]);
-                    getPlaylists($username);
-
-                }
-
-                if ($postType == SPOTIFY_CONTENT_TYPE::ALBUM) {
-                    addAlbum($username, $resultToSave["name"], $resultToSave["artist"], ["",""], $resultToSave["biggest_image_url"]);
-                    getAlbums($username);
-                }
-
-                if ($postType == SPOTIFY_CONTENT_TYPE::ARTIST) {
-                    addArtist($username, $resultToSave["name"], $resultToSave["biggest_image_url"]);
-                    getArtists($username);
-                }
+                addToPlaylist($username, $playlistName, $resultToSave["name"], $resultToSave["artist"], $resultToSave["biggest_image_url"], $resultToSave['url']);
+                getPlaylists($username);
 
                 unset($_POST["playlistSubmitted"]);
                 unset($_POST["index"]);
@@ -294,21 +280,14 @@ if (!empty($searchTerm)) {
 
                 $resultToSave = ($results[$geniusType])[$postIndex];
                 
-                
-                if ($postType == "TRACK") {
-                        
-                    addToPlaylist($username, $playlistName, $resultToSave["name"], $resultToSave["artist"], $resultToSave["biggest_image_url"]);
-                    getPlaylists($username);
-
-                }
 
                 if ($postType == "ALBUM") {
-                    addAlbum($username, $resultToSave["name"], $resultToSave["artist"], ["",""], $resultToSave["biggest_image_url"]);
+                    addAlbum($username, $resultToSave["name"], $resultToSave["artist"], ["",""], $resultToSave["biggest_image_url"], $resultToSave['url']);
                     getAlbums($username);
                 }
 
                 if ($postType == "ARTIST") {
-                    addArtist($username, $resultToSave["name"], $resultToSave["biggest_image_url"]);
+                    addArtist($username, $resultToSave["name"], $resultToSave["biggest_image_url"], $resultToSave['url']);
                     getArtists($username);
                 }
 
@@ -331,6 +310,9 @@ if (!empty($searchTerm)) {
                 // $_SESSION['type'] = "TRACK";
                 if (isset($_POST['artist'])) {
                     $_SESSION['artist'] = $_POST['artist'];
+                }
+                if (isset($_POST['url'])) {
+                    $_SESSION['url'] = $_POST['url'];
                 }
                 if ($_POST['contentType'] == "PLAYLIST") {
                     foreach($_SESSION['playlists'] as $p) {

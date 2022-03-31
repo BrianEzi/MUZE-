@@ -56,6 +56,9 @@
         if (isset($_SESSION['artist'])) {
             $artist = $_SESSION['artist'];
         }
+        if (isset($_SESSION['url'])) {
+            $url = $_SESSION['url'];
+        }
     ?>
 
         <?php
@@ -70,6 +73,8 @@
                 <div class="type"><?=$type?></div>
                 <div class="title"><b><?=$title?></b></div>
                 <div class="artist"><?=$artist?></div>
+                <br>
+                <a target="_blank"  class="link" href="<?=$url?>">Listen on Spotify</a>
             </div>
         </div>
 
@@ -86,6 +91,8 @@
                 <div class="type"><?=$type?></div>
                 <div class="title"><b><?=$title?></b></div>
                 <div class="artist"><?=$artist?></div>
+                <br>
+                <a target="_blank"  class="link" href="<?=$url?>">Listen on Spotify</a>
             </div>
         </div>
 
@@ -102,6 +109,8 @@
             <div class="textWrapper">
                 <div class="type"><?=$type?></div>
                 <div class="title"><b><?=$title?></b></div>
+                <br>
+                <a target="_blank"  class="link" href="<?=$url?>">Listen on Spotify</a>
             </div>
         </div>
 

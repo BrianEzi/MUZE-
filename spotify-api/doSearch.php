@@ -69,7 +69,7 @@ function doSearch(string $searchTerm, array $contentTypes, string $imageSize="25
 				"artist" => _getArtists($item),
 				"biggest_image_url" => ($item->images ?? $item->album->images)[0]->url ?? "",
 				"image_tag" => _extractImageTag($item, $imageSize),
-				"url" => $item->href ?? $item->url,
+				"url" => $item->external_urls->spotify ?? $item->url,
 			);
 		}
 	}

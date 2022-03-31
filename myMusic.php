@@ -74,6 +74,7 @@
                                     <input type="hidden" name="contentType" value="<?=$type?>">
                                     <input type="hidden" name="title" value="<?=$row[0]?>">
                                     <input type="hidden" name="image" value="<?=$row[3]?>">
+                                    <input type="hidden" name="url" value="<?=$row[4]?>">
 
                                     <button type="submit" class="contentItem" name="expand">
 
@@ -111,6 +112,7 @@
                                     <input type="hidden" name="contentType" value="<?=$type?>">
                                     <input type="hidden" name="title" value="<?=$row[0]?>">
                                     <input type="hidden" name="image" value="<?=$row[3]?>">
+                                    <input type="hidden" name="url" value="<?=$row[4]?>">
 
                                     <button type="submit" class="contentItem" name="expand">
             
@@ -174,6 +176,7 @@
                                     <input type="hidden" name="contentType" value="<?=$type?>">
                                     <input type="hidden" name="title" value="<?=$row[0]?>">
                                     <input type="hidden" name="image" value="<?=$row[1]?>">
+                                    <input type="hidden" name="url" value="<?=$row[2]?>">
 
                                     <button type="submit" class="contentItem" name="expand">
                                     <!-- <div class="contentItem"> -->
@@ -205,6 +208,8 @@
                                     <input type="hidden" name="contentType" value="<?=$type?>">
                                     <input type="hidden" name="title" value="<?=$row[0]?>">
                                     <input type="hidden" name="image" value="<?=$row[1]?>">
+                                    <input type="hidden" name="url" value="<?=$row[2]?>">
+
                                     <button type="submit" class="contentItem" name="expand">
 
                                     <!-- <div class="contentItem"> -->
@@ -356,6 +361,10 @@
                 if (isset($_POST['artist'])) {
                     $_SESSION['artist'] = $_POST['artist'];
                 }
+                if (isset($_POST['url'])) {
+                    $_SESSION['url'] = $_POST['url'];
+                }
+
                 if ($_POST['contentType'] == "PLAYLIST") {
                     foreach($_SESSION['playlists'] as $p) {
                         if ($p[0] == $_POST['title']) {
