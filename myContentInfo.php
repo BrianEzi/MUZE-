@@ -157,7 +157,7 @@
     
                             <div class="trackTitle">
                                 <?=$t[0]?>
-                            </div>
+                            </div> <br>
         
                             <div class="trackArtist">
                                 <?=$t[1]?>

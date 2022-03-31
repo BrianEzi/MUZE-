@@ -176,7 +176,8 @@
         </div>
 
         <div class="logo">
-            <img src="assets/images/muze_image.png" alt="" class="center">
+            <!-- <img src="assets/images/muze_image.png" alt="" class="center"> -->
+            <img src="assets/images/MuzeAlternateLogo.pdf" alt="" class="center">
         </div>
 
         <div class="box">

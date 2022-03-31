@@ -172,7 +172,7 @@
                 <div class="submitLetter">
                 
                     <form method="post">
-                        <input type="text" name="guess" maxlength="1" required>
+                        <input type="text" name="guess" maxlength="1" autofocus="autofocus" onfocus="this.select()" required>
                     </form>
                 </div>
 

@@ -156,9 +156,12 @@ if (!empty($searchTerm)) {
                                 <div class="contentItem-mainText">
                                     <div class="contentLabel"><?=strtoupper($type)?></div>
                                     <div class="title"><b><?=$result["name"]?></b></div>
-                                    <?php if ($type != SPOTIFY_CONTENT_TYPE::ARTIST) { ?>
-                                        <?=$result["artist"]?>
-                                    <?php } ?>
+                                    <div class="artist">
+                                        <?php if ($type != SPOTIFY_CONTENT_TYPE::ARTIST) { ?>
+                                            <?=$result["artist"]?>
+                                        <?php } ?>
+
+                                    </div>
                                 </div>
                                 
         

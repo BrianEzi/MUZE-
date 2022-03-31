@@ -52,7 +52,7 @@
     <form method="post">
 
             <button class="individualGame" type="submit" name="startGame" value="game1">
-                <img src="assets/images/hangman/hangman_stage10.pdf" alt="">
+                <img src="assets/images/hangman/hangman_stage9.pdf" alt="" style="background-color: rgba(100, 0, 100, 0.8);">
                 <div class="gameTitle">
                     Song Hangman
                 </div>
@@ -63,59 +63,14 @@
     <form method="post">
 
             <button class="individualGame" type="submit" name="startGame" value="game2">
-                <img src="https://media.istockphoto.com/illustrations/simple-illustration-of-hangman-game-illustration-id1196954772?k=20&m=1196954772&s=612x612&w=0&h=nzsr9bCwxp9xW3dp-nBJeXE7TVGqnWtdJpbaXvEyl3E=" alt="">
+                <img src="assets/images/guessTheSong.pdf" alt="" style="background-color: rgba(0, 160, 160, 0.8);">
                 <div class="gameTitle">
-                    Song Hangman
+                    Guess The Song
                 </div>
             </button>
 
     </form>
 
-    <form method="post">
-
-            <button class="individualGame" type="submit" name="startGame" value="game3">
-                <img src="https://media.istockphoto.com/illustrations/simple-illustration-of-hangman-game-illustration-id1196954772?k=20&m=1196954772&s=612x612&w=0&h=nzsr9bCwxp9xW3dp-nBJeXE7TVGqnWtdJpbaXvEyl3E=" alt="">
-                <div class="gameTitle">
-                    Song Hangman
-                </div>
-
-            </button>
-
-    </form>
-
-    <form method="post">
-
-            <button class="individualGame" type="submit" name="startGame" value="game4">
-                <img src="https://media.istockphoto.com/illustrations/simple-illustration-of-hangman-game-illustration-id1196954772?k=20&m=1196954772&s=612x612&w=0&h=nzsr9bCwxp9xW3dp-nBJeXE7TVGqnWtdJpbaXvEyl3E=" alt="">
-                <div class="gameTitle">
-                    Song Hangman
-                </div>
-            </button>
-
-    </form>
-
-    <form method="post">
-
-            <button class="individualGame" type="submit" name="startGame" value="game5">
-                <img src="https://media.istockphoto.com/illustrations/simple-illustration-of-hangman-game-illustration-id1196954772?k=20&m=1196954772&s=612x612&w=0&h=nzsr9bCwxp9xW3dp-nBJeXE7TVGqnWtdJpbaXvEyl3E=" alt="">
-                <div class="gameTitle">
-                    Song Hangman
-                </div>
-            </button>
-
-    </form>
-
-    <form method="post">
-
-            <button class="individualGame" type="submit" name="startGame" value="game6">
-                <img src="https://media.istockphoto.com/illustrations/simple-illustration-of-hangman-game-illustration-id1196954772?k=20&m=1196954772&s=612x612&w=0&h=nzsr9bCwxp9xW3dp-nBJeXE7TVGqnWtdJpbaXvEyl3E=" alt="">
-                <div class="gameTitle">
-                    Song Hangman
-                </div>
-            </button>
-
-
-    </form>
 
             
 
@@ -127,13 +82,14 @@
         if (isset($_POST['startGame'])) {
             unset($_SESSION['selectedAlbums']);
             unset($_SESSION['selectedPlaylists']);
+            $_SESSION['game'] = $_POST['startGame'];
             switch ($_POST['startGame']) {
                 case "game1":
                     echo "<meta http-equiv='refresh' content='0;URL=selectTracks.php'>";
                     break;
 
                 case "game2":
-                    echo "<meta http-equiv='refresh' content='0;URL=chat.php'>";
+                    echo "<meta http-equiv='refresh' content='0;URL=selectTracks.php'>";
                     break;
 
                 case "game3":

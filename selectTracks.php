@@ -87,7 +87,6 @@
         </div>
         <div class="emptySpace"></div>
     </div>
-
             
     <div class="musicHeading">
         <div class="emptySpace"></div>
@@ -290,8 +289,19 @@
                     unset($_SESSION['newGame']);
                     unset($_SESSION['incorrectGuesses']);
                     unset($_SESSION['guesses']);
+                    unset($_SESSION['currentStreak']);
+                    unset($_SESSION['gameEnd']);
+                    unset($_SESSION['gameWon']);
+                    unset($_SESSION['newGame']);
                     
-                    echo "<meta http-equiv='refresh' content='0;URL=songHangman.php'>";
+                    $game = $_SESSION['game'];
+
+                    if ($game == "game1") {
+                        echo "<meta http-equiv='refresh' content='0;URL=songHangman.php'>";
+                    } else if ($game="game2") {
+                        echo "<meta http-equiv='refresh' content='0;URL=guessTheSong.php'>";
+                    }
+                    
                 }
 
                 if (isset($_POST['select'])) {
