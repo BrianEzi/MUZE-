@@ -15,6 +15,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="assets/styles/myStyles.css">
     <link rel="stylesheet" type="text/css" href="assets/styles/contentInfoStyleSheet.css">
+    <link rel="stylesheet" type="text/css" href="assets/styles/discoverStyleSheet.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -84,23 +85,53 @@
             </div>
         </div>
 
+        <div class="content">
         <?php
         $recommendations = getRecommendations([], [], [$itemId]);
         foreach (SPOTIFY_CONTENT_TYPE::$ALL as $type) {
             foreach ($recommendations[$type] as $result) {
         ?>
-            <ul>
+            <!-- <ul>
                 <li><?=$result["id"]?></li>
                 <li><?=$result["name"]?></li>
                 <li><?=$result["artist"]?></li>
                 <li><?=$result["biggest_image_url"]?></li>
                 <li><?=$result["image_tag"]?></li>
                 <li><?=$result["url"]?></li>
-            </ul>
+            </ul> -->
+            <form action="">
+
+                <input type="hidden" name="artist" value="<?=$result["artist"]?>">
+                <input type="hidden" name="url" value="<?=$result["url"]?>"?>
+
+                <input type="hidden" name="contentType" value="TRACK">
+                <input type="hidden" name="title" value="<?=$result["name"]?>">
+                <input type="hidden" name="image" value="<?=$result["biggest_image_url"]?>">
+                <input type="hidden" name="id" value="<?=$result["id"]?>">
+
+                <div class="recContentItem" name="expand" style="scale: 0.9;">
+                    <!-- <div class="contentItem"> -->
+                        <div class="contentItem-image">
+                            <?=$result["image_tag"]?>
+                        </div>
+                        <div class="contentItem-mainText">
+                            <div class="contentLabel">RELATED TRACK</div>
+                            <div class="title"><b><?=$result["name"]?></b></div>
+                            <div class="artist">
+                                    <?=$result["artist"]?>
+
+                            </div>
+                        </div>
+                        
+                    <!-- </div> -->
+
+            </div>
+            </form>
         <?php
             }
         }
         ?>
+        </div>
 
         <?php
         }
@@ -132,7 +163,7 @@
 
             foreach ($tracklist as $track) { ?>
 
-                    <div class="albumTrackWrapper">
+                    <div class="albumTrackWrapper" style="margin-bottom: 1em;">
     
                         <div class="trackTextWrapper">
     
@@ -143,8 +174,7 @@
                         </div>
                         
                         
-                    </div>
-                    <br>
+                    </div> 
 
             <?php
             $albumIndex += 1;
@@ -189,7 +219,6 @@
         <?php
         }
         ?>
-    
 
 
     
