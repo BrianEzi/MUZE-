@@ -131,34 +131,34 @@
             <div class="hangmanStages">
                 <?php
                     if ($incorrectGuesses == 0) {
-                        echo '<img id="stage1" src="assets/images/hangman/hangman_stage1.png" style="height: 20em">';
+                        echo '<img id="stage1" src="assets/images/hangman/hangman_stage1.png" style="width: 100%; max-height: 20em; object-fit: contain;">';
         
                     } else if ($incorrectGuesses == 1) {
-                        echo '<img id="stage2" src="assets/images/hangman/hangman_stage2.png" style="height: 20em">';
+                        echo '<img id="stage2" src="assets/images/hangman/hangman_stage2.png" style="width: 100%; max-height: 20em; object-fit: contain;">';
         
                     } else if ($incorrectGuesses == 2) {
-                        echo '<img id="stage3" src="assets/images/hangman/hangman_stage3.png" style="height: 20em">';
+                        echo '<img id="stage3" src="assets/images/hangman/hangman_stage3.png" style="width: 100%; max-height: 20em; object-fit: contain;">';
         
                     } else if ($incorrectGuesses == 3) {
-                        echo '<img id="stage4" src="assets/images/hangman/hangman_stage4.png" style="height: 20em">';
+                        echo '<img id="stage4" src="assets/images/hangman/hangman_stage4.png" style="width: 100%; max-height: 20em; object-fit: contain;">';
         
                     } else if ($incorrectGuesses == 4) {
-                        echo '<img id="stage5" src="assets/images/hangman/hangman_stage5.png" style="height: 20em">';
+                        echo '<img id="stage5" src="assets/images/hangman/hangman_stage5.png" style="width: 100%; max-height: 20em; object-fit: contain;">';
         
                     } else if ($incorrectGuesses == 5) {
-                        echo '<img id="stage6" src="assets/images/hangman/hangman_stage6.png" style="height: 20em">';
+                        echo '<img id="stage6" src="assets/images/hangman/hangman_stage6.png" style="width: 100%; max-height: 20em; object-fit: contain;">';
         
                     } else if ($incorrectGuesses == 6) {
-                        echo '<img id="stage7" src="assets/images/hangman/hangman_stage7.png" style="height: 20em">';
+                        echo '<img id="stage7" src="assets/images/hangman/hangman_stage7.png" style="width: 100%; max-height: 20em; object-fit: contain;">';
         
                     } else if ($incorrectGuesses == 7) {
-                        echo '<img id="stage8" src="assets/images/hangman/hangman_stage8.png" style="height: 20em">';
+                        echo '<img id="stage8" src="assets/images/hangman/hangman_stage8.png" style="width: 100%; max-height: 20em; object-fit: contain;">';
         
                     } else if ($incorrectGuesses == 8) {
-                        echo '<img id="stage9" src="assets/images/hangman/hangman_stage9.png" style="height: 20em">';
+                        echo '<img id="stage9" src="assets/images/hangman/hangman_stage9.png" style="width: 100%; max-height: 20em; object-fit: contain;">';
         
                     } else if ($incorrectGuesses == 9) {
-                        echo '<img id="stage10" src="assets/images/hangman/hangman_stage10.png" style="height: 20em">';
+                        echo '<img id="stage10" src="assets/images/hangman/hangman_stage10.png" style="width: 100%; max-height: 20em; object-fit: contain;">';
         
                     }
         
