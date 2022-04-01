@@ -23,7 +23,7 @@ function _getArtists(stdClass $item): string {
 }
 
 function _extractImageTag(stdClass $item, string $sizes="25vw"): string {
-	$images = $item->images ?? $item->album->images;
+	$images = $item->images ?? $item->album->images ?? [];
 
 	// collect an array of images and their sizes in the form of "elva-fairy-480w.jpg 480w"
 	$srcset = array_map(function ($image) {

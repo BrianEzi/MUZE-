@@ -307,6 +307,7 @@ if (!empty($searchTerm)) {
 
 
             if (isset($_POST['expand'])) {
+                $_SESSION['id'] = $_POST['id'];
                 $_SESSION['title'] = $_POST['title'];
                 $_SESSION['image'] = $_POST['image'];
                 $_SESSION['type'] = $_POST['contentType'];
