@@ -10,8 +10,9 @@ require_once(__DIR__ . "/doSearch.php");
  * @throws RequestError
  */
 function getAlbumTracks(string $albumId): array {
-
-	$response = SpotifyRequester::request("/albums/$albumId/tracks", array(), false);
+	$response = SpotifyRequester::request("/albums/$albumId/tracks", array(
+		"limit" => 50,
+	), false);
 
 	$results = [];
 	foreach ($response->items as $item) {
