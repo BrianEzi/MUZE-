@@ -76,7 +76,7 @@
             $_SESSION['background'] = "assets/images/desert.jpg";
             $_SESSION['profilePicture'] = "assets/images/aurora.jpg";
 
-            addPlaylist($username, "My Tracks", $username, [""], "https://community.spotify.com/t5/image/serverpage/image-id/25294i2836BD1C1A31BDF2?v=v2", [""]);
+            addPlaylist($username, "My Tracks", $username, [""], "assets/images/playlist.webp", [""]);
             
             getAlbums($username);
             getArtists($username);
