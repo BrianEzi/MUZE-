@@ -2,6 +2,12 @@
 
 <?php
     session_start();
+
+    if (empty($_SESSION['username'])) {
+	    header("location: login.php");
+        die;
+    }
+
     if (isset($_SESSION['background'])) {
         $background = $_SESSION['background'];
     } else {
