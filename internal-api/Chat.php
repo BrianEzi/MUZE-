@@ -19,12 +19,12 @@ class Chat {
 		if ($conn->connect_error) {
 		  die("Connection failed: " . $conn->connect_error);
 		}
-		$sql = "SELECT friendshipID, lastsender, lastmessage  FROM Friendship WHERE user1 ='" . $username. "' OR user2 ='". $username ."'";
+		$sql = "SELECT friendshipID, lastmessage, user1, user2 FROM Friendship WHERE user1 ='" . $username. "' OR user2 ='". $username ."'";
 		if ($result = mysqli_query($conn, $sql)){
 			$fullresults = array();
 			while($row = mysqli_fetch_assoc($result)) {
 				$fullresults[$row['friendshipID']] = array(
-					"userName" => $row['lastsender'],
+					"userName" => ($row['user1'] == $username) ? $row['user2'] : $row['user1'],
 					"lastMessage" => $row['lastmessage']
 				);
 			}
