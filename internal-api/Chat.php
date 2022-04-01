@@ -30,9 +30,7 @@ class Chat {
 			}
 			return $fullresults;
 		} else{
-			echo "result: ";
-			echo $result;
-			die("No messages found");
+			return [];
 		}
 		$conn->close();
 	}
@@ -58,7 +56,7 @@ class Chat {
 			}
 			return $fullresults;
 		} else{
-			die("No messages found");
+			return [];
 		}
 	}
 
