@@ -1,6 +1,7 @@
 <?php
     session_start();
     include_once(__DIR__ . "/spotify-api/getAlbumTracks.php");
+    include_once(__DIR__ . "/spotify-api/getRecommendations.php");
     if (isset($_SESSION['background'])) {
         $background = $_SESSION['background'];
     } else {
@@ -79,6 +80,24 @@
                 <a target="_blank"  class="link" href="<?=$url?>">Listen on Spotify</a>
             </div>
         </div>
+
+        <?php
+        $recommendations = getRecommendations([], [], [$itemId]);
+        foreach (SPOTIFY_CONTENT_TYPE::$ALL as $type) {
+            foreach ($recommendations[$type] as $result) {
+        ?>
+            <ul>
+                <li><?=$result["id"]?></li>
+                <li><?=$result["name"]?></li>
+                <li><?=$result["artist"]?></li>
+                <li><?=$result["biggest_image_url"]?></li>
+                <li><?=$result["image_tag"]?></li>
+                <li><?=$result["url"]?></li>
+            </ul>
+        <?php
+            }
+        }
+        ?>
 
         <?php
         }
