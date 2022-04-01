@@ -69,12 +69,12 @@
                 'username' => $username,
                 'password' => $password,
                 'background' => "assets/images/desert.jpg",
-                'profilePicture' => "assets/images/aurora.jpg"
+                'profilePicture' => "assets/images/redblack.jpg"
             ]);
             // session_start();
             $_SESSION['username'] = $username;
             $_SESSION['background'] = "assets/images/desert.jpg";
-            $_SESSION['profilePicture'] = "assets/images/aurora.jpg";
+            $_SESSION['profilePicture'] = "assets/images/redblack.jpg";
 
             addPlaylist($username, "My Tracks", $username, [""], "assets/images/playlist.webp", [""]);
             
