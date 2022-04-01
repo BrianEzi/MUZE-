@@ -60,7 +60,7 @@
                 ?>
                 <a href="chat.php?selectedChat=<?=$chatId?>">
                     <li class="chatOption <?=$selected?>" id="chatOption<?=$chatId?>">
-                        <img src="assets/images/aurora.jpg" alt="<?=$chatOption["userName"]?>'s profile picture">
+                        <img src="assets/images/redblack.jpg" alt="<?=$chatOption["userName"]?>'s profile picture">
                         <div>
                             <h5><?=$chatOption["userName"]?></h5>
                             <p class="lastMessage"><?=$chatOption["lastMessage"]?></p>
