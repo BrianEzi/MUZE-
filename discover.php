@@ -1,6 +1,7 @@
 <?php
 include_once(__DIR__ . "/spotify-api/doSearch.php");
 include_once(__DIR__ . "/spotify-api/getAlbumTracks.php");
+include_once(__DIR__ . "/spotify-api/getCharts.php");
 require_once(__DIR__ . "/DBFunctions.php");
 @$searchTerm = $_GET["searchInput"];
 if (!empty($searchTerm)) {
@@ -228,6 +229,20 @@ if (!empty($searchTerm)) {
                 }
         
 
+            }
+        } else {
+	        $charts = getCharts();
+            foreach ($charts as $result) {
+                ?>
+                <ul>
+                    <li><?=$result["id"]?></li>
+                    <li><?=$result["name"]?></li>
+                    <li><?=$result["artist"]?></li>
+                    <li><?=$result["biggest_image_url"]?></li>
+                    <li><?=$result["image_tag"]?></li>
+                    <li><?=$result["url"]?></li>
+                </ul>
+                <?php
             }
         }
             
