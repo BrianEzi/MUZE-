@@ -365,5 +365,6 @@ if (!empty($searchTerm)) {
 
         <div id="fade" class="black_overlay"></div>
 
+        <script src="assets/scripts/global.js"></script>
     </body>
 </html>

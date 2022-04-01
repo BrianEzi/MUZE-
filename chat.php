@@ -99,6 +99,7 @@
     <!-- empty flex child to give us a gap at the bottom -->
     <div></div>
 
+<script src="assets/scripts/global.js"></script>
 <script src="assets/scripts/chatScript.js"></script>
 </body>
 </html>
