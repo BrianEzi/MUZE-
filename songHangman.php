@@ -232,7 +232,7 @@
 
 
 
-        if (isset($_POST['guess'])) {
+        if (isset($_POST['guess']) && !in_array($_POST['guess'], $guesses)) {
             $guess = $_POST['guess'];
             $correct = false;
 
