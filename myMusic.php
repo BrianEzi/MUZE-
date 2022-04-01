@@ -377,6 +377,15 @@
                         }
                     }
                 }
+
+                if ($_POST['contentType'] == "ALBUM") {
+                    foreach($_SESSION['albums'] as $p) {
+                        if ($p[0] == $_POST['title']) {
+                            $_SESSION['tracklist'] = $p[1];
+                        }
+                    }
+                }
+                
                 echo "<meta http-equiv='refresh' content='0;URL=myContentInfo.php'>";
             }
 

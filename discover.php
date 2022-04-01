@@ -281,7 +281,12 @@ if (!empty($searchTerm)) {
                 
 
                 if ($postType == "ALBUM") {
-                    addAlbum($username, $resultToSave["name"], $resultToSave["artist"], getAlbumTracks($id), $resultToSave["biggest_image_url"], $resultToSave['url']);
+                    $albumTrackList = [];
+                    foreach(getAlbumTracks($id) as $track) {
+                        array_push($albumTrackList, $track['name']);
+                    }
+
+                    addAlbum($username, $resultToSave["name"], $resultToSave["artist"], $albumTrackList, $resultToSave["biggest_image_url"], $resultToSave['url']);
                     getAlbums($username);
                 }
 
@@ -325,7 +330,13 @@ if (!empty($searchTerm)) {
                 if ($_POST['contentType'] == "ALBUM") {
                     foreach($_SESSION['albums'] as $p) {
                         if ($p[0] == $_POST['title']) {
-                            $_SESSION['tracklist'] = getAlbumTracks($_SESSION['id']);
+
+                            $albumTrackList = [];
+                            foreach(getAlbumTracks($id) as $track) {
+                                array_push($albumTrackList, $track['name']);
+                            }
+
+                            $_SESSION['tracklist'] = $albumTrackList;
                         }
                     }
                 }

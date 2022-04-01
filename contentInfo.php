@@ -130,14 +130,14 @@
 
             $albumIndex = 1;
 
-            foreach ($tracklist as $result) { ?>
+            foreach ($tracklist as $track) { ?>
 
-                    <div class="trackWrapper">
+                    <div class="albumTrackWrapper">
     
                         <div class="trackTextWrapper">
     
                             <div class="albumTrackTitle">
-                                <?=$albumIndex . ". " . $result['name']?>
+                                <?=$albumIndex . ". " . $track?>
                             </div> <br>                            
     
                         </div>
