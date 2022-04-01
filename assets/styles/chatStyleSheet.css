@@ -139,7 +139,15 @@ body {
   background: rgba(240, 240, 240, 0.9);
   margin-left: auto;
 }
-.chatArea .chatMain .chatMessages:empty::before, .chatArea .chatMain .chatMessages:-moz-only-whitespace::before {
+.chatArea .chatMain .chatMessages:empty::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 100%;
+  transform: translate(-50%, -50%);
+  content: "Say hi or select a chat!";
+}
+.chatArea .chatMain .chatMessages:-moz-only-whitespace::before {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -209,3 +217,5 @@ body {
     box-shadow: rgba(100, 100, 100, 0.1) 1px 1px 1px;
   }
 }
+
+/*# sourceMappingURL=chatStyleSheet.css.map */
