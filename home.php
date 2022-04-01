@@ -143,6 +143,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <style>
+            html, body {
+                overflow-y: hidden;
+            }
+        </style>
         <title>MUZE# - Home</title>
     </head>
     <body style="background-image: url(<?php echo $background ?>);">
