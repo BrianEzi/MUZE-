@@ -57,6 +57,22 @@
     
 }
 
+.albumTrackTitle {
+    font-size: 1.5em;
+    color: white;
+    float: left;
+    margin-top: 0.2em;
+    
+    
+}
+
+.albumTrackArtist {
+    font-size: 1em;
+    color: white;
+    float: left;
+    
+}
+
 .trackWrapper {
     background-color: rgba(100, 100, 100, 0.6);
     border-radius: 1em;
