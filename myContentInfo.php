@@ -49,7 +49,11 @@
     </div>
 
     <?php
-        $itemId = $_SESSION['id'];
+        if (isset($_SESSION['id'])) {
+
+            $itemId = $_SESSION['id'];
+        }
+
         $title = $_SESSION['title'];
         $image = $_SESSION['image'];
         $type = $_SESSION['type'];
