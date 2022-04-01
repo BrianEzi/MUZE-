@@ -85,9 +85,10 @@ body {
   padding: 0.6em;
   padding-left: 1em;
   padding-bottom: 0.7em;
-  border: 0.1em solid black;
+  border: none;
   background-color : rgba(20, 20, 20, 0.7);
   border-radius: 2em;
+  box-shadow: rgba(0,0,0,0.7) 0.1em 0.1em 0.1em;
 }
 
 
