@@ -112,6 +112,9 @@ body {
   border-radius: 2rem;
   box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 1px;
 }
+.chatArea .chatMain .chatMessages:empty ~ form {
+  display: none;
+}
 .chatArea .chatMain .chatMessages:-moz-only-whitespace::before {
   display: table;
   background: rgba(255, 255, 255, 0.9);
@@ -119,6 +122,9 @@ body {
   width: auto;
   border-radius: 2rem;
   box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 1px;
+}
+.chatArea .chatMain .chatMessages:-moz-only-whitespace ~ form {
+  display: none;
 }
 .chatArea .chatMain .chatMessages .chatMessage {
   margin: 0 0 1rem 0;
