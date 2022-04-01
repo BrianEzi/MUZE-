@@ -15,6 +15,7 @@ function getCharts(string $imageSize="25vw"): array {
 	$response = SpotifyRequester::request("/playlists/37i9dQZEVXbLnolsZ8PSNw", array(), false);
 
 	$results = [];
+	if (empty($response->tracks)) return $results;
 	foreach ($response->tracks->items as $item) {
 		$item = $item->track;
 		$results[] = array(
