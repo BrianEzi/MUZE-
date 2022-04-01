@@ -1,0 +1,73 @@
+.content {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.gameObjects {
+    width: 60%;
+    height: 42em;
+    background-color: rgba(100, 100, 100, 0.6);
+    border-radius: 3em;
+    margin: 2em auto;
+    text-align: center;
+    padding: 3em;
+    padding-top: 1em;
+}
+
+
+h2 {
+    color: white;
+}
+
+.new {
+    font-size: 1em;
+    width: 7em;
+    background-color: white;
+    border-radius: 1em;
+    color: black;
+    border: white;
+    margin-bottom: 1em;
+}
+
+.gameInfo {
+    width: 30%;
+    height: 42em;
+    background-color: rgba(100, 100, 100, 0.6);
+    border-radius: 3em;
+    margin: 2em auto;
+    text-align: center;
+    padding: 3em;
+    overflow: scroll;
+
+}
+
+.timer {
+    font-size: 5em;
+    color: red;
+}
+
+.streakText {
+    font-size: 2em;
+    color: white;
+}
+
+.guessBox {
+    height: 2em;
+    font-size: 1.5em;
+    width: 13em;
+    background-color: rgba(10, 10, 10, 0.6);
+    border-radius: 1em;
+    color: white;
+    border: 0.02em solid white;
+    padding-left: 0.8em;
+    padding-bottom: 0.1em;
+    margin-bottom: 1em;
+}
+
+.gameWord {
+    color: white;
+    font-size: 4em;
+    margin-bottom: 3em;
+    margin-top: 2em;
+}

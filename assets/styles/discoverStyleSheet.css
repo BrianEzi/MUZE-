@@ -65,6 +65,13 @@
   font-size: 1em;
 }
 
+.artist {
+  width: 10em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .contentIcons {
   margin-right: 0;
   margin-left: 1em;

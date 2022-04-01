@@ -27,8 +27,22 @@
         $pdo->query($sql);
     }
 
-    function dropTracksTable(){
-        $sql = "DROP TABLE tracks";
+    function dropAlbumsTable(){
+        $sql = "DROP TABLE albums";
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+        $pdo->query($sql);
+    }
+
+    function dropArtistsTable(){
+        $sql = "DROP TABLE artists";
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+        $pdo->query($sql);
+    }
+
+    function dropPlaylistsTable(){
+        $sql = "DROP TABLE playlists";
         $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $pdo->query($sql);
@@ -55,14 +69,14 @@
                 'username' => $username,
                 'password' => $password,
                 'background' => "assets/images/desert.jpg",
-                'profilePicture' => "assets/images/aurora.jpg"
+                'profilePicture' => "assets/images/redblack.jpg"
             ]);
             // session_start();
             $_SESSION['username'] = $username;
             $_SESSION['background'] = "assets/images/desert.jpg";
-            $_SESSION['profilePicture'] = "assets/images/aurora.jpg";
+            $_SESSION['profilePicture'] = "assets/images/redblack.jpg";
 
-            addPlaylist($username, "My Tracks", $username, [""], "https://community.spotify.com/t5/image/serverpage/image-id/25294i2836BD1C1A31BDF2?v=v2");
+            addPlaylist($username, "My Tracks", $username, [""], "assets/images/playlist.webp", [""]);
             
             getAlbums($username);
             getArtists($username);
@@ -173,32 +187,36 @@
             title VARCHAR(100),
             artist VARCHAR(100),
             trackName VARCHAR(100),
-            image VARCHAR(100))";
+            image VARCHAR(100),
+            url VARCHAR(100))";
         
         $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $pdo->query($sql);
     }
 
-    function addAlbum($username, $title, $artist, $trackList, $image) {
+    function addAlbum($username, $title, $artist, $trackList, $image, $url) {
 
-        foreach ($trackList as $trackName) {
+        for ($a=0; $a<count($trackList); $a++) {
+            $trackName = $trackList[$a];
 
-            $sql = "INSERT INTO albums (username, title, trackName, artist, image)
-                VALUES (:username, :title, :trackName, :artist, :image)";
-
+            $sql = "INSERT INTO albums (username, title, trackName, artist, image, url)
+                VALUES (:username, :title, :trackName, :artist, :image, :url)";
+    
             $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-
+    
             $stmt = $pdo->prepare($sql);
             $stmt->execute([
                 'username' => $username,
                 'title' => $title,
                 'trackName' => $trackName,
                 'artist' => $artist,
-                'image' => $image
+                'image' => $image,
+                'url' => $url
             ]);
         }
+
         
     }
 
@@ -218,7 +236,7 @@
     }
 
     function getAlbums($username) {
-        $sql = "SELECT title, trackName, artist, image
+        $sql = "SELECT title, trackName, artist, image, url
                 FROM albums
                 WHERE username=:username";
 
@@ -245,10 +263,10 @@
                 $albumTracks = [];
                 foreach($row as $tempTrack) {
                     if ($track[3] == $tempTrack[3]) {
-                        array_push($albumTracks, $track[1]);
+                        array_push($albumTracks, $tempTrack[1]);
                     }
                 }
-                $albumInfo = [$track[0], $albumTracks, $track[2], $track[3]];
+                $albumInfo = [$track[0], $albumTracks, $track[2], $track[3], $track[4]];
                 array_push($albums, $albumInfo);
             }
         }
@@ -263,16 +281,17 @@
             dataID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             username VARCHAR(30) NOT NULL,
             artist VARCHAR(100),
-            image VARCHAR(100))";
+            image VARCHAR(100),
+            url VARCHAR(100))";
         
         $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $pdo->query($sql);
     }
 
-    function addArtist($username, $artist, $image) {
-        $sql = "INSERT INTO artists (username, artist, image)
-                VALUES (:username, :artist, :image)";
+    function addArtist($username, $artist, $image, $url) {
+        $sql = "INSERT INTO artists (username, artist, image, url)
+                VALUES (:username, :artist, :image, :url)";
 
         $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
@@ -281,7 +300,8 @@
         $stmt->execute([
             'username' => $username,
             'artist' => $artist,
-            'image' => $image
+            'image' => $image,
+            'url' => $url
         ]);
     }
 
@@ -300,7 +320,7 @@
     }
 
     function getArtists($username) {
-        $sql = "SELECT artist, image
+        $sql = "SELECT artist, image, url
                 FROM artists
                 WHERE username=:username";
 
@@ -331,7 +351,8 @@
             title VARCHAR(100) NOT NULL,
             artist VARCHAR(100) NOT NULL,
             trackName VARCHAR(100) NOT NULL,
-            image VARCHAR(100))";
+            image VARCHAR(100),
+            url VARCHAR(100))";
         
         $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
@@ -345,10 +366,10 @@
         $pdo->query($sql);
     }
 
-    function addPlaylist($username, $title, $artist, $tracklist, $image) {
+    function addPlaylist($username, $title, $artist, $tracklist, $image, $urlList) {
 
-        $sql = "INSERT INTO playlists (username, title, trackName, artist, image)
-            VALUES (:username, :title, :trackName, :artist, :image)";
+        $sql = "INSERT INTO playlists (username, title, trackName, artist, image, url)
+            VALUES (:username, :title, :trackName, :artist, :image, :url)";
 
         $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
@@ -359,19 +380,21 @@
 
             $stmtlist[$a] = $pdo->prepare($sql);
             $trackName = $tracklist[$a];
+            $url = $urlList[$a];
             $stmtlist[$a]->execute([
                 'username' => $username,
                 'title' => $title,
                 'trackName' => $trackName,
                 'artist' => $artist,
-                'image' => $image
+                'image' => $image,
+                'url' => $url
             ]);
         }
     }
 
-    function addToPlaylist($username, $title, $trackName, $artist, $image) {
-        $sql = "INSERT INTO playlists (username, title, trackName, artist, image)
-                VALUES (:username, :title, :trackName, :artist, :image)";
+    function addToPlaylist($username, $title, $trackName, $artist, $image, $url) {
+        $sql = "INSERT INTO playlists (username, title, trackName, artist, image, url)
+                VALUES (:username, :title, :trackName, :artist, :image, :url)";
         $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
@@ -381,7 +404,8 @@
             'title' => $title,
             'trackName' => $trackName,
             'artist' => $artist,
-            'image' => $image
+            'image' => $image,
+            'url' => $url
         ]);
     }
 
@@ -400,7 +424,7 @@
     }
 
     function getPlaylists($username) {
-        $sql = "SELECT title, trackName, artist, image
+        $sql = "SELECT title, trackName, artist, image, url
                 FROM playlists
                 WHERE username=:username";
 
@@ -429,7 +453,7 @@
                 $albumInfo = [];
                 foreach($row as $tempTrack) {
                     if ($track[0] == $tempTrack[0]) {
-                        $tempInfo = [$tempTrack[1], $tempTrack[2], $tempTrack[3]];
+                        $tempInfo = [$tempTrack[1], $tempTrack[2], $tempTrack[3], $tempTrack[4]];
                         array_push($albumTracks, $tempInfo);
                     }
                 }

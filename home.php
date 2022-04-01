@@ -152,10 +152,10 @@
             <?php
                 if (isset($_SESSION['username'])) {
                     echo '<a href="chat.php">CHAT</a>';
+                    echo '<a href="games.php">GAMES</a>';
                 }
             ?>
             
-            <a href="games.php">GAMES</a>
             
 
             <?php
@@ -176,7 +176,8 @@
         </div>
 
         <div class="logo">
-            <img src="assets/images/muze_image.png" alt="" class="center">
+            <!-- <img src="assets/images/muze_image.png" alt="" class="center"> -->
+            <img src="assets/images/MuzeAlternateLogo.png" alt="" class="center">
         </div>
 
         <div class="box">

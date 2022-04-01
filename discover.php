@@ -1,5 +1,8 @@
 <?php
+session_start();
 include_once(__DIR__ . "/spotify-api/doSearch.php");
+include_once(__DIR__ . "/spotify-api/getAlbumTracks.php");
+include_once(__DIR__ . "/spotify-api/getCharts.php");
 require_once(__DIR__ . "/DBFunctions.php");
 @$searchTerm = $_GET["searchInput"];
 if (!empty($searchTerm)) {
@@ -14,17 +17,10 @@ if (!empty($searchTerm)) {
 ?>
 
 <?php
-    session_start();
     if (isset($_SESSION['background'])) {
         $background = $_SESSION['background'];
     } else {
         $background = "assets/images/desert.jpg";
-    }
-
-    if (isset($_SESSION['tracks'])) {
-        $tracks = $_SESSION['tracks'];
-    } else {
-        $tracks = [];
     }
 
 
@@ -77,10 +73,10 @@ if (!empty($searchTerm)) {
             <?php
                 if (isset($_SESSION['username'])) {
                     echo '<a href="chat.php">CHAT</a>';
+                    echo '<a href="games.php">GAMES</a>';
                 }
             ?>
             
-            <a href="games.php">GAMES</a>
             
             <?php
 
@@ -108,9 +104,6 @@ if (!empty($searchTerm)) {
 
 
 
-
-
-
         <div class="content">
         <?php
 
@@ -121,9 +114,9 @@ if (!empty($searchTerm)) {
 
 		        $_SESSION['searchResults'] = $results[$type];
                 
+                $resultIndex = 0;
 		        foreach ($results[$type] as $result) {
 
-                    $resultIndex = 0;
                     ?>
 
 
@@ -132,21 +125,25 @@ if (!empty($searchTerm)) {
 
                                 if ($type == SPOTIFY_CONTENT_TYPE::TRACK) {
                                     echo '<input type="hidden" name="artist" value="' . $result["artist"] . '">';
+                                    echo '<input type="hidden" name="url" value="' . $result["url"] . '"?>';
                                     
                                 }
                                 
                                 if ($type == SPOTIFY_CONTENT_TYPE::ALBUM) {
                                     echo '<input type="hidden" name="artist" value="' . $result["artist"] . '">';
+                                    echo '<input type="hidden" name="url" value="' . $result["url"] . '"?>';
+
                                 }
                                 
                                 if ($type == SPOTIFY_CONTENT_TYPE::ARTIST) {
-                                    
+                                    echo '<input type="hidden" name="url" value="' . $result["url"] . '"?>';
                                 }
                                 ?>
 
                             <input type="hidden" name="contentType" value="<?=strtoupper($type)?>">
                             <input type="hidden" name="title" value="<?=$result["name"]?>">
                             <input type="hidden" name="image" value="<?=$result["biggest_image_url"]?>">
+                            <input type="hidden" name="id" value="<?=$result["id"]?>">
 
                             <button type="submit" class="contentItem" name="expand">
                             <!-- <div class="contentItem"> -->
@@ -156,9 +153,12 @@ if (!empty($searchTerm)) {
                                 <div class="contentItem-mainText">
                                     <div class="contentLabel"><?=strtoupper($type)?></div>
                                     <div class="title"><b><?=$result["name"]?></b></div>
-                                    <?php if ($type != SPOTIFY_CONTENT_TYPE::ARTIST) { ?>
-                                        <?=$result["artist"]?>
-                                    <?php } ?>
+                                    <div class="artist">
+                                        <?php if ($type != SPOTIFY_CONTENT_TYPE::ARTIST) { ?>
+                                            <?=$result["artist"]?>
+                                        <?php } ?>
+
+                                    </div>
                                 </div>
                                 
         
@@ -231,6 +231,20 @@ if (!empty($searchTerm)) {
         
 
             }
+        } else {
+	        $charts = getCharts();
+            foreach ($charts as $result) {
+                ?>
+                <ul>
+                    <li><?=$result["id"]?></li>
+                    <li><?=$result["name"]?></li>
+                    <li><?=$result["artist"]?></li>
+                    <li><?=$result["biggest_image_url"]?></li>
+                    <li><?=$result["image_tag"]?></li>
+                    <li><?=$result["url"]?></li>
+                </ul>
+                <?php
+            }
         }
             
             if (isset($_POST["playlistSubmitted"])) {
@@ -247,23 +261,9 @@ if (!empty($searchTerm)) {
 
                 $resultToSave = ($results[$geniusType])[$postIndex];
                 
-                
-                if ($postType == "TRACK") {
     
-                    addToPlaylist($username, $playlistName, $resultToSave["name"], $resultToSave["artist"], $resultToSave["biggest_image_url"]);
-                    getPlaylists($username);
-
-                }
-
-                if ($postType == SPOTIFY_CONTENT_TYPE::ALBUM) {
-                    addAlbum($username, $resultToSave["name"], $resultToSave["artist"], ["",""], $resultToSave["biggest_image_url"]);
-                    getAlbums($username);
-                }
-
-                if ($postType == SPOTIFY_CONTENT_TYPE::ARTIST) {
-                    addArtist($username, $resultToSave["name"], $resultToSave["biggest_image_url"]);
-                    getArtists($username);
-                }
+                addToPlaylist($username, $playlistName, $resultToSave["name"], $resultToSave["artist"], $resultToSave["biggest_image_url"], $resultToSave['url']);
+                getPlaylists($username);
 
                 unset($_POST["playlistSubmitted"]);
                 unset($_POST["index"]);
@@ -281,6 +281,7 @@ if (!empty($searchTerm)) {
             if (isset($_POST['submitted'])) {
                 $postIndex = intval($_POST["index"]);
                 $postType = $_POST['type'];
+                $id = $_POST['id'];
 
                 if ($postType == "ALBUM") {
                     $geniusType = SPOTIFY_CONTENT_TYPE::ALBUM;
@@ -294,21 +295,19 @@ if (!empty($searchTerm)) {
 
                 $resultToSave = ($results[$geniusType])[$postIndex];
                 
-                
-                if ($postType == "TRACK") {
-                        
-                    addToPlaylist($username, $playlistName, $resultToSave["name"], $resultToSave["artist"], $resultToSave["biggest_image_url"]);
-                    getPlaylists($username);
-
-                }
 
                 if ($postType == "ALBUM") {
-                    addAlbum($username, $resultToSave["name"], $resultToSave["artist"], ["",""], $resultToSave["biggest_image_url"]);
+                    $albumTrackList = [];
+                    foreach(getAlbumTracks($id) as $track) {
+                        array_push($albumTrackList, $track['name']);
+                    }
+
+                    addAlbum($username, $resultToSave["name"], $resultToSave["artist"], $albumTrackList, $resultToSave["biggest_image_url"], $resultToSave['url']);
                     getAlbums($username);
                 }
 
                 if ($postType == "ARTIST") {
-                    addArtist($username, $resultToSave["name"], $resultToSave["biggest_image_url"]);
+                    addArtist($username, $resultToSave["name"], $resultToSave["biggest_image_url"], $resultToSave['url']);
                     getArtists($username);
                 }
 
@@ -325,12 +324,16 @@ if (!empty($searchTerm)) {
 
 
             if (isset($_POST['expand'])) {
+                $_SESSION['id'] = $_POST['id'];
                 $_SESSION['title'] = $_POST['title'];
                 $_SESSION['image'] = $_POST['image'];
                 $_SESSION['type'] = $_POST['contentType'];
                 // $_SESSION['type'] = "TRACK";
                 if (isset($_POST['artist'])) {
                     $_SESSION['artist'] = $_POST['artist'];
+                }
+                if (isset($_POST['url'])) {
+                    $_SESSION['url'] = $_POST['url'];
                 }
                 if ($_POST['contentType'] == "PLAYLIST") {
                     foreach($_SESSION['playlists'] as $p) {
@@ -339,6 +342,21 @@ if (!empty($searchTerm)) {
                         }
                     }
                 }
+
+                if ($_POST['contentType'] == "ALBUM") {
+                    foreach($_SESSION['albums'] as $p) {
+                        if ($p[0] == $_POST['title']) {
+
+                            $albumTrackList = [];
+                            foreach(getAlbumTracks($id) as $track) {
+                                array_push($albumTrackList, $track['name']);
+                            }
+
+                            $_SESSION['tracklist'] = $albumTrackList;
+                        }
+                    }
+                }
+
                 echo "<meta http-equiv='refresh' content='0;URL=contentInfo.php'>";
             }
 

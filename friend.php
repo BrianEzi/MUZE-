@@ -1,4 +1,5 @@
-<?php require_once(__DIR__ . "/DBFunctions.php"); ?>
+<?php require_once(__DIR__ . "/DBFunctions.php");
+		require "lib-relation.php"; ?>
 
 <?php
 	session_start();
@@ -7,6 +8,43 @@
     } else {
         $background = "assets/images/desert.jpg";
     }
+    $username = $_SESSION['username'];
+    $con = new mysqli("dbhost.cs.man.ac.uk","n80569fh","balls1235","2021_comp10120_m8");
+    if ($con->connect_error){
+    	die("Connection failed:" . $mysqli_connect_error());
+    }
+    $sql = "SELECT userID FROM users WHERE username ='".$username . "'";
+    $result= mysqli_query($con, $sql);
+    if(mysqli_num_rows($result)>0){
+    	while($row=mysqli_fetch_assoc($result)){
+    		$uid = $row["userID"];
+    	}
+    }
+    mysqli_close($con);
+		// (B) PROCESS RELATIONSHIP REQUEST
+		if (isset($_POST['req'])) {
+		  $pass = true;
+		  switch ($_POST['req']) {
+		    // (B0) INVALID
+		    default: $pass = false; $REL->error = "Invalid request"; break;
+		    // (B1) ADD FRIEND
+		    case "add": $pass = $REL->request($uid, $_POST['id']); break;
+		    // (B2) ACCEPT FRIEND
+		    case "accept": $pass = $REL->acceptReq($_POST['id'], $uid); break;
+		    // (B3) CANCEL ADD
+		    case "cancel": $pass = $REL->cancelReq($uid, $_POST['id']); break;
+		    // (B4) UNFRIEND
+		    case "unfriend": $pass = $REL->unfriend($uid, $_POST['id'], false); break;
+		    // (B5) BLOCK
+		    // case "block": $pass = $REL->block($uid, $_POST['id']); break;
+		    // // (B6) UNBLOCK
+		    // case "unblock": $pass = $REL->block($uid, $_POST['id'], false); break;
+		  }
+		  // echo $pass ? "<div class='ok'>OK</div>" : "<div class='nok'>{$REL->error}</div>";
+		}
+		 
+		// (C) GET + SHOW ALL USERS
+		$users = $REL->getUsers(); 
 ?>
 
 </div>
@@ -17,6 +55,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="assets/styles/myAccountStyleSheet.css">
+	<link rel="stylesheet" type="text/css" href="assets/styles/myStyles.css">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MUZE# - Friends</title>
@@ -33,37 +72,6 @@
 	        <a style="float: right;" href="myMusic.php">MY MUSIC</a>
 	    </div>
 
-    	<?php
-		// (A) LOAD RELATIOSHIP LIBRARY + SET CURRENT USER
-		require "lib-relation.php";
-		$uid = 1;
-		 
-		// (B) PROCESS RELATIONSHIP REQUEST
-		if (isset($_POST['req'])) {
-		  $pass = true;
-		  switch ($_POST['req']) {
-		    // (B0) INVALID
-		    default: $pass = false; $REL->error = "Invalid request"; break;
-		    // (B1) ADD FRIEND
-		    case "add": $pass = $REL->request($uid, $_POST['id']); break;
-		    // (B2) ACCEPT FRIEND
-		    case "accept": $pass = $REL->acceptReq($_POST['id'], $uid); break;
-		    // (B3) CANCEL ADD
-		    case "cancel": $pass = $REL->cancelReq($uid, $_POST['id']); break;
-		    // (B4) UNFRIEND
-		    case "unfriend": $pass = $REL->unfriend($uid, $_POST['id'], false); break;
-		    // (B5) BLOCK
-		    case "block": $pass = $REL->block($uid, $_POST['id']); break;
-		    // (B6) UNBLOCK
-		    case "unblock": $pass = $REL->block($uid, $_POST['id'], false); break;
-		  }
-		  // echo $pass ? "<div class='ok'>OK</div>" : "<div class='nok'>{$REL->error}</div>";
-		}
-		 
-		// (C) GET + SHOW ALL USERS
-		$users = $REL->getUsers(); 
-		?>
-
 		<script type="text/javascript">
 		  function relate (req, uid) {
 		  document.getElementById("ninreq").value = req;
@@ -71,9 +79,6 @@
 		  document.getElementById("ninform").submit();
 		}
 		</script>
-
-		<!-- <div id="userNow">You are now <?=$users[$uid]?>.</div> -->
-		<!-- <div id="userList"> -->
 
     	<div class="accountHeading">
         	<h1>Add Friends</h1>
@@ -93,6 +98,8 @@
 		  <input type="submit" name="submit">
 		  </form>
 		</div>
+		<div id="userNow">You are now <?=$users[$uid]?>.</div>
+		<div id="userList">
 
 		<?php
 
@@ -119,17 +126,13 @@
 						  $friends = $REL->getFriends($uid);
 						  $id = $row->userID;
 						  echo "<div></div>";
-						  // foreach ($users as $id=>$name) { if ($id != $uid) {
-						  //   echo "<div class='urow'>";
-						  //   // (C1) USER ID & NAME
-						  //   echo "<div class='uname'>$id) $name</div>";
-						 
-						    // (C2) BLOCK/UNBLOCK
-						    if (isset($friends['b'][$id])) {
-						      echo "<button onclick=\"relate('unblock', $id)\">Unblock</button>";
-						    } else {
-						      echo "<button onclick=\"relate('block', $id)\">Block</button>";
-						    }
+
+						    // // (C2) BLOCK/UNBLOCK
+						    // if (isset($friends['b'][$id])) {
+						    //   echo "<button onclick=\"relate('unblock', $id)\">Unblock</button>";
+						    // } else {
+						    //   echo "<button onclick=\"relate('block', $id)\">Block</button>";
+						    // }
 						 
 						    // (C3) FRIEND STATUS
 						    // FRIENDS

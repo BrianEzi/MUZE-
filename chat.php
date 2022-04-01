@@ -63,7 +63,7 @@
                         <img src="assets/images/aurora.jpg" alt="<?=$chatOption["userName"]?>'s profile picture">
                         <div>
                             <h5><?=$chatOption["userName"]?></h5>
-                            <p><?=$chatOption["lastMessage"]?></p>
+                            <p class="lastMessage"><?=$chatOption["lastMessage"]?></p>
                         </div>
                     </li>
                 </a>
@@ -90,7 +90,7 @@
                 ?>
             </ul>
             <form id="chatInputForm" action="chat.php" method="post">
-                <input type="hidden" name="selectedChat" value="<?=$_GET["selectedChat"]?>">
+                <input type="hidden" name="selectedChat" value="<?=$_GET["selectedChat"] ?? ""?>">
                 <input class="chatInput" name="chatInput" placeholder="Send a message..." aria-label="Send a message">
             </form>
         </div>

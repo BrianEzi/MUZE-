@@ -23,7 +23,7 @@ function _getArtists(stdClass $item): string {
 }
 
 function _extractImageTag(stdClass $item, string $sizes="25vw"): string {
-	$images = $item->images ?? $item->album->images;
+	$images = $item->images ?? $item->album->images ?? [];
 
 	// collect an array of images and their sizes in the form of "elva-fairy-480w.jpg 480w"
 	$srcset = array_map(function ($image) {
@@ -69,6 +69,7 @@ function doSearch(string $searchTerm, array $contentTypes, string $imageSize="25
 				"artist" => _getArtists($item),
 				"biggest_image_url" => ($item->images ?? $item->album->images)[0]->url ?? "",
 				"image_tag" => _extractImageTag($item, $imageSize),
+				"url" => $item->external_urls->spotify ?? $item->url,
 			);
 		}
 	}

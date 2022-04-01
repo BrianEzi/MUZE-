@@ -15,6 +15,7 @@ body {
   display: flex;
   flex-flow: column nowrap;
   background: rgba(250, 250, 250, 0.8);
+  backdrop-filter: blur(0.5em);
   width: 100%;
   max-width: 1200px;
   margin: auto;
@@ -69,6 +70,9 @@ body {
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.chatArea .chatSidebar .chatOption > div .lastMessage {
+  opacity: 0.9;
 }
 .chatArea .chatMain {
   flex: 1;
@@ -160,5 +164,41 @@ body {
     margin-right: -1rem;
     padding: 0.5rem 2rem;
     width: auto;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .chatArea {
+    background: rgba(10, 10, 10, 0.8);
+    color: white;
+  }
+  .chatArea .chatSidebar {
+    border-inline-end-color: rgba(255, 255, 255, 0.2);
+  }
+  .chatArea .chatSidebar .chatOption:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .chatArea .chatSidebar .chatOption.selected {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .chatArea .chatMain .chatInput {
+    border: 1.5px solid rgba(200, 200, 200, 0.5);
+    background: rgba(5, 5, 5, 0.9);
+    box-shadow: rgba(100, 100, 100, 0.1) 1px 1px 1px;
+    color: white;
+  }
+  .chatArea .chatMain .chatMessages .chatMessage {
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: rgba(100, 100, 100, 0.1) 1px 1px 1px;
+  }
+  .chatArea .chatMain .chatMessages .chatMessage.chatMessage-ownMessage {
+    background: rgba(15, 15, 15, 0.9);
+  }
+  .chatArea .chatMain .chatMessages:empty::before {
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: rgba(100, 100, 100, 0.1) 1px 1px 1px;
+  }
+  .chatArea .chatMain .chatMessages:-moz-only-whitespace::before {
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: rgba(100, 100, 100, 0.1) 1px 1px 1px;
   }
 }
