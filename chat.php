@@ -80,7 +80,7 @@
             <ul class="chatMessages">
                 <?php
                 if (!empty($selectedChatId)) foreach (Chat::GetChatMessages($selectedChatId) as $messageId => $messageObj) {
-                    $ownMessage = $messageObj["author"] == $_SESSION["userId"] ? "chatMessage-ownMessage": "";
+                    $ownMessage = $messageObj["author"] == $_SESSION['username'] ? "chatMessage-ownMessage": "";
                     ?>
                     <li class="chatMessage <?=$ownMessage?>" id="chatMessage<?=$messageId?>">
                         <?=$messageObj["text"]?>
@@ -89,7 +89,7 @@
                 }
                 ?>
             </ul>
-            <form id="chatInputForm" action="chat.php" method="post">
+            <form id="chatInputForm" action="chat.php?selectedChat=<?=$_GET["selectedChat"] ?? ""?>" method="post">
                 <input type="hidden" name="selectedChat" value="<?=$_GET["selectedChat"] ?? ""?>">
                 <input class="chatInput" name="chatInput" placeholder="Send a message..." aria-label="Send a message">
             </form>
@@ -99,6 +99,7 @@
     <!-- empty flex child to give us a gap at the bottom -->
     <div></div>
 
+<script src="assets/scripts/global.js"></script>
 <script src="assets/scripts/chatScript.js"></script>
 </body>
 </html>

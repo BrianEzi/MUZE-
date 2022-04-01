@@ -221,6 +221,7 @@
         ?>
 
 
-    
+
+    <script src="assets/scripts/global.js"></script>
 </body>
 </html>

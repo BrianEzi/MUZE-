@@ -138,7 +138,7 @@
     <?php
         if (isset($_POST['playlistName'])) {
             $title = $_POST['playlistName'];
-            addPlaylist($username, $title, $username, [""], "https://community.spotify.com/t5/image/serverpage/image-id/25294i2836BD1C1A31BDF2?v=v2", [""]);
+            addPlaylist($username, $title, $username, [""], "assets/images/playlist.webp", [""]);
             getPlaylists($username);
             unset($_POST['playlistName']);
             echo "<meta http-equiv='refresh' content='0'>";
@@ -168,5 +168,6 @@
 
     <br><br><br><br>
 
+    <script src="assets/scripts/global.js"></script>
 </body>
 </html>

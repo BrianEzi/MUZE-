@@ -23,5 +23,6 @@
         <div class="icon">
             <img src="assets/images/icon.png" style="width:200px;height:100px;">
         </div>
+        <script src="assets/scripts/global.js"></script>
     </body>
 </html>
