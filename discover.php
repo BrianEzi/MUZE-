@@ -132,6 +132,7 @@ if (!empty($searchTerm)) {
                                 if ($type == SPOTIFY_CONTENT_TYPE::ALBUM) {
                                     echo '<input type="hidden" name="artist" value="' . $result["artist"] . '">';
                                     echo '<input type="hidden" name="url" value="' . $result["url"] . '"?>';
+
                                 }
                                 
                                 if ($type == SPOTIFY_CONTENT_TYPE::ARTIST) {

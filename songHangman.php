@@ -57,18 +57,34 @@
                 $selectedAlbums = $_SESSION['selectedAlbums'];
                 $selectedPlaylists = $_SESSION['selectedPlaylists'];
 
-                $randPlaylist = ["",[]];
-
-                while (count($randPlaylist[1]) < 2) {
-                    $randPlaylistIndex = array_rand($selectedPlaylists, 1);
-                    $randPlaylist = $selectedPlaylists[$randPlaylistIndex];
+                $wholeTrackList = [];
+                foreach($selectedAlbums as $sa) {
+                    foreach($sa[1] as $trackName) {
+                        array_push($wholeTrackList, $trackName);
+                    }
                 }
+                foreach($selectedPlaylists as $sp) {
+                    foreach($sp[1] as $track) {
+                        array_push($wholeTrackList, $track[0]);
+                    }
+                }
+
+                $randTrackIndex = array_rand($wholeTrackList);
+                $randTrack = $wholeTrackList[$randTrackIndex];
+
+                // $randPlaylist = ["",[]];
+
+                // while (count($randPlaylist[1]) < 2) {
+                //     $randPlaylistIndex = array_rand($selectedPlaylists, 1);
+                //     $randPlaylist = $selectedPlaylists[$randPlaylistIndex];
+                // }
     
     
-                $randPlaylist[1] = array_slice($randPlaylist[1], 1);
-                $randTrackIndex = array_rand($randPlaylist[1]);
-                $randTrack = $randPlaylist[1][$randTrackIndex];
-                $randTempTrackName = str_split($randTrack[0]);
+                // $randPlaylist[1] = array_slice($randPlaylist[1], 1);
+                // $randTrackIndex = array_rand($randPlaylist[1]);
+                // $randTrack = $randPlaylist[1][$randTrackIndex];
+
+                $randTempTrackName = str_split($randTrack);
     
                 $trackName = "";
                 foreach($randTempTrackName as $letter) {
