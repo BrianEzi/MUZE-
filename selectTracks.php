@@ -89,12 +89,30 @@
     </div>
             
     <div class="musicHeading">
-        <div class="emptySpace"></div>
+        <div class="emptySelectSpace"></div>
 
         <div class="heading">
             <b>My Albums</b>
         </div>
-        <div class="seeAll"><a href="myMusic/myAlbums.php">SEE ALL</a></div>
+        <?php
+            if ($_SESSION['selectedAlbums'] == $_SESSION['albums']) {
+        ?>
+        <form method="post">
+
+            <button name="allAlbumsUnselect" class="selectAll">UNSELECT ALL</button>
+        </form>
+
+        <?php
+            } else {
+        ?>
+            <form method="post">
+
+            <button name="allAlbums" class="selectAll">SELECT ALL</button>
+            </form>
+
+        <?php
+            }
+        ?>
     </div>
 
             <div class="content" id="albums">
@@ -178,11 +196,29 @@
 
 
     <div class="musicHeading">
-        <div class="emptySpace"></div>
+        <div class="emptySelectSpace"></div>
         <div class="heading">
             <b>My Playlists</b>
         </div>
-        <div class="seeAll"><a href="myMusic/myPlaylists.php">SEE ALL</a></div>
+        <?php
+            if ($_SESSION['selectedPlaylists'] == $_SESSION['playlists']) {
+        ?>
+        <form method="post">
+
+            <button name="allPlaylistsUnselect" class="selectAll">UNSELECT ALL</button>
+        </form>
+
+        <?php
+            } else {
+        ?>
+            <form method="post">
+
+            <button name="allPlaylists" class="selectAll">SELECT ALL</button>
+            </form>
+
+        <?php
+            }
+        ?>
     </div>
 
             <div class="content" id="playlists">
@@ -257,6 +293,28 @@
             </div>
 
             <?php
+
+                if (isset($_POST['allAlbums'])) {
+                    $_SESSION['selectedAlbums'] = $albums;
+                    echo "<meta http-equiv='refresh' content='0'>";
+                }
+
+                if (isset($_POST['allPlaylists'])) {
+                    $_SESSION['selectedPlaylists'] = $playlists;
+                    echo "<meta http-equiv='refresh' content='0'>";
+                    
+                }
+
+                if (isset($_POST['allAlbumsUnselect'])) {
+                    $_SESSION['selectedAlbums'] = [];
+                    echo "<meta http-equiv='refresh' content='0'>";
+                }
+
+                if (isset($_POST['allPlaylistsUnselect'])) {
+                    $_SESSION['selectedPlaylists'] = [];
+                    echo "<meta http-equiv='refresh' content='0'>";
+                    
+                }
                 
                 $notEmpty = false;
                 if (count($_SESSION['selectedPlaylists']) > 0) {

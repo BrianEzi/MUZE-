@@ -28,16 +28,29 @@
   border: 1em rgba(100, 100, 100, 0.6);
 }
 
+.recContentItem {
+  width: 35em;
+  background-color: rgba(100, 100, 100, 0.6);
+  display: flex;
+  padding: 1em;
+  padding-top: 1.1em;
+  margin: 1em;
+  border-radius: 1.7em;
+  transition: background-color 0.3s;
+  text-align: left;
+  border: 1em rgba(100, 100, 100, 0.6);
+}
+
 .contentItem:hover {
   background-color: rgba(50, 50, 50, 0.6);
 }
 
-.contentItem .contentItem-image {
+.contentItem-image {
     width: 10em;
     height: 10em;
 }
-.contentItem .contentItem-image img,
-.contentItem .contentItem-image picture {
+.contentItem-image img,
+.contentItem-image picture {
     width: 10em;
     height: 10em;
     object-fit: cover;
@@ -45,13 +58,13 @@
 }
 
 
-.contentItem .contentItem-mainText {
+.contentItem-mainText {
   color: white;
   padding-left: 1em;
   font-size: 1.5em;
 }
 
-.contentItem .contentItem-mainText .title {
+.contentItem-mainText .title {
   font-size: 1.15em;
   white-space: nowrap;
   overflow: hidden;
@@ -59,7 +72,7 @@
   width: 10em;
 }
 
-.contentItem .contentItem-mainText .contentLabel {
+.contentItem-mainText .contentLabel {
   color: #111111;
   padding-bottom: 0.6em;
   font-size: 1em;

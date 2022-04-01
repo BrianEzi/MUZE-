@@ -233,16 +233,66 @@ if (!empty($searchTerm)) {
             }
         } else {
 	        $charts = getCharts();
+
             foreach ($charts as $result) {
                 ?>
-                <ul>
+                <!-- <ul>
                     <li><?=$result["id"]?></li>
                     <li><?=$result["name"]?></li>
                     <li><?=$result["artist"]?></li>
                     <li><?=$result["biggest_image_url"]?></li>
                     <li><?=$result["image_tag"]?></li>
                     <li><?=$result["url"]?></li>
-                </ul>
+                </ul> -->
+                <form method="post">
+
+                        <input type="hidden" name="artist" value="<?=$result["artist"]?>">
+                        <input type="hidden" name="url" value="<?=$result["url"]?>"?>
+
+                        <input type="hidden" name="contentType" value="TRACK">
+                        <input type="hidden" name="title" value="<?=$result["name"]?>">
+                        <input type="hidden" name="image" value="<?=$result["biggest_image_url"]?>">
+                        <input type="hidden" name="id" value="<?=$result["id"]?>">
+
+                        <button type="submit" class="contentItem" name="expand">
+                            <!-- <div class="contentItem"> -->
+                                <div class="contentItem-image">
+                                    <?=$result["image_tag"]?>
+                                </div>
+                                <div class="contentItem-mainText">
+                                    <div class="contentLabel">TRACK</div>
+                                    <div class="title"><b><?=$result["name"]?></b></div>
+                                    <div class="artist">
+                                            <?=$result["artist"]?>
+
+                                    </div>
+                                </div>
+                                
+        
+                                <div class="contentIcons">
+        
+                                    <?php
+                                        if (isset($username)) {
+
+                                    ?>
+
+                                    <form method="post" id="form" class="addForm">
+
+                                        <a type="submit" class="addButton" href="javascript:void(0)" onclick="document.getElementsByClassName('light')[<?=$resultIndex?>].style.display='flex';document.getElementById('fade').style.display='block'">
+                                            +
+                                        </a>
+
+                                    <?php
+                                        }
+                                    ?>
+
+                                    </form>
+        
+                                </div>
+                            <!-- </div> -->
+        
+                        </button>
+                    </form>
                 <?php
             }
         }
