@@ -96,14 +96,12 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-top: 6em;
-  width: 80%;
 
 }
 .center{
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 60%;
 }
 .song {
   position: fixed;

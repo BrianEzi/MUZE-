@@ -21,7 +21,7 @@
         $sql = "UPDATE users
                 SET background = :background
                 WHERE username = :username";
-        $pdo = new pdo("mysql:host=localhost:8889; dbname=loginInfo", 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         
         $stmt = $pdo->prepare($sql);
@@ -37,7 +37,7 @@
         $sql = "UPDATE users
                 SET profilePicture = :profilePicture
                 WHERE username = :username";
-        $pdo = new pdo("mysql:host=localhost:8889; dbname=loginInfo", 'root', 'root');
+        $pdo = new pdo('mysql:host=dbhost.cs.man.ac.uk; dbname=2021_comp10120_m8', 'u95206ma', 'deeznuts123');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         
         $stmt = $pdo->prepare($sql);

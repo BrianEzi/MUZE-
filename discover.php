@@ -77,10 +77,10 @@ if (!empty($searchTerm)) {
             <?php
                 if (isset($_SESSION['username'])) {
                     echo '<a href="chat.php">CHAT</a>';
+                    echo '<a href="games.php">GAMES</a>';
                 }
             ?>
             
-            <a href="games.php">GAMES</a>
             
             <?php
 

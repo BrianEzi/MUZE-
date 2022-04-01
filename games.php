@@ -52,7 +52,7 @@
     <form method="post">
 
             <button class="individualGame" type="submit" name="startGame" value="game1">
-                <img src="assets/images/hangman/hangman_stage9.pdf" alt="" style="background-color: rgba(100, 0, 100, 0.8);">
+                <img src="assets/images/songHangman.png" alt="" style="background-color: rgba(100, 0, 100, 0.8);">
                 <div class="gameTitle">
                     Song Hangman
                 </div>
@@ -63,7 +63,7 @@
     <form method="post">
 
             <button class="individualGame" type="submit" name="startGame" value="game2">
-                <img src="assets/images/guessTheSong.pdf" alt="" style="background-color: rgba(0, 160, 160, 0.8);">
+                <img src="assets/images/guessTheSong.png" alt="" style="background-color: rgba(0, 160, 160, 0.8);">
                 <div class="gameTitle">
                     Guess The Song
                 </div>

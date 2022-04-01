@@ -46,10 +46,10 @@ createPlaylistsTable();
         <?php
             if (isset($_SESSION['username'])) {
                 echo '<a href="chat.php">CHAT</a>';
+                echo '<a href="games.php">GAMES</a>';
             }
         ?>
 
-        <a href="games.php">GAMES</a>
         
         <a class = "active" style="float: right;" href="login.php">LOGIN</a>
         <?php
