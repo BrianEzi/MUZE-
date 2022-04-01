@@ -1,5 +1,5 @@
 <?php require_once(__DIR__ . "/DBFunctions.php");
-		require "lib-relation.php"; ?>
+	require "lib-relation.php"; ?>
 
 <?php
 	session_start();
@@ -9,18 +9,18 @@
         $background = "assets/images/desert.jpg";
     }
     $username = $_SESSION['username'];
-    $con = new mysqli("dbhost.cs.man.ac.uk","n80569fh","balls1235","2021_comp10120_m8");
-    if ($con->connect_error){
+    $connection = new mysqli("dbhost.cs.man.ac.uk","n80569fh","balls1235","2021_comp10120_m8");
+    if ($connection->connect_error){
     	die("Connection failed:" . $mysqli_connect_error());
     }
     $sql = "SELECT userID FROM users WHERE username ='".$username . "'";
-    $result= mysqli_query($con, $sql);
+    $result= mysqli_query($connection, $sql);
     if(mysqli_num_rows($result)>0){
     	while($row=mysqli_fetch_assoc($result)){
     		$uid = $row["userID"];
     	}
     }
-    mysqli_close($con);
+    mysqli_close($connection);
 		// (B) PROCESS RELATIONSHIP REQUEST
 		if (isset($_POST['req'])) {
 		  $pass = true;
@@ -56,9 +56,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="assets/styles/myAccountStyleSheet.css">
 	<link rel="stylesheet" type="text/css" href="assets/styles/myStyles.css">
+	<link rel="stylesheet" type="text/css" href="assets/styles/discoverStyleSheet.css">
+	<link rel="stylesheet" type="text/css" href="assets/styles/friend.css">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <title>MUZE# - Friends</title>
 
 </head>
@@ -91,15 +92,17 @@
 		  <input type="hidden" name="req" id="ninreq"/>
 		  <input type="hidden" name="id" id="ninid"/>
 		</form>
+
+		<div>
+		</div>
 		<div>
 		  <form method="post">
-		  <label>Search</label>
-		  <input type="text" name="search" style="width: 85%;" style="align-content: center;">
 
-		  <input type="submit" name="submit">
+		  <input type="text" name="search" id = "searchInput" class = "center">
+
+		  <input type="submit" name="submit" style="display: none;">
 		  </form>
 		</div>
-		<div id="userNow">You are now <?=$users[$uid]?>.</div>
 		<div id="userList">
 
 		<?php
@@ -117,65 +120,50 @@
 		  {
 		    ?>
 		    <br><br><br>
-		    <table>
-		      <tr>
-		        <th>Name</th>
-		      </tr>
-		      <tr>
-		        <td><?php echo $row->username;
+		    <div class = "box" style="font: ;">
+							<div class = "name">
+							<?php   echo $row->username;?>
+							</div>
+							<?php
 						  $requests = $REL->getReq($uid);
 						  $friends = $REL->getFriends($uid);
-						  $id = $row->userID;
+						  $id = $row->username;
 						  echo "<div></div>";
-
-						    // // (C2) BLOCK/UNBLOCK
-						    // if (isset($friends['b'][$id])) {
-						    //   echo "<button onclick=\"relate('unblock', $id)\">Unblock</button>";
-						    // } else {
-						    //   echo "<button onclick=\"relate('block', $id)\">Block</button>";
-						    // }
 						 
 						    // (C3) FRIEND STATUS
 						    // FRIENDS
-						    if (isset($friends['f'][$id])) { 
-						      echo "<button onclick=\"relate('unfriend', $id)\">Unfriend</button>";
+						    if (isset($friends['1'][$id])) { 
+						      echo "<button onclick=\"relate('unfriend', $id)\" class = \"button\">Unfriend</button>";
 						    }
 						    // INCOMING FRIEND REQUEST
 						    else if (isset($requests['in'][$id])) { 
-						      echo "<button onclick=\"relate('accept', $id)\">Accept Friend</button>";
+						      echo "<button onclick=\"relate('accept', $id)\" class = \"button\">Accept Friend</button>";
 						    }
 						    // OUTGOING FRIEND REQUEST
 						    else if (isset($requests['out'][$id])) { 
-						      echo "<button onclick=\"relate('cancel', $id)\">Cancel Add</button>";
+						      echo "<button onclick=\"relate('cancel', $id)\" class = \"button\">Cancel Add</button>";
 						    }
 						    //STRANGERS
 						    else { 
-						      echo "<button onclick=\"relate('add', $id)\">Add Friend</button>";
+						      echo "<button onclick=\"relate('add', $id)\" class = \"button\" >Add Friend</button>";
 						    }
 						    echo "</div>";
 						  }
-						?>
-		        	</td>
-		      </tr>
+						}
 
-		    </table>
-		<?php 
-		  }
-		    
-		    
-		    else{
-		      echo "Name Does not exist";
-		    }
+						else{
+							echo "<div class=\"name\">Not found</div>";}
+							?>
 
+		    </div>
 
+	<!-- 	    <div class="name">
 		
-		?>
-
+	</div> -->
 		<!-- <input type="text" id="slugmanuts" placeholder="Find Friends you sado" style="width: 100%;">
 		<input type="submit" name="submit"> -->
 
 	<body>
 
-    <script src="assets/scripts/global.js"></script>
 </body>
 </html>

@@ -8,7 +8,8 @@ class Relation {
     try {
       $this->pdo = new PDO(
         "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET, 
-        DB_USER, DB_PASSWORD, [
+        DB_USER, DB_PASSWORD, 
+        [
           PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
           PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
         ]
@@ -34,12 +35,33 @@ class Relation {
     }
   }
 
+
+
   //(D) SEND FRIEND REQUEST
-  function request ($from, $to) {
+  function request ($user1, $user2) {
+    $connection = new mysqli("dbhost.cs.man.ac.uk","n80569fh","balls1235","2021_comp10120_m8");
+    if ($connection->connect_error){
+      die("Connection failed:" . $mysqli_connect_error());
+    }
+    $sql = "SELECT username FROM users WHERE userID ='".$user1 . "'";
+    $result= mysqli_query($connection, $sql);
+    if(mysqli_num_rows($result)>0){
+      while($row=mysqli_fetch_assoc($result)){
+        $username1 = $row["username"];
+      }
+    }
+    $sql2 = "SELECT username FROM users WHERE userID ='".$user2 . "'";
+    $result= mysqli_query($connection, $sql2);
+    if(mysqli_num_rows($result)>0){
+      while($row=mysqli_fetch_assoc($result)){
+        $username2 = $row["username"];
+      }
+    }
+    mysqli_close($connection);
     // (D1) CHECK IF ALREADY FRIENDS
     $this->query(
       "SELECT * FROM `Friendship` WHERE `user1`=? AND `user2`=? AND `requestAccepted`='1'",
-      [$from, $to]
+      [$username1, $username2]
     );
     $result = $this->stmt->fetch();
     if (is_array($result)) {
@@ -52,7 +74,7 @@ class Relation {
       "SELECT * FROM `Friendship` WHERE ".
       "(`requestAccepted`='0' AND `user1`=? AND `user2`=?) OR ".
       "(`requestAccepted`='0' AND `user1`=? AND `user2`=?)",
-      [$from, $to, $to, $from]
+      [$username1, $username2, $username2, $username1]
     );
     $result = $this->stmt->fetch();
     if (is_array($result)) {
@@ -62,76 +84,133 @@ class Relation {
 
     // (D3) ADD FRIEND REQUEST
     return $this->query(
-      "INSERT INTO `Friendship` (`user1`, `user2`, `requestAccepted`) VALUES (?,?,'0')",
-      [$from, $to]
+      "INSERT INTO `Friendship` (user1, user2, requestAccepted) VALUES (?,?,0)",
+      [$username1,$username2]
     );
   }
 
   // (E) ACCEPT FRIEND REQUEST
-  function acceptReq ($from, $to) {
+  function acceptReq ($user1, $user2) {
+
+    $connection = new mysqli("dbhost.cs.man.ac.uk","n80569fh","balls1235","2021_comp10120_m8");
+    if ($connection->connect_error){
+      die("Connection failed:" . $mysqli_connect_error());
+    }
+    $sql = "SELECT username FROM users WHERE userID ='".$user1 . "'";
+    $result= mysqli_query($connection, $sql);
+    if(mysqli_num_rows($result)>0){
+      while($row=mysqli_fetch_assoc($result)){
+        $username1 = $row["username"];
+      }
+    }
+    $sql2 = "SELECT username FROM users WHERE userID ='".$user2 . "'";
+    $result= mysqli_query($connection, $sql2);
+    if(mysqli_num_rows($result)>0){
+      while($row=mysqli_fetch_assoc($result)){
+        $username2 = $row["username"];
+      }
+    }
+    mysqli_close($connection);
     // (E1) UPGRADE STATUS TO "F"RIENDS
     $this->query(
       "UPDATE `Friendship` SET `requestAccepted`='1' WHERE `requestAccepted`='0' AND `user1`=? AND `user2`=?",
-      [$from, $to]
+      [$username1, $username2]
     );
     if ($this->stmt->rowCount()==0) {
       $this->error = "Invalid friend request";
       return false;
     }
 
-    // (E2) ADD RECIPOCAL RELATIONSHIP
+    // // (E2) ADD RECIPOCAL RELATIONSHIP
     // return $this->query(
     //   "INSERT INTO `Friendship` (`user1`, `user2`, `requestAccepted`) VALUES (?,?,'1')",
-    //   [$to, $from]
+    //   [$user2, $user1]
     // );
   }
 
   // (F) CANCEL FRIEND REQUEST
-  function cancelReq ($from, $to) {
+  function cancelReq ($user1, $user2) {
+    $connection = new mysqli("dbhost.cs.man.ac.uk","n80569fh","balls1235","2021_comp10120_m8");
+    if ($connection->connect_error){
+      die("Connection failed:" . $mysqli_connect_error());
+    }
+    $sql = "SELECT username FROM users WHERE userID ='".$user1 . "'";
+    $result= mysqli_query($connection, $sql);
+    if(mysqli_num_rows($result)>0){
+      while($row=mysqli_fetch_assoc($result)){
+        $username1 = $row["username"];
+      }
+    }
+    $sql2 = "SELECT username FROM users WHERE userID ='".$user2 . "'";
+    $result= mysqli_query($connection, $sql2);
+    if(mysqli_num_rows($result)>0){
+      while($row=mysqli_fetch_assoc($result)){
+        $username2 = $row["username"];
+      }
+    }
+    mysqli_close($connection);
     return $this->query(
       "DELETE FROM `Friendship` WHERE `requestAccepted`='0' AND `user1`=? AND `user2`=?",
-      [$from, $to]
+      [$username1, $username2]
     );
   }
 
   // (G) UNFRIEND
-  function unfriend ($from, $to) {
+  function unfriend ($user1, $user2) {
+    $connection = new mysqli("dbhost.cs.man.ac.uk","n80569fh","balls1235","2021_comp10120_m8");
+    if ($connection->connect_error){
+      die("Connection failed:" . $mysqli_connect_error());
+    }
+    $sql = "SELECT username FROM users WHERE userID ='".$user1 . "'";
+    $result= mysqli_query($connection, $sql);
+    if(mysqli_num_rows($result)>0){
+      while($row=mysqli_fetch_assoc($result)){
+        $username1 = $row["username"];
+      }
+    }
+    $sql2 = "SELECT username FROM users WHERE userID ='".$user2 . "'";
+    $result= mysqli_query($connection, $sql2);
+    if(mysqli_num_rows($result)>0){
+      while($row=mysqli_fetch_assoc($result)){
+        $username2 = $row["username"];
+      }
+    }
+    mysqli_close($connection);
     return $this->query(
       "DELETE FROM `Friendship` WHERE ".
       "(`requestAccepted`='1' AND `user1`=? AND `user2`=?) OR ".
       "(`requestAccepted`='1' AND `user1`=? AND `user2`=?)",
-      [$from, $to, $to, $from]
+      [$username1, $username2, $username2, $username1]
     );
   }
 
-  // // (H) BLOCK & UNBLOCK
-  // function block ($from, $to, $blocked=true) {
-  //   // (H1) BLOCK
-  //   if ($blocked) { return $this->query(
-  //     "INSERT INTO `Friendship` (`user1`, `user2`, `requestAccepted`) VALUES (?,?,'B')",
-  //     [$from, $to]
-  //   ); }
-
-  //   // (H2) UNBLOCK
-  //   else { return $this->query(
-  //     "DELETE FROM `Friendship` WHERE `user1`=? AND `user2`=? AND `requestAccepted`='B'",
-  //     [$from, $to]
-  //   ); }
-  // }
 
   // (I) GET FRIEND REQUESTS
   function getReq ($uid) {
-    // (I1) GET OUTGOING FRIEND REQUESTS (FROM USER TO OTHER PEOPLE)
+    //(I1) GET OUTGOING FRIEND REQUESTS (FROM USER TO OTHER PEOPLE)
+    $connection = new mysqli("dbhost.cs.man.ac.uk","n80569fh","balls1235","2021_comp10120_m8");
+    if ($connection->connect_error){
+      die("Connection failed:" . $mysqli_connect_error());
+    }
+    $sql = "SELECT username FROM users WHERE userID ='".$uid . "'";
+    $result= mysqli_query($connection, $sql);
+    if(mysqli_num_rows($result)>0){
+      while($row=mysqli_fetch_assoc($result)){
+        $username = $row["username"];
+      }
+    }
+
+    mysqli_close($connection);
     $req = ["in"=>[], "out"=>[]];
     $this->query(
       "SELECT * FROM `Friendship` WHERE `requestAccepted`='0' AND `user1`=?",
-      [$uid]
+      [$username]
     );
     while ($row = $this->stmt->fetch()) { $req['out'][$row['user2']] = $row['since']; }
 
     // (I2) GET INCOMING FRIEND REQUESTS (FROM OTHER PEOPLE TO USER)
     $this->query(
-      "SELECT * FROM `Friendship` WHERE `requestAccepted`='0' AND `user2`=?", [$uid]
+      "SELECT * FROM `Friendship` WHERE `requestAccepted`='0' AND `user2`=?", [$username]
     );
     while ($row = $this->stmt->fetch()) { $req['in'][$row['user1']] = $row['since']; }
     return $req;
@@ -139,10 +218,22 @@ class Relation {
 
   // (J) GET FRIENDS & FOES (BLOCKED)
   function getFriends ($uid) {
+     $connection = new mysqli("dbhost.cs.man.ac.uk","n80569fh","balls1235","2021_comp10120_m8");
+    if ($connection->connect_error){
+      die("Connection failed:" . $mysqli_connect_error());
+    }
+    $sql = "SELECT username FROM users WHERE userID ='".$uid ."'";
+    $result= mysqli_query($connection, $sql);
+    if(mysqli_num_rows($result)>0){
+      while($row=mysqli_fetch_assoc($result)){
+        $username = $row["username"];
+      }
+    }
+    $connection -> close();
     // (J1) GET FRIENDS
-    $friends = ["f"=>[]];
+    $friends = ["1"=>[]];
     $this->query(
-      "SELECT * FROM `Friendship` WHERE `requestAccepted`='1' AND `user1`=?", [$uid]
+      "SELECT * FROM `Friendship` WHERE `requestAccepted`='1' AND `user1`=?", [$username]
     );
     while ($row = $this->stmt->fetch()) { $friends["1"][$row['user2']] = $row['since']; }
 
@@ -155,12 +246,14 @@ class Relation {
   }
 
   // (K) GET ALL USERS
-  function getUsers () {
+
+    function getUsers () {
     $this->query("SELECT * FROM `users`");
     $users = [];
     while ($row = $this->stmt->fetch()) { $users[$row['userID']] = $row['username']; }
     return $users;
   }
+
 }
 
 // (L) DATABASE SETTINGS - CHANGE TO YOUR OWN!
