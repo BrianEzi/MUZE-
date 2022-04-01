@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once(__DIR__ . "/spotify-api/doSearch.php");
 include_once(__DIR__ . "/spotify-api/getAlbumTracks.php");
 include_once(__DIR__ . "/spotify-api/getCharts.php");
@@ -16,7 +17,6 @@ if (!empty($searchTerm)) {
 ?>
 
 <?php
-    session_start();
     if (isset($_SESSION['background'])) {
         $background = $_SESSION['background'];
     } else {
