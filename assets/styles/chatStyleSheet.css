@@ -144,6 +144,7 @@ body {
 @media screen and (min-width: 700px) {
   .chatArea {
     flex-flow: row nowrap;
+    border-radius: 0.5rem;
   }
   .chatArea .chatSidebar {
     max-width: 30%;
