@@ -49,6 +49,7 @@
     </div>
 
     <?php
+        $itemId = $_SESSION['id'];
         $title = $_SESSION['title'];
         $image = $_SESSION['image'];
         $type = $_SESSION['type'];
@@ -100,6 +101,31 @@
                 <a target="_blank"  class="link" href="<?=$url?>">Listen on Spotify</a>
             </div>
         </div>
+        <br>
+
+        <?php 
+        $albumIndex = 1;
+        foreach ($tracklist as $result) { ?>
+            <form method="post">
+
+                    <div type="submit" name="expand" class="trackWrapper">
+    
+                        <div class="trackTextWrapper">
+    
+                            <div class="albumTrackTitle">
+                                <?=$albumIndex . ". " . $result['name']?>
+                            </div> <br>
+                        
+                        </div>
+    
+    
+            </div>
+            </form>
+            <br>
+            <?php
+            $albumIndex += 1;
+            } 
+            ?>
 
         <?php
         }

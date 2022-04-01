@@ -62,6 +62,9 @@
         if (isset($_SESSION['url'])) {
             $url = $_SESSION['url'];
         }
+        if (isset($_SESSION['tracklist'])) {
+            $tracklist = $_SESSION['tracklist'];
+        }
     ?>
 
         <?php
@@ -119,82 +122,34 @@
 
         <div class="content">
 
-            <?php foreach (getAlbumTracks($itemId) as $result) { ?>
-            <form method="post">
-		        <?php
+        <br>
 
-		        if ($type == SPOTIFY_CONTENT_TYPE::TRACK) {
-			        echo '<input type="hidden" name="artist" value="' . $result["artist"] . '">';
-			        echo '<input type="hidden" name="url" value="' . $result["url"] . '"?>';
+            
 
-		        }
+            <?php 
 
-		        if ($type == SPOTIFY_CONTENT_TYPE::ALBUM) {
-			        echo '<input type="hidden" name="artist" value="' . $result["artist"] . '">';
-			        echo '<input type="hidden" name="url" value="' . $result["url"] . '"?>';
-		        }
+            $albumIndex = 1;
 
-		        if ($type == SPOTIFY_CONTENT_TYPE::ARTIST) {
-			        echo '<input type="hidden" name="url" value="' . $result["url"] . '"?>';
-		        }
-		        ?>
+            foreach ($tracklist as $result) { ?>
 
-                <input type="hidden" name="contentType" value="<?=strtoupper($type)?>">
-                <input type="hidden" name="title" value="<?=$result["name"]?>">
-                <input type="hidden" name="image" value="<?=$image?>">
-                <input type="hidden" name="id" value="<?=$result["id"]?>">
-
-                <button type="submit" class="contentItem" name="expand">
-                    <!-- <div class="contentItem"> -->
-                    <div class="contentItem-mainText">
-                        <div class="contentLabel"><?=strtoupper($type)?></div>
-                        <div class="title"><b><?=$result["name"]?></b></div>
-                        <div class="artist">
-					        <?php if ($type != SPOTIFY_CONTENT_TYPE::ARTIST) { ?>
-						        <?=$result["artist"]?>
-					        <?php } ?>
-
+                    <div class="trackWrapper">
+    
+                        <div class="trackTextWrapper">
+    
+                            <div class="albumTrackTitle">
+                                <?=$albumIndex . ". " . $result['name']?>
+                            </div> <br>                            
+    
                         </div>
+                        
+                        
                     </div>
+                    <br>
 
-
-                    <div class="contentIcons">
-
-				        <?php
-				        if (isset($username) AND $type==SPOTIFY_CONTENT_TYPE::TRACK) {
-
-				        ?>
-
-                        <form method="post" id="form" class="addForm">
-
-                            <a type="submit" class="addButton" href="javascript:void(0)" onclick="document.getElementsByClassName('light')[<?=$resultIndex?>].style.display='flex';document.getElementById('fade').style.display='block'">
-                                +
-                            </a>
-
-
-
-					        <?php
-					        } else if (isset($username)) {
-						        ?>
-
-                                <input type="hidden" name="index" value="<?=strval($resultIndex)?>">
-                                <input type="hidden" name="type" value="<?=strtoupper($type)?>">
-                                <input type="hidden" name="submitted">
-                                <input type="submit" class="inputSubmit" value="+">
-
-
-						        <?php
-					        }
-					        ?>
-
-                        </form>
-
-                    </div>
-                    <!-- </div> -->
-
-                </button>
-            </form>
-            <?php } ?>
+            <?php
+            $albumIndex += 1;
+            } 
+            ?>
         </div>
 
         <?php

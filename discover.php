@@ -1,5 +1,6 @@
 <?php
 include_once(__DIR__ . "/spotify-api/doSearch.php");
+include_once(__DIR__ . "/spotify-api/getAlbumTracks.php");
 include_once(__DIR__ . "/spotify-api/getCharts.php");
 require_once(__DIR__ . "/DBFunctions.php");
 @$searchTerm = $_GET["searchInput"];
@@ -20,12 +21,6 @@ if (!empty($searchTerm)) {
         $background = $_SESSION['background'];
     } else {
         $background = "assets/images/desert.jpg";
-    }
-
-    if (isset($_SESSION['tracks'])) {
-        $tracks = $_SESSION['tracks'];
-    } else {
-        $tracks = [];
     }
 
 
@@ -285,6 +280,7 @@ if (!empty($searchTerm)) {
             if (isset($_POST['submitted'])) {
                 $postIndex = intval($_POST["index"]);
                 $postType = $_POST['type'];
+                $id = $_POST['id'];
 
                 if ($postType == "ALBUM") {
                     $geniusType = SPOTIFY_CONTENT_TYPE::ALBUM;
@@ -300,7 +296,7 @@ if (!empty($searchTerm)) {
                 
 
                 if ($postType == "ALBUM") {
-                    addAlbum($username, $resultToSave["name"], $resultToSave["artist"], ["",""], $resultToSave["biggest_image_url"], $resultToSave['url']);
+                    addAlbum($username, $resultToSave["name"], $resultToSave["artist"], getAlbumTracks($id), $resultToSave["biggest_image_url"], $resultToSave['url']);
                     getAlbums($username);
                 }
 
@@ -340,6 +336,15 @@ if (!empty($searchTerm)) {
                         }
                     }
                 }
+
+                if ($_POST['contentType'] == "ALBUM") {
+                    foreach($_SESSION['albums'] as $p) {
+                        if ($p[0] == $_POST['title']) {
+                            $_SESSION['tracklist'] = getAlbumTracks($_SESSION['id']);
+                        }
+                    }
+                }
+
                 echo "<meta http-equiv='refresh' content='0;URL=contentInfo.php'>";
             }
 
