@@ -72,7 +72,6 @@
                                 <input type="hidden" name="title" value="<?=$row[0]?>">
                                 <input type="hidden" name="image" value="<?=$row[3]?>">
                                 <input type="hidden" name="url" value="<?=$row[4]?>">
-                                <input type="hidden" name="tracklist" value="<?=$row[1]?>">
 
                                 <button type="submit" class="contentItem" name="expand">
 
@@ -112,7 +111,12 @@
                 $_SESSION['type'] = $_POST['contentType'];
                 $_SESSION['artist'] = $_POST['artist'];
                 $_SESSION['url'] = $_POST['url'];
-                $_SESSION['tracklist'] = $_POST['tracklist'];
+
+                for($a=0; $a<count($albums); $a++) {
+                    if ($albums[$a][4] == $_POST['url']) {
+                        $_SESSION['tracklist'] = $albums[$a][1];
+                    }
+                }
 
                 echo "<meta http-equiv='refresh' content='0;URL=../myContentInfo.php'>";
             }

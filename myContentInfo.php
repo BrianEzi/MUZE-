@@ -105,15 +105,15 @@
 
         <?php 
         $albumIndex = 1;
-        foreach ($tracklist as $result) { ?>
+        foreach ($tracklist as $track) { ?>
             <form method="post">
 
-                    <div type="submit" name="expand" class="trackWrapper">
+                    <div type="submit" name="expand" class="albumTrackWrapper">
     
                         <div class="trackTextWrapper">
     
                             <div class="albumTrackTitle">
-                                <?=$albumIndex . ". " . $result['name']?>
+                                <?=$albumIndex . ". " . $track?>
                             </div> <br>
                         
                         </div>

@@ -85,6 +85,18 @@
 
 }
 
+.albumTrackWrapper {
+    background-color: rgba(100, 100, 100, 0.6);
+    border-radius: 1em;
+    border: white;
+    width: 70%;
+    margin: 0 auto;
+    padding: 1em;
+    display: flex;
+    transition: 0.3s;
+
+}
+
 .trackWrapper:hover {
     background-color: rgba(50, 50, 50, 0.6);
 }
